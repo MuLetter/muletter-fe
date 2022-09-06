@@ -2,6 +2,7 @@ import { white } from "@styles/color";
 import { fontStyles } from "@styles/font";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Button, ButtonGroup } from "../button";
 
 export function Header() {
   return (
@@ -11,7 +12,12 @@ export function Header() {
           MuLetter
         </Link>
       </Block>
-      <Block className="right"></Block>
+      <Block className="right">
+        <ButtonGroup>
+          <Button colorTheme="black">로그인</Button>
+          <Button colorTheme="black">회원가입</Button>
+        </ButtonGroup>
+      </Block>
     </Container>
   );
 }
@@ -25,9 +31,7 @@ const Container = styled.header`
 
   display: flex;
   flex-direction: row;
-  & > div {
-    flex: 1;
-  }
+  align-items: center;
 `;
 
 const Block = styled.div`
@@ -37,11 +41,10 @@ const Block = styled.div`
     ${fontStyles["h3"]}
     color: ${white[500]};
     font-weight: 900;
-
-    margin: 32px 0 0;
   }
 
   &.left {
+    flex: 1;
   }
 
   &.right {
