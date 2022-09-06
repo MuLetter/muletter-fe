@@ -1,13 +1,23 @@
 import { Footer, Header } from "@component/common";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
+export * from "./main";
+export * from "./auth";
+
+const NOT_LAYOUT_PAGES = ["/auth", "/auth/join", "/auth/", "/auth/join/"];
+
 function RootPage() {
-  return (
+  const { pathname } = useLocation();
+
+  return NOT_LAYOUT_PAGES.includes(pathname) ? (
+    <Outlet />
+  ) : (
     <>
       <Header />
-      <Content></Content>
-      <Outlet />
+      <Content>
+        <Outlet />
+      </Content>
       <Footer />
     </>
   );

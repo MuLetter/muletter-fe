@@ -14,8 +14,12 @@ export function Header() {
       </Block>
       <Block className="right">
         <ButtonGroup>
-          <Button colorTheme="black">로그인</Button>
-          <Button colorTheme="black">회원가입</Button>
+          <Link to="/auth">
+            <Button colorTheme="black">로그인</Button>
+          </Link>
+          <Link to="/auth/join">
+            <Button colorTheme="black">회원가입</Button>
+          </Link>
         </ButtonGroup>
       </Block>
     </Container>

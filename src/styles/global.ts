@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     * { 
-        line-height: 1.5em;
+        line-height: 1.5em !important;
         font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important; 
         font-style: normal;
     }
