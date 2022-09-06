@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { fontStyles } from ".";
+import { fontStyles } from "./styles";
 
 export const H1 = styled.h1`
   ${fontStyles["h1"]}

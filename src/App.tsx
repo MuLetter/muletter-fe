@@ -1,5 +1,7 @@
+import RootPage from "@page";
+
 function App() {
-  return <>Spoqa TEST</>;
+  return <RootPage />;
 }
 
 export default App;

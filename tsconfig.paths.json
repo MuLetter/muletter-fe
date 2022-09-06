@@ -4,6 +4,24 @@
         "paths": {
             "@styles/*": [
                 "./styles/*"
+            ],
+            "@page": [
+                "./pages"
+            ],
+            "@page/*": [
+                "./pages/*"
+            ],
+            "@container": [
+                "./containers"
+            ],
+            "@container/*": [
+                "./containers/*"
+            ],
+            "@component": [
+                "./components"
+            ],
+            "@component/*": [
+                "./components/*"
             ]
         }
     }

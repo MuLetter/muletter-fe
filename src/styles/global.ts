@@ -12,16 +12,13 @@ const GlobalStyle = createGlobalStyle`
         overflow-y: scroll;
     }
 
-    body {
-        min-width: 1280px;
-        max-width: 1440px;
-        margin: 0 auto;
-    }
-
     * { 
         font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important; 
-        line-height: 60px;
         font-style: normal;
+    }
+
+    a {
+        text-decoration: none;
     }
 `;
 
