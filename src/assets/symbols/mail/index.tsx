@@ -39,6 +39,7 @@ const Mail = styled.div`
 `;
 
 const MailWrap = styled.div<MailStyleProps>`
+  transform-style: preserve-3d;
   position: relative;
   width: 600px;
   height: 400px;

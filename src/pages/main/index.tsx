@@ -1,10 +1,10 @@
-import { Mail3D } from "@asset/symbols";
+import { MailBox3D } from "@asset/symbols";
 import styled from "styled-components";
 
 export function MainPage() {
   return (
     <Screen>
-      <Mail3D />
+      <MailBox3D />
     </Screen>
   );
 }
