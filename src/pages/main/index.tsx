@@ -14,5 +14,5 @@ const Screen = styled.div`
   justify-content: center;
   align-items: center;
 
-  height: 1500px;
+  height: 600px;
 `;

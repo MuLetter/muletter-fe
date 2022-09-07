@@ -1,17 +1,20 @@
 import { black, white } from "@styles/color";
+import React from "react";
 import styled from "styled-components";
-import { FrontItem, MainItem, SideItem } from "./Items3D";
+import { FrontItem, Lid, MainItem, SideItem } from "./Items3D";
 
 export function MailBox3D() {
+  const [open, setOpen] = React.useState<boolean>(false);
   return (
     <MailBox>
-      <MailBoxWrap>
+      <MailBoxWrap onClick={() => setOpen(!open)}>
         <MainItem className="main top" />
         <MainItem className="main back" />
         <MainItem className="main bottom" />
         <SideItem className="side left" />
         <SideItem className="side right" />
         <FrontItem />
+        <Lid isOpen={open} />
       </MailBoxWrap>
     </MailBox>
   );

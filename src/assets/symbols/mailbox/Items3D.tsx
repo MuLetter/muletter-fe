@@ -1,7 +1,26 @@
-import styled from "styled-components";
+import { black, white } from "@styles/color";
+import styled, { css } from "styled-components";
+import { LidStyleProps } from "./types";
 
 export const MainItem = styled.div``;
 export const SideItem = styled.div``;
+export const Lid = styled.div<LidStyleProps>`
+  width: 250px;
+  height: 150px;
+
+  background-color: ${white[500]};
+  top: 25px;
+  left: 25px !important;
+  transform-origin: 50% 0 !important;
+  transition: 0.3s ease-out;
+
+  ${({ isOpen }) =>
+    isOpen &&
+    css`
+      transform: rotateX(90deg);
+    `}
+`;
+
 export function FrontItem() {
   return (
     <MainItem style={{ background: "transparent" }}>
@@ -13,7 +32,7 @@ export function FrontItem() {
       >
         <path
           d="M 0 0
-           V 1.75
+           V 2
            H 3 
            V 0
            Z"
