@@ -22,6 +22,9 @@
             ],
             "@component/*": [
                 "./components/*"
+            ],
+            "@asset/*": [
+                "./assets/*"
             ]
         }
     }
