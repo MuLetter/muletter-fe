@@ -11,8 +11,11 @@ export function MainPage() {
 
 const Screen = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
 
+  position: relative;
+
+  width: 100%;
   height: 600px;
 `;

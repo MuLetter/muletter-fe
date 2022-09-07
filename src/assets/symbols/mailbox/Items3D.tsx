@@ -1,6 +1,8 @@
-import { black, white } from "@styles/color";
+import { white } from "@styles/color";
+import React from "react";
 import styled, { css } from "styled-components";
-import { LidStyleProps } from "./types";
+import { Content, ContentTail, ContentWrap } from "./styles";
+import { ContentControlProps, ContentStyleProps, LidStyleProps } from "./types";
 
 export const MainItem = styled.div``;
 export const SideItem = styled.div``;
@@ -43,5 +45,42 @@ export function FrontItem() {
         />
       </svg>
     </MainItem>
+  );
+}
+
+export function BoxContent({
+  isView,
+  animationEnd,
+}: ContentStyleProps & ContentControlProps) {
+  const refWrap = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (refWrap.current) {
+      refWrap.current.addEventListener("transitionend", (e) => {
+        if (e.propertyName === "transform") {
+          animationEnd(refWrap.current!.classList.contains("view"));
+        }
+      });
+    }
+  }, [animationEnd]);
+
+  return (
+    <ContentWrap
+      ref={refWrap}
+      isView={isView}
+      className={`${isView ? "view" : ""}`}
+    >
+      <ContentTail xmlns="http://www.w3.org/2000/svg" viewBox="0 0 7 3">
+        <path
+          d="M 0 0
+                H 7
+                V 3
+                Z
+                "
+          fill={white[900]}
+        />
+      </ContentTail>
+      <Content></Content>
+    </ContentWrap>
   );
 }
