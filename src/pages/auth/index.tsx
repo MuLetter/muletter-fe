@@ -17,7 +17,7 @@ export function AuthPage() {
           <br />
           로그인 후 확인해보세요.
         </P2>
-        <Link to="/auth">
+        <Link to="/auth" replace>
           <Button colorTheme="outline">로그인</Button>
         </Link>
       </NavItem>
@@ -28,7 +28,7 @@ export function AuthPage() {
           <br />
           가입을 진행해주세요.
         </P2>
-        <Link to="/auth/join">
+        <Link to="/auth/join" replace>
           <Button colorTheme="outline">회원가입</Button>
         </Link>
       </NavItem>
