@@ -6,6 +6,7 @@ export const Button = styled.button<ButtonStyleProps>`
   border: none;
   border-radius: 6px;
   font-weight: 700;
+  outline: none;
 
   cursor: pointer;
   transition: 0.25s;

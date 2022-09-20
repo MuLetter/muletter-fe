@@ -30,7 +30,8 @@ export const buttonColorTheme: ButtonColorTheme = {
     background: ${white[500]};
     color: ${black[500]};
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: ${white[600]};
       color: ${black[600]};
     }
@@ -39,7 +40,8 @@ export const buttonColorTheme: ButtonColorTheme = {
     background: ${black[500]};
     color: ${white[500]};
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: ${black[600]};
       color: ${white[600]};
     }
@@ -49,7 +51,8 @@ export const buttonColorTheme: ButtonColorTheme = {
     color: ${white[600]};
     border: 1px solid ${white[600]};
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: ${white[50]};
     }
   `,

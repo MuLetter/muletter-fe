@@ -1,4 +1,5 @@
 import { Button } from "@component/common";
+import { JoinContainer, LoginContainer } from "@container";
 import { H3, P2 } from "@styles/font";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { AuthBoard, FormWrap, NavItem } from "./styles";
@@ -41,9 +42,9 @@ export function AuthPage() {
 }
 
 export function LoginPage() {
-  return <></>;
+  return <LoginContainer />;
 }
 
 export function JoinPage() {
-  return <></>;
+  return <JoinContainer />;
 }

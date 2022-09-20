@@ -57,7 +57,15 @@ export const FormWrap = styled.div`
   box-shadow: 4px 4px 4px ${black[900]};
   transition: 0.35s ease-out;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &.join {
     transform: translateX(100%);
+  }
+
+  & .title {
+    color: ${black[500]};
   }
 `;
