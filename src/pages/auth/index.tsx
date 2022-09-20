@@ -1,3 +1,4 @@
+import { Logo } from "@asset/logo";
 import { Button } from "@component/common";
 import { JoinContainer, LoginContainer } from "@container";
 import { H3, P2 } from "@styles/font";
@@ -32,6 +33,13 @@ export function AuthPage() {
         </Link>
       </NavItem>
       <FormWrap className={`${pathname.includes("join") ? "join" : "login"}`}>
+        <Link className="logo" to="/" replace>
+          <Logo
+            colorTheme={`${
+              pathname.includes("join") ? "white-outline" : "white"
+            }`}
+          />
+        </Link>
         <Routes>
           <Route index element={<LoginPage />} />
           <Route path="/join" element={<JoinPage />} />

@@ -1,3 +1,4 @@
+import { Logo } from "@asset/logo";
 import { white } from "@styles/color";
 import { fontStyles } from "@styles/font";
 import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ export function Header() {
     <Container>
       <Block className="left">
         <Link to="/" className="logo">
-          MuLetter
+          <Logo />
         </Link>
       </Block>
       <Block className="right">

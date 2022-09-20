@@ -60,9 +60,22 @@ export const FormWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: visible;
+
+  & .logo {
+    transition: 0.35s ease-out;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    transform: translateX(32px);
+  }
 
   &.join {
     transform: translateX(100%);
+
+    & .logo {
+      transform: translateX(calc(592px - 179px));
+    }
   }
 
   & .title {

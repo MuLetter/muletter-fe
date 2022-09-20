@@ -1,5 +1,6 @@
+import { Logo } from "@asset/logo";
 import { black, white } from "@styles/color";
-import { H3, P2 } from "@styles/font";
+import { P2 } from "@styles/font";
 import styled from "styled-components";
 import OutlineLogo from "./OutlineLogo";
 
@@ -11,7 +12,7 @@ export function Footer() {
       </BackLogo>
       <CenterColor />
       <FrontLogo>
-        <H3 className="title">MuLetter</H3>
+        <Logo />
         <P2 className="copyright">
           ©2022. iamformegusto. all rights reserved.
         </P2>
@@ -47,8 +48,4 @@ const FrontLogo = styled.div`
   justify-content: center;
   align-items: center;
   row-gap: 4px;
-
-  & > .title {
-    font-weight: bold;
-  }
 `;
