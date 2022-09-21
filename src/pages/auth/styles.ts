@@ -77,8 +77,5 @@ export const FormWrap = styled.div`
       transform: translateX(calc(592px - 179px));
     }
   }
-
-  & .title {
-    color: ${black[500]};
-  }
+  color: ${black[500]};
 `;

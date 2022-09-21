@@ -3,15 +3,27 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "@styles/global";
 import { BrowserRouter as Router } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 root.render(
-  <Router>
-    <GlobalStyle />
-    <App />
-  </Router>
+  <QueryClientProvider client={client}>
+    <ReactQueryDevtools />
+    <Router>
+      <GlobalStyle />
+      <App />
+    </Router>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

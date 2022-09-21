@@ -16,10 +16,15 @@ export const InputGroup = styled.div`
   row-gap: 16px;
 `;
 
-export const ButtonWrap = styled.div`
+export const ButtonWrap = styled.div<{ marginTop: number }>`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
 
-  margin: 40px 0 0;
+  margin: ${({ marginTop }) => marginTop}px 0 0;
+
+  & > span {
+    flex: 1;
+  }
 `;

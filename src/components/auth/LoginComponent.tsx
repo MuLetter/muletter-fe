@@ -18,7 +18,7 @@ export function LoginComponent() {
           placeholder="비밀번호를 입력해주세요."
         />
       </InputGroup>
-      <ButtonWrap>
+      <ButtonWrap marginTop={40}>
         <Button type="submit" colorTheme="black">
           로그인
         </Button>

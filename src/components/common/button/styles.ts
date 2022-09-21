@@ -31,7 +31,8 @@ export const buttonColorTheme: ButtonColorTheme = {
     color: ${black[500]};
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:disabled {
       background: ${white[600]};
       color: ${black[600]};
     }
@@ -41,7 +42,8 @@ export const buttonColorTheme: ButtonColorTheme = {
     color: ${white[500]};
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:disabled {
       background: ${black[600]};
       color: ${white[600]};
     }
@@ -52,7 +54,8 @@ export const buttonColorTheme: ButtonColorTheme = {
     border: 1px solid ${white[600]};
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:disabled {
       background: ${white[50]};
     }
   `,
