@@ -49,3 +49,17 @@ export const LetterBlock = styled.div<LetterStyleProps>`
       height: 800px;
     `}
 `;
+
+export const LetterBottomGuardWrap = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+
+  background: linear-gradient(
+    360deg,
+    ${white[500]} 70%,
+    rgba(255, 255, 255, 0)
+  );
+`;

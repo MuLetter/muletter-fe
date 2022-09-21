@@ -1,5 +1,5 @@
 export interface LidStyleProps {
-  isOpen: boolean;
+  isOpen?: boolean;
 }
 
 export interface LidControlProps {
@@ -12,8 +12,15 @@ export interface LetterStyleProps {
 
 export interface LetterControlProps {
   animationEnd: (isView: boolean) => void;
+  refLetter: React.RefObject<HTMLDivElement>;
 }
 
 export interface MailStyleProps {
-  isRotate: boolean;
+  isRotate?: boolean;
+}
+
+export interface MailControlProps {
+  isDown?: boolean;
+  isOpen?: boolean;
+  refScreen?: React.RefObject<HTMLDivElement>;
 }

@@ -1,6 +1,11 @@
 import { black } from "@styles/color";
 import React from "react";
-import { LetterBlock, LidBlock, ShadowGuard } from "./styles";
+import {
+  LetterBlock,
+  LetterBottomGuardWrap,
+  LidBlock,
+  ShadowGuard,
+} from "./styles";
 import {
   LetterControlProps,
   LetterStyleProps,
@@ -98,9 +103,9 @@ export function Lid({ isOpen, animationEnd }: LidStyleProps & LidControlProps) {
 export function Letter({
   isView,
   animationEnd,
-}: LetterStyleProps & LetterControlProps) {
-  const refLetter = React.useRef<HTMLDivElement>(null);
-
+  children,
+  refLetter,
+}: React.PropsWithChildren<LetterStyleProps & LetterControlProps>) {
   React.useEffect(() => {
     if (refLetter.current) {
       refLetter.current.addEventListener("transitionend", (e) => {
@@ -111,7 +116,7 @@ export function Letter({
         }
       });
     }
-  }, [animationEnd]);
+  }, [animationEnd, refLetter]);
 
   return (
     <LetterBlock
@@ -119,7 +124,11 @@ export function Letter({
       isView={isView}
       className={`${isView ? "view" : ""}`}
     >
-      Letter
+      {children}
     </LetterBlock>
   );
+}
+
+export function LetterBottomGuard() {
+  return <LetterBottomGuardWrap />;
 }

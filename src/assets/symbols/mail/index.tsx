@@ -1,33 +1,57 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Back, Front, Letter, Lid } from "./Items3D";
-import { MailStyleProps } from "./types";
+import { Back, Front, Letter, LetterBottomGuard, Lid } from "./Items3D";
+import { MailControlProps, MailStyleProps } from "./types";
 
-export function Mail3D() {
-  const [rotate, setRotate] = React.useState<boolean>(false);
-  const [open, setOpen] = React.useState<boolean>(false);
+export function Mail3D({
+  children,
+  isOpen,
+  isDown,
+  refScreen,
+  isRotate,
+}: React.PropsWithChildren<MailControlProps & MailStyleProps>) {
+  const refWrap = React.useRef<HTMLDivElement>(null);
+  const [down, setDown] = React.useState<boolean>(false);
   const [letterView, setLetterView] = React.useState<boolean>(false);
+  const refLetter = React.useRef<HTMLDivElement>(null);
 
   // open 액션용
-  const changeLetterView = React.useCallback((state: boolean) => {
-    setLetterView(state);
-  }, []);
+  const changeLetterView = React.useCallback(
+    (state: boolean) => {
+      setLetterView(state);
+      if (refWrap.current) {
+        if (isDown) setDown(isDown);
+      }
+    },
+    [isDown]
+  );
 
   // close action 용
   const changeLid = React.useCallback((state: boolean) => {
-    setOpen(state);
+    // setOpen(state);
   }, []);
 
+  React.useEffect(() => {
+    if (refScreen)
+      refScreen.current!.addEventListener("wheel", (e) => {
+        refLetter.current!.scrollTop += e.deltaY;
+      });
+  }, [refScreen]);
+
   return (
-    <Mail>
-      <MailWrap
-        isRotate={rotate}
-        onClick={letterView ? () => setLetterView(false) : () => setOpen(true)}
-      >
+    <Mail ref={refWrap} className={`${down ? "down" : ""}`}>
+      <MailWrap isRotate={isRotate}>
         <Back />
-        <Letter isView={letterView} animationEnd={changeLid} />
+        <Letter
+          isView={letterView}
+          animationEnd={changeLid}
+          refLetter={refLetter}
+        >
+          {children}
+        </Letter>
+        <LetterBottomGuard />
         <Front />
-        <Lid isOpen={open} animationEnd={changeLetterView} />
+        <Lid isOpen={isOpen} animationEnd={changeLetterView} />
       </MailWrap>
     </Mail>
   );
@@ -36,6 +60,12 @@ export function Mail3D() {
 const Mail = styled.div`
   // 단순히 3D 효과용
   perspective: 2000px;
+
+  transform-origin: 50% 50%;
+  transition: 0.8s;
+  &.down {
+    transform: translateY(160px);
+  }
 `;
 
 const MailWrap = styled.div<MailStyleProps>`

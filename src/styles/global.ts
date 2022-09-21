@@ -13,13 +13,21 @@ const GlobalStyle = createGlobalStyle`
     }
 
     * { 
-        line-height: 1.5em !important;
+        line-height: 1.25em !important;
         font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important; 
         font-style: normal;
     }
 
     a {
         text-decoration: none;
+    }
+
+    * {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+    *::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
     }
 `;
 

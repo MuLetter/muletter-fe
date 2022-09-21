@@ -1,22 +1,27 @@
-import { Mail3D, MailBox3D } from "@asset/symbols";
+import { MainContainer } from "@container";
+import { white } from "@styles/color";
 import styled from "styled-components";
 
 export function MainPage() {
   return (
     <Screen>
-      <Mail3D />
-      <MailBox3D />
+      <MainContainer />
     </Screen>
   );
 }
 
 const Screen = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   position: relative;
 
   width: 100%;
-  height: 600px;
+
+  & .title {
+    color: ${white[500]};
+    letter-spacing: -0.05em;
+  }
 `;

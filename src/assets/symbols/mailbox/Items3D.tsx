@@ -1,8 +1,14 @@
+import { Button } from "@component/common/button";
 import { white } from "@styles/color";
 import React from "react";
 import styled, { css } from "styled-components";
-import { Content, ContentTail, ContentWrap } from "./styles";
-import { ContentControlProps, ContentStyleProps, LidStyleProps } from "./types";
+import { ButtonContentWrap, Content, ContentTail, ContentWrap } from "./styles";
+import {
+  ButtonContentProps,
+  ContentControlProps,
+  ContentStyleProps,
+  LidStyleProps,
+} from "./types";
 
 export const MainItem = styled.div``;
 export const SideItem = styled.div``;
@@ -49,21 +55,10 @@ export function FrontItem() {
 }
 
 export function BoxContent({
+  children,
   isView,
-  animationEnd,
-}: ContentStyleProps & ContentControlProps) {
+}: React.PropsWithChildren<ContentStyleProps & ContentControlProps>) {
   const refWrap = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (refWrap.current) {
-      refWrap.current.addEventListener("transitionend", (e) => {
-        if (e.propertyName === "transform") {
-          animationEnd(refWrap.current!.classList.contains("view"));
-        }
-      });
-    }
-  }, [animationEnd]);
-
   return (
     <ContentWrap
       ref={refWrap}
@@ -80,7 +75,26 @@ export function BoxContent({
           fill={white[900]}
         />
       </ContentTail>
-      <Content></Content>
+      <Content className={`mailbox-content ${isView ? "view" : ""}`}>
+        {children}
+      </Content>
     </ContentWrap>
+  );
+}
+
+export function ButtonContent({ buttons }: ButtonContentProps) {
+  return (
+    <ButtonContentWrap className="mailbox-content">
+      {buttons.map(({ title, clickAction, type }) => (
+        <Button
+          colorTheme="outline"
+          onClick={clickAction}
+          key={`button-${title}`}
+          type={type}
+        >
+          {title}
+        </Button>
+      ))}
+    </ButtonContentWrap>
   );
 }
