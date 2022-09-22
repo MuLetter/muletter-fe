@@ -4,7 +4,7 @@ import { H1, Tag1 } from "@styles/font";
 import { AuthForm, ButtonWrap, InputGroup } from "./styles";
 import { JoinProps } from "./types";
 
-export function JoinComponent({ oauthUrl }: JoinProps) {
+export function JoinComponent({ oauthUrl, onSpotifyOAuth }: JoinProps) {
   return (
     <AuthForm>
       <H1 className="title">회원가입</H1>
@@ -36,13 +36,7 @@ export function JoinComponent({ oauthUrl }: JoinProps) {
           colorTheme="black"
           size="m"
           disabled={!oauthUrl}
-          onClick={
-            oauthUrl
-              ? () => {
-                  window.location.href = oauthUrl;
-                }
-              : undefined
-          }
+          onClick={oauthUrl ? onSpotifyOAuth : undefined}
         >
           <img src={LogoWhite} alt="spotify-logo-white" />
           <span>Spotify 계정 연동하기</span>

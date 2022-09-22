@@ -5,7 +5,14 @@ import styled from "styled-components";
 export * from "./main";
 export * from "./auth";
 
-const NOT_LAYOUT_PAGES = ["/auth", "/auth/join", "/auth/", "/auth/join/"];
+const NOT_LAYOUT_PAGES = [
+  "/auth",
+  "/auth/join",
+  "/auth/",
+  "/auth/join/",
+  "/callback",
+  "/callback/",
+];
 
 function RootPage() {
   const { pathname } = useLocation();
