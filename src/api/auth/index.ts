@@ -1,3 +1,4 @@
+import { IAuth } from "@store/types";
 import client from "../client";
 import { JoinForm, LoginForm, ResPostAuth } from "./types";
 
@@ -9,7 +10,7 @@ export const join = async (joinForm: JoinForm) =>
   (await client.post<ResPostAuth>(`${BASEPATH}/join`, joinForm)).data;
 export const check = async (token: string) =>
   (
-    await client.get(`${BASEPATH}`, {
+    await client.get<IAuth>(`${BASEPATH}`, {
       headers: {
         authorization: token,
       },

@@ -1,11 +1,14 @@
 import { check } from "@api";
+import { authState } from "@store/atom";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
+import { useSetRecoilState } from "recoil";
 
 export function useAuth() {
+  const setAuth = useSetRecoilState(authState);
   const { mutate: checkMutate } = useMutation(check, {
     onSuccess: (data) => {
-      console.log("Check", data);
+      setAuth(data);
     },
   });
   const [token, setToken] = React.useState<string | null>(null);
