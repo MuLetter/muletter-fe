@@ -5,6 +5,7 @@ import GlobalStyle from "@styles/global";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { RecoilRoot } from "recoil";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,13 +18,15 @@ const client = new QueryClient({
   },
 });
 root.render(
-  <QueryClientProvider client={client}>
-    <ReactQueryDevtools />
-    <Router>
-      <GlobalStyle />
-      <App />
-    </Router>
-  </QueryClientProvider>
+  <RecoilRoot>
+    <QueryClientProvider client={client}>
+      <ReactQueryDevtools />
+      <Router>
+        <GlobalStyle />
+        <App />
+      </Router>
+    </QueryClientProvider>
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function

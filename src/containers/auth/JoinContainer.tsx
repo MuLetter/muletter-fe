@@ -1,13 +1,27 @@
 import { getSpotifyOAuth, postOAuthBak } from "@api";
+import { join } from "@api";
+import { JoinForm } from "@api/types";
 import { JoinComponent } from "@component";
+import { useAuth } from "@hooks";
 import { SpotifyToken } from "@store/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 
 export function JoinContainer() {
+  const setToken = useAuth();
+  const { register, handleSubmit, reset } = useForm<JoinForm>();
+  const { mutate: joinMutate } = useMutation(join, {
+    onSuccess: ({ token }) => {
+      setToken(token);
+    },
+    onError: (err: any) => {
+      alert(err.response.data.message);
+      reset();
+    },
+  });
   const { state } = useLocation();
-
   const [spotifyToken, setSpotifyToken] = React.useState<SpotifyToken | null>(
     null
   );
@@ -42,5 +56,21 @@ export function JoinContainer() {
     console.log(spotifyToken);
   }, [spotifyToken]);
 
-  return <JoinComponent oauthUrl={oauthUrl} onSpotifyOAuth={onSpotifyOAuth} />;
+  const onSubmit: SubmitHandler<JoinForm> = React.useCallback(
+    (data) => {
+      joinMutate(data);
+    },
+    [joinMutate]
+  );
+
+  return (
+    <>
+      <JoinComponent
+        oauthUrl={oauthUrl}
+        onSpotifyOAuth={onSpotifyOAuth}
+        register={register}
+        onSubmit={handleSubmit(onSubmit)}
+      />
+    </>
+  );
 }

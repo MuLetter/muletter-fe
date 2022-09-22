@@ -4,25 +4,33 @@ import { H1, Tag1 } from "@styles/font";
 import { AuthForm, ButtonWrap, InputGroup } from "./styles";
 import { JoinProps } from "./types";
 
-export function JoinComponent({ oauthUrl, onSpotifyOAuth }: JoinProps) {
+export function JoinComponent({
+  oauthUrl,
+  onSpotifyOAuth,
+  register,
+  onSubmit,
+}: JoinProps) {
   return (
-    <AuthForm>
+    <AuthForm onSubmit={onSubmit}>
       <H1 className="title">회원가입</H1>
       <InputGroup>
         <TextInput
           type="text"
           styleTheme="outline-black"
           placeholder="아이디를 입력해주세요."
-        />
-        <TextInput
-          type="text"
-          styleTheme="outline-black"
-          placeholder="닉네임을 입력해주세요."
+          {...register("username")}
         />
         <TextInput
           type="password"
           styleTheme="outline-black"
           placeholder="비밀번호를 입력해주세요."
+          {...register("password")}
+        />
+        <TextInput
+          type="text"
+          styleTheme="outline-black"
+          placeholder="닉네임을 입력해주세요."
+          {...register("nickname")}
         />
       </InputGroup>
       <ButtonWrap marginTop={24}>

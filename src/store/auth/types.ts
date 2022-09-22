@@ -5,3 +5,9 @@ export interface SpotifyToken {
   refresh_token: number;
   scope: string;
 }
+
+export interface IAuth {
+  id: string;
+  username: string;
+  nickname: string;
+}
