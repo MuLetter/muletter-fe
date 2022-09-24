@@ -1,8 +1,5 @@
+import ContentRegist from "./ContentRegist";
 import { ProcessItem } from "./types";
-
-function ContentRegist() {
-  return <>콘텐츠 내용 등록</>;
-}
 
 function Search() {
   return <>검색</>;

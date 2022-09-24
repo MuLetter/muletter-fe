@@ -1,5 +1,5 @@
 import { black, white } from "@styles/color";
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 import { TextInputTheme } from "./types";
 
 export const textInputTheme: TextInputTheme = {
@@ -38,3 +38,34 @@ export const textInputTheme: TextInputTheme = {
     }
   `,
 };
+
+export const FileUploadBlock = styled.div`
+  position: relative;
+  width: 400px;
+  height: 250px;
+
+  & > label {
+    position: absolute;
+    width: 400px;
+    height: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: ${black[900]};
+    cursor: pointer;
+  }
+
+  & > img {
+    position: absolute;
+    width: 400px;
+    height: 250px;
+
+    object-fit: cover;
+  }
+
+  & > input[type="file"] {
+    display: none;
+  }
+`;
