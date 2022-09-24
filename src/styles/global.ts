@@ -29,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
     *::-webkit-scrollbar {
         display: none; /* Chrome, Safari, Opera*/
     }
+
+    b {
+        font-weight: 900 !important; 
+    }
 `;
 
 export default GlobalStyle;

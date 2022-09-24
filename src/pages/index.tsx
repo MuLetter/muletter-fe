@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 export * from "./main";
 export * from "./auth";
+export * from "./mailbox";
+export * from "./map";
 
 const NOT_LAYOUT_PAGES = [
   "/auth",
