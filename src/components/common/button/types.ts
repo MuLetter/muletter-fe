@@ -13,4 +13,5 @@ export type ButtonColorTheme = {
 export interface ButtonStyleProps {
   size?: ButtonSizeType;
   colorTheme?: ButtonColorThemeType;
+  isBlock?: boolean;
 }

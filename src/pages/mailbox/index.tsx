@@ -1,3 +1,5 @@
+import { MailBoxContainer } from "@container";
+
 export function MailBoxPage() {
-  return <>MailBox</>;
+  return <MailBoxContainer />;
 }
