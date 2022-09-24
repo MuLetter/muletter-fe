@@ -13,7 +13,6 @@ export interface SearchBarProps {
   mode: "waiting" | "searching";
   modeChange: (mode: SearchBarMode) => void;
   refInput: React.Ref<HTMLInputElement>;
-  q: string;
   setQ: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -22,7 +21,6 @@ export interface SearchListProps {
   nextPage: (options?: FetchNextPageOptions) => void;
   isRefetching?: boolean;
   isFechingNextPage?: boolean;
-  setSearchBarUnmount: (status: boolean) => void;
 }
 
 export interface SearchItemStyleProps {

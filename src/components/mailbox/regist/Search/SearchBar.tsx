@@ -5,7 +5,7 @@ import { SearchBarProps } from "./types";
 import { MdAdd } from "react-icons/md";
 import { IconButton } from "@component/common";
 
-function SearchBar({ mode, modeChange, refInput, q, setQ }: SearchBarProps) {
+function SearchBar({ mode, modeChange, refInput, setQ }: SearchBarProps) {
   return (
     <Wrap
       onClick={mode === "waiting" ? () => modeChange("searching") : undefined}
@@ -18,7 +18,6 @@ function SearchBar({ mode, modeChange, refInput, q, setQ }: SearchBarProps) {
         } `}
         disabled={mode === "waiting"}
         mode={mode}
-        // value={q}
         onChange={setQ}
       />
       <IconButton
