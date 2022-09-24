@@ -1,9 +1,6 @@
 import ContentRegist from "./ContentRegist";
+import Search from "./Search";
 import { ProcessItem } from "./types";
-
-function Search() {
-  return <>검색</>;
-}
 
 function Confirm() {
   return <>확인</>;
