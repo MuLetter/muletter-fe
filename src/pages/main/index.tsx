@@ -1,17 +1,8 @@
 import { MainContainer } from "@container";
-import { authState } from "@store/atom";
 import { white } from "@styles/color";
-import React from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 export function MainPage() {
-  const auth = useRecoilValue(authState);
-
-  React.useEffect(() => {
-    console.log("auth", auth);
-  }, [auth]);
-
   return (
     <Screen>
       <MainContainer />
