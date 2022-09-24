@@ -31,7 +31,7 @@ export const ContentTail = styled.svg`
 `;
 export const Content = styled.div`
   flex: 1;
-  width: 100%;
+  width: calc(100% - 54.04px - (258.36px / 2));
   height: 100%;
   max-height: 720px;
   background-color: ${white[900]};
