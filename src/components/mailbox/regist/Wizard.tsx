@@ -144,7 +144,11 @@ const Block = styled.div`
 
 const Content = styled.div`
   margin: 24px;
-  flex: 1;
+  /* flex: 1; */
+  height: calc(100% - 24px - 32px);
+
+  display: flex;
+  flex-direction: column;
 `;
 
 const StepBlock = styled.div`

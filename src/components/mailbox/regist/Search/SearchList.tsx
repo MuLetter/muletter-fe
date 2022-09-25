@@ -6,6 +6,7 @@ import { SearchListProps } from "./types";
 import { Track } from "@api/types";
 import { useRecoilState } from "recoil";
 import { selectTracksState } from "@store/atom";
+import SearchItem from "./SearchItem";
 
 function SearchList({
   data,
@@ -61,7 +62,7 @@ function SearchList({
 
   return (
     <Wrap ref={refWrap}>
-      {/* {data &&
+      {data &&
         data.pages.map((page) =>
           page.tracks.items.map((track) => (
             <SearchItem
@@ -75,7 +76,7 @@ function SearchList({
               }
             />
           ))
-        )} */}
+        )}
     </Wrap>
   );
 }

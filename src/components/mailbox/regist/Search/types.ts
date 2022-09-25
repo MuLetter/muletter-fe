@@ -1,10 +1,10 @@
 import { ResSearch } from "@api/types";
-import { SelectItemProps } from "@component/common/types";
+import { MusicCardProps } from "@component/common/types";
 import { FetchNextPageOptions, InfiniteData } from "@tanstack/react-query";
 
 export type SearchBarMode = "waiting" | "searching";
 
-export interface SearchItemProps extends SelectItemProps {
+export interface SearchItemProps extends MusicCardProps {
   removeAction: (...args: any) => void;
   isSelect: boolean;
 }
