@@ -1,29 +1,35 @@
+import { Track } from "@api/types";
+import { selectTracksState } from "@store/atom";
+import React from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import _ from "lodash";
+import { MusicCard } from "@component/common";
 
 const CHUNKSIZE = 5;
 function SelectList() {
-  //   const [tracks, setSelectTracks] = useRecoilState(selectTracksState);
+  const [tracks, setSelectTracks] = useRecoilState(selectTracksState);
 
-  //   const removeSelects = React.useCallback(
-  //     (track: Track) => {
-  //       setSelectTracks(_.filter(tracks, (st) => st.id !== track.id));
-  //     },
-  //     [tracks, setSelectTracks]
-  //   );
+  const removeSelects = React.useCallback(
+    (track: Track) => {
+      setSelectTracks(_.filter(tracks, (st) => st.id !== track.id));
+    },
+    [tracks, setSelectTracks]
+  );
 
   return (
     <Wrap>
-      {/* {_.chunk(tracks, CHUNKSIZE).map((track, idx) => (
+      {_.chunk(tracks, CHUNKSIZE).map((track, idx) => (
         <Row key={`track-row-${idx}`}>
           {_.map(track, (t) => (
-            <SelectItem track={t} key={t.id} selectAction={removeSelects} />
+            <MusicCard track={t} key={t.id} selectAction={removeSelects} />
           ))}
           {track.length < CHUNKSIZE &&
             _.range(CHUNKSIZE - track.length).map((_, eidx) => (
               <div className="empty" key={`empty-col-${eidx}`} />
             ))}
         </Row>
-      ))} */}
+      ))}
     </Wrap>
   );
 }
