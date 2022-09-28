@@ -1,10 +1,7 @@
+import Confirm from "./Confirm";
 import ContentRegist from "./ContentRegist";
 import Search from "./Search";
 import { ProcessItem } from "./types";
-
-function Confirm() {
-  return <>확인</>;
-}
 
 const Process: ProcessItem[] = [
   {
