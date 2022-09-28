@@ -7,3 +7,6 @@ export type TextInputTheme = {
 export interface TextInputStyleProps {
   styleTheme?: TextInputThemeType;
 }
+export interface FileInputProps {
+  setImage: (image: Blob) => void;
+}

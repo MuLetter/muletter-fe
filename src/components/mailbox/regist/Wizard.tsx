@@ -84,7 +84,9 @@ export function Wizard() {
           />
         ))}
       </StepBlock>
-      <Content>{Process[step].component}</Content>
+      <Content>
+        {Process[step].component({ prev: prevStep, next: nextStep })}
+      </Content>
     </Block>
   );
 }

@@ -2,9 +2,9 @@ import { FileUploadBlock } from "./styles";
 import { IoIosImages } from "react-icons/io";
 import { white } from "@styles/color";
 import React from "react";
+import { FileInputProps } from "./types";
 
-export function FileUpload() {
-  const [image, setImage] = React.useState<Blob | null>(null);
+export function FileUpload({ setImage }: FileInputProps) {
   const [mainImage, setMainImage] = React.useState<string | null | undefined>(
     null
   );
@@ -15,6 +15,7 @@ export function FileUpload() {
       fileReader.onload = function (e) {
         const src = e.target?.result;
 
+        console.log(src);
         setMainImage(src as any);
       };
 
@@ -23,7 +24,7 @@ export function FileUpload() {
         setImage(e.target.files[0]);
       }
     },
-    []
+    [setImage]
   );
 
   return (

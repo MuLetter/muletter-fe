@@ -3,7 +3,12 @@ export interface StepStyleProps {
   title: string;
 }
 
+export interface WizardControlItem {
+  prev: () => void;
+  next: () => void;
+}
+
 export interface ProcessItem {
   title: string;
-  component: JSX.Element;
+  component: (wizardProps: WizardControlItem) => JSX.Element;
 }
