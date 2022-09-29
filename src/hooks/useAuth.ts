@@ -20,11 +20,13 @@ export function useAuth() {
   }, [token, checkMutate]);
 
   React.useEffect(() => {
-    if (auth)
+    if (auth && token) {
+      localStorage.setItem("muletter-token", token);
       navigate("/", {
         replace: true,
       });
-  }, [auth, navigate]);
+    }
+  }, [auth, navigate, token]);
 
   return setToken;
 }
