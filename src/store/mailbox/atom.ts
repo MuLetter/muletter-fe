@@ -1,8 +1,8 @@
-import { Track } from "@api/types";
+import { STrack } from "@api/types";
 import { atom } from "recoil";
 import { RegistedMailBoxInformation } from "./types";
 
-export const selectTracksState = atom<Track[]>({
+export const selectTracksState = atom<STrack[]>({
   key: "selectTracksState",
   default: [],
 });

@@ -9,37 +9,37 @@ export interface SpotifyToken {
 export interface SpotifyUser {
   display_name: string;
   email: string;
-  external_urls: ExternalUrls;
-  followers: Followers;
+  external_urls: SExternalUrls;
+  followers: SFollowers;
   href: string;
   id: string;
-  images: AlbumImage[];
+  images: SAlbumImage[];
   type: string;
   uri: string;
 }
 
-export interface ExternalUrls {
+export interface SExternalUrls {
   spotify: string;
 }
 
-export interface Followers {
+export interface SFollowers {
   href: null;
   total: number;
 }
 
-export interface Image {
+export interface SImage {
   height: null;
   url: string;
   width: null;
 }
 
 export interface ResSearch {
-  tracks: Tracks;
+  tracks: STracks;
 }
 
-export interface Tracks {
+export interface STracks {
   href: string;
-  items: Track[];
+  items: STrack[];
   limit: number;
   next: string;
   offset: number;
@@ -47,14 +47,14 @@ export interface Tracks {
   total: number;
 }
 
-export interface Track {
-  album: Album;
-  artists: Artist2[];
+export interface STrack {
+  album: SAlbum;
+  artists: SArtist2[];
   disc_number: number;
   duration_ms: number;
   explicit: boolean;
-  external_ids: ExternalIds;
-  external_urls: ExternalUrls4;
+  external_ids: SExternalIds;
+  external_urls: SExternalUrls4;
   href: string;
   id: string;
   is_local: boolean;
@@ -68,31 +68,31 @@ export interface Track {
   label?: number;
 }
 
-export interface Artist {
-  external_urls: ExternalUrls;
-  followers: ArtistFollowers;
+export interface SArtist {
+  external_urls: SExternalUrls;
+  followers: SArtistFollowers;
   genres: string[];
   href: string;
   id: string;
-  images: Image[];
+  images: SImage[];
   name: string;
   popularity: number;
   type: string;
   uri: string;
 }
 
-export interface ArtistFollowers {
+export interface SArtistFollowers {
   href: any;
   total: number;
 }
 
-export interface Album {
+export interface SAlbum {
   album_type: string;
-  artists: Artist1[];
-  external_urls: ExternalUrls2;
+  artists: SArtist1[];
+  external_urls: SExternalUrls2;
   href: string;
   id: string;
-  images: Image[];
+  images: SImage[];
   name: string;
   release_date: string;
   release_date_precision: string;
@@ -101,8 +101,8 @@ export interface Album {
   uri: string;
 }
 
-export interface Artist1 {
-  external_urls: ExternalUrls;
+export interface SArtist1 {
+  external_urls: SExternalUrls;
   href: string;
   id: string;
   name: string;
@@ -110,22 +110,22 @@ export interface Artist1 {
   uri: string;
 }
 
-export interface ExternalUrls {
+export interface SExternalUrls {
   spotify: string;
 }
 
-export interface ExternalUrls2 {
+export interface SExternalUrls2 {
   spotify: string;
 }
 
-export interface AlbumImage {
+export interface SAlbumImage {
   height: number;
   url: string;
   width: number;
 }
 
-export interface Artist2 {
-  external_urls: ExternalUrls3;
+export interface SArtist2 {
+  external_urls: SExternalUrls3;
   href: string;
   id: string;
   name: string;
@@ -133,14 +133,14 @@ export interface Artist2 {
   uri: string;
 }
 
-export interface ExternalUrls3 {
+export interface SExternalUrls3 {
   spotify: string;
 }
 
-export interface ExternalIds {
+export interface SExternalIds {
   isrc: string;
 }
 
-export interface ExternalUrls4 {
+export interface SExternalUrls4 {
   spotify: string;
 }

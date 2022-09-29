@@ -1,9 +1,8 @@
-// import { Track } from "@api/types";
 import React from "react";
 import _ from "lodash";
 import styled from "styled-components";
 import { SearchListProps } from "./types";
-import { Track } from "@api/types";
+import { STrack } from "@api/types";
 import { useRecoilState } from "recoil";
 import { selectTracksState } from "@store/atom";
 import SearchItem from "./SearchItem";
@@ -16,14 +15,14 @@ function SearchList({
 }: SearchListProps) {
   const refWrap = React.useRef<HTMLDivElement>(null);
   const [selectTracks, setSelectTracks] = useRecoilState(selectTracksState);
-  const refSelected = React.useRef<Track[]>(selectTracks);
+  const refSelected = React.useRef<STrack[]>(selectTracks);
 
-  const selectItem = React.useCallback((track: Track) => {
+  const selectItem = React.useCallback((track: STrack) => {
     refSelected.current = _.concat(refSelected.current, track);
     // setSelectTracks(_.concat(selectTracks, track));
   }, []);
 
-  const removeItem = React.useCallback((track: Track) => {
+  const removeItem = React.useCallback((track: STrack) => {
     refSelected.current = _.dropWhile(
       refSelected.current,
       (st) => st.id === track.id

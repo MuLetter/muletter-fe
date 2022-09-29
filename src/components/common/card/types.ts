@@ -1,6 +1,6 @@
-import { Track } from "@api/types";
+import { STrack } from "@api/types";
 
 export interface MusicCardProps {
-  track: Track;
+  track: STrack;
   selectAction?: (...args: any) => void;
 }

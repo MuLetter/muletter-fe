@@ -1,4 +1,4 @@
-import { Track } from "@api/types";
+import { STrack } from "@api/types";
 import { selectTracksState } from "@store/atom";
 import React from "react";
 import { useRecoilState } from "recoil";
@@ -11,7 +11,7 @@ function SelectList() {
   const [tracks, setSelectTracks] = useRecoilState(selectTracksState);
 
   const removeSelects = React.useCallback(
-    (track: Track) => {
+    (track: STrack) => {
       setSelectTracks(_.filter(tracks, (st) => st.id !== track.id));
     },
     [tracks, setSelectTracks]
