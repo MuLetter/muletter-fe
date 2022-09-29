@@ -1,11 +1,30 @@
+import { postMailBox } from "@api/mailbox";
 import { Button, ButtonGroup, MailBoxItem } from "@component/common";
 import { registedMailBoxState, selectTracksState } from "@store/atom";
+import { useMutation } from "@tanstack/react-query";
+import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 function Confirm() {
   const mailBox = useRecoilValue(registedMailBoxState);
   const tracks = useRecoilValue(selectTracksState);
+
+  const { mutate: postMailBoxMutate } = useMutation(
+    ["postMailBox"],
+    postMailBox,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
+  const onRegist = React.useCallback(() => {
+    if (mailBox) {
+      postMailBoxMutate(mailBox);
+    }
+  }, [mailBox, postMailBoxMutate]);
 
   return (
     <ConfirmWrap>
@@ -15,7 +34,9 @@ function Confirm() {
         isAutoOpen
       />
       <ButtonGroup>
-        <Button colorTheme="outline">등록하기</Button>
+        <Button type="button" colorTheme="outline" onClick={onRegist}>
+          등록하기
+        </Button>
       </ButtonGroup>
     </ConfirmWrap>
   );

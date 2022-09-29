@@ -4,7 +4,15 @@ export interface RegistedMailBoxInformation {
   imageLinkBak: string;
 }
 
-export interface MailBox {
+export interface RegistMailBox {
   title: string;
   image: string;
+}
+
+export interface IMailBox {
+  id: string;
+  title: string;
+  image: string;
+  tracks: Array<any>;
+  authId: string;
 }

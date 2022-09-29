@@ -1,8 +1,8 @@
 import { Track } from "@api/types";
-import { MailBox } from "@store/types";
+import { IMailBox, RegistMailBox } from "@store/types";
 
 export interface MailBoxItemControlProps {
-  mailBox: MailBox;
+  mailBox: IMailBox | RegistMailBox;
   tracks: Track[];
   isAutoOpen?: boolean;
 }
