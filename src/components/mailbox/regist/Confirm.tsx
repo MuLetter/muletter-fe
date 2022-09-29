@@ -2,13 +2,15 @@ import { postMailBox } from "@api/mailbox";
 import { Button, ButtonGroup, MailBoxItem } from "@component/common";
 import { registedMailBoxState, selectTracksState } from "@store/atom";
 import { useMutation } from "@tanstack/react-query";
+import { STrackToITrack } from "@utils";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 function Confirm() {
+  const [registedId, setRegistedId] = React.useState<string | null>(null);
   const mailBox = useRecoilValue(registedMailBoxState);
-  const tracks = useRecoilValue(selectTracksState);
+  const stracks = useRecoilValue(selectTracksState);
 
   const { mutate: postMailBoxMutate } = useMutation(
     ["postMailBox"],
@@ -16,6 +18,8 @@ function Confirm() {
     {
       onSuccess: (data) => {
         console.log(data);
+
+        setRegistedId(data.id);
       },
     }
   );
@@ -26,11 +30,19 @@ function Confirm() {
     }
   }, [mailBox, postMailBoxMutate]);
 
+  React.useEffect(() => {
+    if (registedId) {
+      const tracks = STrackToITrack(stracks);
+
+      console.log(tracks);
+    }
+  }, [registedId, stracks]);
+
   return (
     <ConfirmWrap>
       <MailBoxItem
         mailBox={{ title: mailBox!.title, image: mailBox!.imageLinkBak }}
-        tracks={tracks!}
+        tracks={stracks}
         isAutoOpen
       />
       <ButtonGroup>

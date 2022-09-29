@@ -28,9 +28,9 @@ export interface SFollowers {
 }
 
 export interface SImage {
-  height: null;
+  height: number;
   url: string;
-  width: null;
+  width: number;
 }
 
 export interface ResSearch {
