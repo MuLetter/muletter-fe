@@ -9,4 +9,6 @@ export interface TextInputStyleProps {
 }
 export interface FileInputProps {
   setImage: (image: Blob) => void;
+  mainImage?: string | null;
+  setMainImage: (mainImage: string) => void;
 }

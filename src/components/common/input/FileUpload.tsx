@@ -4,10 +4,11 @@ import { white } from "@styles/color";
 import React from "react";
 import { FileInputProps } from "./types";
 
-export function FileUpload({ setImage }: FileInputProps) {
-  const [mainImage, setMainImage] = React.useState<string | null | undefined>(
-    null
-  );
+export function FileUpload({
+  setImage,
+  mainImage,
+  setMainImage,
+}: FileInputProps) {
   const fileChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const fileReader = new FileReader();
@@ -24,7 +25,7 @@ export function FileUpload({ setImage }: FileInputProps) {
         setImage(e.target.files[0]);
       }
     },
-    [setImage]
+    [setImage, setMainImage]
   );
 
   return (

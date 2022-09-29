@@ -4,8 +4,7 @@ export interface StepStyleProps {
 }
 
 export interface WizardControlItem {
-  prev: () => void;
-  next: () => void;
+  setNextConfirm: (nextConfirm: (() => Promise<boolean>) | null) => void;
 }
 
 export interface ProcessItem {

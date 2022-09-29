@@ -6,7 +6,7 @@ import { ProcessItem } from "./types";
 const Process: ProcessItem[] = [
   {
     title: "우체통 정보 입력",
-    component: (wizardProps) => <ContentRegist />,
+    component: (wizardProps) => <ContentRegist {...wizardProps} />,
   },
   {
     title: "우체통 음악 등록",

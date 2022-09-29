@@ -57,14 +57,24 @@ const StepWrap = styled.div`
 
 export function Wizard() {
   const [step, setStep] = React.useState<number>(0);
+  const refNextConfirm = React.useRef<(() => Promise<boolean>) | null>(null);
 
-  const nextStep = React.useCallback(() => {
+  const nextStep = React.useCallback(async () => {
+    if (refNextConfirm.current) if (!(await refNextConfirm.current())) return;
+
     setStep((prev) => prev + 1);
   }, []);
 
   const prevStep = React.useCallback(() => {
     setStep((prev) => prev - 1);
   }, []);
+
+  const setNextConfirm = React.useCallback(
+    (nextConfirm: (() => Promise<boolean>) | null) => {
+      refNextConfirm.current = nextConfirm;
+    },
+    []
+  );
 
   return (
     <Block>
@@ -84,9 +94,7 @@ export function Wizard() {
           />
         ))}
       </StepBlock>
-      <Content>
-        {Process[step].component({ prev: prevStep, next: nextStep })}
-      </Content>
+      <Content>{Process[step].component({ setNextConfirm })}</Content>
     </Block>
   );
 }
