@@ -16,3 +16,27 @@ export interface IMailBox {
   tracks: Array<any>;
   authId: string;
 }
+
+export interface ITrack {
+  id: string;
+  name: string;
+  artists: IArtist[];
+  album: IAlbum;
+
+  isUse?: boolean;
+}
+
+export interface IAlbum {
+  images: IAlbumArt[];
+}
+
+export interface IAlbumArt {
+  height: number;
+  url: string;
+  width: number;
+}
+
+export interface IArtist {
+  id: string;
+  name: string;
+}
