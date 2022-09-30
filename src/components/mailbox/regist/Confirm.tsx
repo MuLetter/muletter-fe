@@ -20,7 +20,7 @@ function Confirm() {
     {
       onSuccess: (data) => {
         console.log("postMailBox", data);
-        setRegistedId(data.id);
+        setRegistedId(data._id);
       },
     }
   );

@@ -10,10 +10,10 @@ export interface RegistMailBox {
 }
 
 export interface IMailBox {
-  id: string;
+  _id: string;
   title: string;
   image: string;
-  tracks: Array<any>;
+  tracks: ITrack[];
   authId: string;
 }
 

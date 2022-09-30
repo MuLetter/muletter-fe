@@ -1,8 +1,18 @@
-import { RegistedMailBoxInformation } from "@store/types";
+import { IMailBox, RegistedMailBoxInformation } from "@store/types";
 import client from "../client";
 import { ReqPostMailBoxTrackParams, ResPostMailBox } from "./types";
 
 const BASEPATH = "/mailbox";
+
+export const getMailBoxes = async () =>
+  (
+    await client.get<IMailBox[]>(`${BASEPATH}`, {
+      headers: {
+        authorization: localStorage.getItem("muletter-token")!,
+      },
+    })
+  ).data;
+
 export const postMailBox = async (mailBox: RegistedMailBoxInformation) => {
   const formData = new FormData();
 

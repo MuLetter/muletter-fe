@@ -1,17 +1,23 @@
 import { black, white } from "@styles/color";
-import styled from "styled-components";
-import { MailBoxItemControlProps } from "./types";
+import styled, { css } from "styled-components";
+import { MailBoxItemControlProps, MailBoxItemStyleProps } from "./types";
 import _ from "lodash";
 import { MiniAlbumArt, MiniAlbumArtCount } from "./MiniAlbumArt";
 import React from "react";
 import { H6 } from "@styles/font";
+import { STrack } from "@api/types";
+import { IMailBox, ITrack } from "@store/types";
+import { useNavigate } from "react-router-dom";
 
 export function MailBoxItem({
   mailBox,
   tracks,
   isAutoOpen,
-}: MailBoxItemControlProps) {
+  isNavigate,
+  ...styleProps
+}: MailBoxItemControlProps & MailBoxItemStyleProps) {
   const [open, setOpen] = React.useState<boolean>(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (isAutoOpen)
@@ -21,10 +27,18 @@ export function MailBoxItem({
   }, [isAutoOpen]);
 
   return (
-    <MailBoxItemWrap className={`${open ? "open" : ""}`}>
+    <MailBoxItemWrap
+      onClick={
+        isNavigate
+          ? () => navigate(`/mailbox/${(mailBox as IMailBox)._id}`)
+          : undefined
+      }
+      className={`${open ? "open" : ""}`}
+      {...styleProps}
+    >
       <TrackContent className="track-content">
         <TrackContentBody>
-          {_.map(_.sampleSize(tracks, 5), (track) => (
+          {_.map(_.sampleSize(tracks, 5), (track: STrack | ITrack) => (
             <MiniAlbumArt image={track.album.images[0].url} key={track.id} />
           ))}
           {tracks.length > 5 && (
@@ -42,7 +56,7 @@ export function MailBoxItem({
   );
 }
 
-const MailBoxItemWrap = styled.div`
+const MailBoxItemWrap = styled.div<MailBoxItemStyleProps>`
   position: relative;
   width: 400px;
   height: 250px;
@@ -61,6 +75,12 @@ const MailBoxItemWrap = styled.div`
       transform: translateY(68px);
     }
   }
+
+  ${({ isCursor }) =>
+    isCursor &&
+    css`
+      cursor: pointer;
+    `}
 `;
 
 const ArtWrap = styled.div`
@@ -88,6 +108,10 @@ const MailBoxTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: ${white[500]};
+  background: ${black[900]};
+  border-radius: 0 0 16px 16px;
 
   & > * {
     width: 80%;
