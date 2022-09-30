@@ -1,6 +1,6 @@
 import { RegistedMailBoxInformation } from "@store/types";
 import client from "../client";
-import { ResPostMailBox } from "./types";
+import { ReqPostMailBoxTrackParams, ResPostMailBox } from "./types";
 
 const BASEPATH = "/mailbox";
 export const postMailBox = async (mailBox: RegistedMailBoxInformation) => {
@@ -18,3 +18,21 @@ export const postMailBox = async (mailBox: RegistedMailBoxInformation) => {
     })
   ).data;
 };
+
+export const postMailBoxTracks = async ({
+  id,
+  tracks,
+}: ReqPostMailBoxTrackParams) =>
+  (
+    await client.post<any>(
+      `${BASEPATH}/${id}`,
+      {
+        tracks,
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("muletter-token")!,
+        },
+      }
+    )
+  ).data;

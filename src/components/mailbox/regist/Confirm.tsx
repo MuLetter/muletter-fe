@@ -1,9 +1,10 @@
-import { postMailBox } from "@api/mailbox";
+import { postMailBox, postMailBoxTracks } from "@api/mailbox";
 import { Button, ButtonGroup, MailBoxItem } from "@component/common";
 import { registedMailBoxState, selectTracksState } from "@store/atom";
 import { useMutation } from "@tanstack/react-query";
 import { STrackToITrack } from "@utils";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -11,15 +12,25 @@ function Confirm() {
   const [registedId, setRegistedId] = React.useState<string | null>(null);
   const mailBox = useRecoilValue(registedMailBoxState);
   const stracks = useRecoilValue(selectTracksState);
+  const navigate = useNavigate();
 
   const { mutate: postMailBoxMutate } = useMutation(
     ["postMailBox"],
     postMailBox,
     {
       onSuccess: (data) => {
-        console.log(data);
-
+        console.log("postMailBox", data);
         setRegistedId(data.id);
+      },
+    }
+  );
+  const { mutate: postMailBoxTracksMutate } = useMutation(
+    ["postMailBoxTrack"],
+    postMailBoxTracks,
+    {
+      onSuccess: (data) => {
+        console.log("postMailBoxTracks", data);
+        navigate("/mailbox", { replace: true });
       },
     }
   );
@@ -34,9 +45,12 @@ function Confirm() {
     if (registedId) {
       const tracks = STrackToITrack(stracks);
 
-      console.log(tracks);
+      postMailBoxTracksMutate({
+        id: registedId,
+        tracks,
+      });
     }
-  }, [registedId, stracks]);
+  }, [registedId, stracks, postMailBoxTracksMutate]);
 
   return (
     <ConfirmWrap>
