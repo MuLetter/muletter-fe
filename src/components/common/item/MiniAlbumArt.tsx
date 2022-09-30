@@ -1,15 +1,18 @@
-import { black } from "@styles/color";
+import { black, white } from "@styles/color";
 import { fontStyles } from "@styles/font";
 import React from "react";
-import styled from "styled-components";
-import { MiniAlbumArtProps } from "./types";
+import styled, { css } from "styled-components";
+import { MiniAlbumArtProps, MiniStyleProps } from "./types";
 
 export function MiniAlbumArt({ image }: MiniAlbumArtProps) {
   return <MiniAlbumArtImg src={image} />;
 }
 
-export function MiniAlbumArtCount({ children }: React.PropsWithChildren<any>) {
-  return <MiniAlbumArtFrame>{children}</MiniAlbumArtFrame>;
+export function MiniAlbumArtCount({
+  children,
+  ...styleProps
+}: React.PropsWithChildren<MiniStyleProps>) {
+  return <MiniAlbumArtFrame {...styleProps}>{children}</MiniAlbumArtFrame>;
 }
 
 const MiniAlbumArtImg = styled.img`
@@ -19,12 +22,20 @@ const MiniAlbumArtImg = styled.img`
   border-radius: 8px;
 `;
 
-const MiniAlbumArtFrame = styled.div`
+const MiniAlbumArtFrame = styled.div<MiniStyleProps>`
   width: 40px;
   height: 40px;
 
-  border: 1px solid ${black[500]};
-  color: ${black[500]};
+  ${({ colorTheme }) =>
+    colorTheme
+      ? css`
+          border: 1px solid ${white[500]};
+          color: ${white[500]};
+        `
+      : css`
+          border: 1px solid ${black[500]};
+          color: ${black[500]};
+        `}
 
   border-radius: 8px;
   box-sizing: border-box;

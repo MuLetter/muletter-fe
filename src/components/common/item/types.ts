@@ -1,5 +1,11 @@
 import { STrack } from "@api/types";
-import { IMailBox, ITrack, RegistMailBox } from "@store/types";
+import {
+  IMail,
+  IMailBox,
+  ISizeMail,
+  ITrack,
+  RegistMailBox,
+} from "@store/types";
 
 export interface MailBoxItemControlProps {
   mailBox: IMailBox | RegistMailBox;
@@ -14,4 +20,12 @@ export interface MailBoxItemStyleProps {
 
 export interface MiniAlbumArtProps {
   image: string;
+}
+
+export interface MailItemControlProps {
+  mail: IMail | ISizeMail;
+}
+
+export interface MiniStyleProps {
+  colorTheme?: "black" | "white";
 }

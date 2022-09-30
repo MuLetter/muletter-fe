@@ -3,6 +3,7 @@ import MailBoxList from "./MailBoxList";
 import ProfileAndStatus from "./ProfileAndStatus";
 
 export * from "./regist";
+export * from "./detail";
 export function MailBoxComponent() {
   return (
     <Block>

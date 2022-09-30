@@ -2,8 +2,7 @@ import { MailBox3D } from "@asset/symbols";
 import React from "react";
 import { MailBoxWrap } from "../styles";
 
-export * from "./Wizard";
-export function MailBoxRegistComponent({
+export function MailBoxDetailComponent({
   children,
 }: React.PropsWithChildren<any>) {
   const [open, setOpen] = React.useState<boolean>(false);
