@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RecoilRoot } from "recoil";
 import { SocketListener } from "@utils";
+import { AlertListener } from "@component/common";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,6 +26,7 @@ root.render(
       <ReactQueryDevtools />
       <SocketListener />
       <Router>
+        <AlertListener />
         <App />
       </Router>
     </QueryClientProvider>

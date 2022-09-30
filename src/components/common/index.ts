@@ -6,3 +6,4 @@ export * from "./etc";
 export * from "./loading";
 export * from "./card";
 export * from "./item";
+export * from "./alert";
