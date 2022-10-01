@@ -1,4 +1,4 @@
-import { getMailBoxDetail } from "@api/mailbox";
+import { getMailBoxDetail } from "@api";
 import { MailBoxDetailComponent } from "@component";
 import { Col, Row, Wrap } from "@component/mailbox/detail/styles";
 import { useQuery } from "@tanstack/react-query";

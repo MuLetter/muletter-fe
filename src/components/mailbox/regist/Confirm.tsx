@@ -1,4 +1,4 @@
-import { postMailBox, postMailBoxTracks } from "@api/mailbox";
+import { postMailBox, postMailBoxTracks } from "@api";
 import { Button, ButtonGroup, MailBoxItem } from "@component/common";
 import { registedMailBoxState, selectTracksState } from "@store/atom";
 import { useMutation } from "@tanstack/react-query";

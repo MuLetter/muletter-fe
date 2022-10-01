@@ -20,15 +20,19 @@ const NOT_LAYOUT_PAGES = [
 function RootPage() {
   const { pathname } = useLocation();
 
-  return NOT_LAYOUT_PAGES.includes(pathname) ||
-    (!pathname.includes("/mailbox") && pathname.includes("/mail")) ? (
+  return NOT_LAYOUT_PAGES.includes(pathname) ? (
     <Outlet />
   ) : (
     <>
       <Header />
-      <Content>
+      {!pathname.includes("/mailbox") && pathname.includes("/mail") ? (
         <Outlet />
-      </Content>
+      ) : (
+        <Content>
+          <Outlet />
+        </Content>
+      )}
+
       <Footer />
     </>
   );

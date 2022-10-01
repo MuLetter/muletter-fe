@@ -1,4 +1,4 @@
-import { getMailBoxes } from "@api/mailbox";
+import { getMailBoxes } from "@api";
 import { white } from "@styles/color";
 import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";

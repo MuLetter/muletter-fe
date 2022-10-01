@@ -16,9 +16,17 @@ export function MailComponent({ children }: React.PropsWithChildren<any>) {
     }, 500);
   }, []);
 
+  React.useEffect(() => {
+    window.scrollBy({
+      top: 80,
+    });
+  }, []);
+
   return (
     <Wrap ref={refScreen}>
-      <Mail3D isOpen={open} refScreen={refScreen} />
+      <Mail3D isOpen={open} refScreen={refScreen}>
+        {children}
+      </Mail3D>
     </Wrap>
   );
 }
