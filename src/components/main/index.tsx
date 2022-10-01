@@ -3,6 +3,7 @@ import { Button, VerticalTextItem } from "@component/common";
 import { H1 } from "@styles/font";
 import React from "react";
 import { Link } from "react-router-dom";
+import { DataCardWrap } from "./DataCard";
 import { JoinIntroWrap, MailBoxIntroWrap, MailIntroWrap } from "./styles";
 
 export function MailIntro() {
@@ -26,6 +27,7 @@ export function MailIntro() {
         </H1>
         <div className="content">
           <VerticalTextItem text="팀 따스함" />
+          <DataCardWrap />
         </div>
       </div>
       <div className="mail-wrap">

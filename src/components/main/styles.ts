@@ -18,6 +18,9 @@ export const MailIntroWrap = styled.div`
     justify-content: center;
 
     & > .content {
+      display: flex;
+      flex-direction: row;
+
       height: 360px;
       margin: 40px 0 0;
     }
