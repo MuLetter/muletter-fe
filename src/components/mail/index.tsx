@@ -1,5 +1,5 @@
 import { Mail3D } from "@asset/symbols";
-import { Wrap } from "./styles";
+import { RecoListWrap, Wrap } from "./styles";
 import React from "react";
 
 export function MailComponent({ children }: React.PropsWithChildren<any>) {
@@ -25,7 +25,7 @@ export function MailComponent({ children }: React.PropsWithChildren<any>) {
   return (
     <Wrap ref={refScreen}>
       <Mail3D isOpen={open} refScreen={refScreen}>
-        {children}
+        <RecoListWrap>{children}</RecoListWrap>
       </Mail3D>
     </Wrap>
   );
