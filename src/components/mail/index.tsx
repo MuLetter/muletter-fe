@@ -4,15 +4,11 @@ import React from "react";
 
 export function MailComponent({ children }: React.PropsWithChildren<any>) {
   const [open, setOpen] = React.useState<boolean>(false);
-  const [bgView, setBgView] = React.useState<boolean>(false);
   const refScreen = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     setTimeout(() => {
       setOpen(true);
-      setTimeout(() => {
-        setBgView(true);
-      }, 750);
     }, 500);
   }, []);
 

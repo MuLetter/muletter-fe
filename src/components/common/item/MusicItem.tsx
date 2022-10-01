@@ -3,10 +3,16 @@ import { black } from "@styles/color";
 import { P2, P4 } from "@styles/font";
 import _ from "lodash";
 import styled from "styled-components";
+import { MusicItemControlProps } from "./types";
 
-export function BasicMusicItem({ album, artists, name }: ITrack) {
+export function BasicMusicItem({
+  album,
+  artists,
+  name,
+  onMouseEnter,
+}: ITrack & MusicItemControlProps) {
   return (
-    <Wrap>
+    <Wrap onMouseMove={onMouseEnter} onMouseEnter={onMouseEnter}>
       <AlbumArt src={album.images.length !== 0 ? album.images[0].url : ""} />
       <TitleWrap>
         <P4>

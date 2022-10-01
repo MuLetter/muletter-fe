@@ -11,8 +11,6 @@ import Nav from "./Nav";
 export function Header() {
   const auth = useRecoilValue(authState);
 
-  console.log(auth);
-
   return (
     <Container>
       <Block className="left">
@@ -39,6 +37,7 @@ export function Header() {
 }
 
 const Container = styled.header`
+  position: relative;
   width: 100vw;
   min-height: 120px;
 
@@ -50,6 +49,8 @@ const Container = styled.header`
   align-items: center;
 
   position: relative;
+
+  z-index: 500;
 `;
 
 const Block = styled.div`

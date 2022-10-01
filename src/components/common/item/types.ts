@@ -30,3 +30,7 @@ export interface MailItemControlProps {
 export interface MiniStyleProps {
   colorTheme?: "black" | "white";
 }
+
+export interface MusicItemControlProps {
+  onMouseEnter?: (...args: any) => void;
+}
