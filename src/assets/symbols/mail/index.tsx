@@ -15,16 +15,14 @@ export function Mail3D({
   const [letterView, setLetterView] = React.useState<boolean>(false);
   const refLetter = React.useRef<HTMLDivElement>(null);
 
-  // open 액션용
-  const changeLetterView = React.useCallback(
-    (state: boolean) => {
-      setLetterView(state);
-      if (refWrap.current) {
-        if (isDown) setDown(isDown);
-      }
-    },
-    [isDown]
-  );
+  const resizing = React.useCallback(() => {
+    if (refWrap.current) {
+      const { top } = refWrap.current.getBoundingClientRect();
+
+      if (top - 400 < 160) setDown(true);
+      else setDown(false);
+    }
+  }, []);
 
   // close action 용
   const changeLid = React.useCallback((state: boolean) => {
@@ -37,6 +35,22 @@ export function Mail3D({
         refLetter.current!.scrollTop += e.deltaY;
       });
   }, [refScreen]);
+
+  // open 액션용
+  const changeLetterView = React.useCallback(
+    (state: boolean) => {
+      setLetterView(state);
+      if (refWrap.current) {
+        const { top } = refWrap.current.getBoundingClientRect();
+
+        if (top - 400 < 160) setDown(true);
+        else setDown(false);
+
+        window.addEventListener("resize", resizing);
+      }
+    },
+    [resizing]
+  );
 
   return (
     <Mail ref={refWrap} className={`${down ? "down" : ""}`}>

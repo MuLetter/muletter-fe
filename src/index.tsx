@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RecoilRoot } from "recoil";
-import { SocketListener } from "@utils";
+import { ScrollToTop, SocketListener } from "@utils";
 import { AlertListener } from "@component/common";
 
 const root = ReactDOM.createRoot(
@@ -26,6 +26,7 @@ root.render(
       <ReactQueryDevtools />
       <SocketListener />
       <Router>
+        <ScrollToTop />
         <AlertListener />
         <App />
       </Router>
