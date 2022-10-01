@@ -11,7 +11,7 @@ export function Mail3D({
   isRotate,
 }: React.PropsWithChildren<MailControlProps & MailStyleProps>) {
   const refWrap = React.useRef<HTMLDivElement>(null);
-  const [down, setDown] = React.useState<boolean>(false);
+  const [down, setDown] = React.useState<boolean>(isDown ? isDown : false);
   const [letterView, setLetterView] = React.useState<boolean>(false);
   const refLetter = React.useRef<HTMLDivElement>(null);
 
@@ -20,7 +20,6 @@ export function Mail3D({
       const { top } = refWrap.current.getBoundingClientRect();
 
       if (top - 400 < 160) setDown(true);
-      else setDown(false);
     }
   }, []);
 
@@ -44,7 +43,6 @@ export function Mail3D({
         const { top } = refWrap.current.getBoundingClientRect();
 
         if (top - 400 < 160) setDown(true);
-        else setDown(false);
 
         window.addEventListener("resize", resizing);
       }

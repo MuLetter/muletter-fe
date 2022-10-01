@@ -28,7 +28,7 @@ export const MailIntroWrap = styled.div`
 
   & > .mail-wrap {
     display: flex;
-    margin: 0 64px 0;
+    margin: 0 180px 0 0;
 
     justify-content: flex-start;
     align-items: center;

@@ -1,6 +1,6 @@
 import { IAuth } from "@store/types";
 import client from "../client";
-import { JoinForm, LoginForm, ResPostAuth } from "./types";
+import { JoinForm, LoginForm, ResGetInfo, ResPostAuth } from "./types";
 
 const BASEPATH = "/auth";
 
@@ -13,6 +13,14 @@ export const check = async (token: string) =>
     await client.get<IAuth>(`${BASEPATH}`, {
       headers: {
         authorization: token,
+      },
+    })
+  ).data;
+export const getInfo = async () =>
+  (
+    await client.get<ResGetInfo>(`${BASEPATH}/info`, {
+      headers: {
+        authorization: localStorage.getItem("muletter-token")!,
       },
     })
   ).data;

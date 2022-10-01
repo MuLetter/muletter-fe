@@ -53,18 +53,20 @@ function Confirm() {
   }, [registedId, stracks, postMailBoxTracksMutate]);
 
   return (
-    <ConfirmWrap>
-      <MailBoxItem
-        mailBox={{ title: mailBox!.title, image: mailBox!.imageLinkBak }}
-        tracks={stracks}
-        isAutoOpen
-      />
-      <ButtonGroup>
-        <Button type="button" colorTheme="outline" onClick={onRegist}>
-          등록하기
-        </Button>
-      </ButtonGroup>
-    </ConfirmWrap>
+    <>
+      <ConfirmWrap>
+        <MailBoxItem
+          mailBox={{ title: mailBox!.title, image: mailBox!.imageLinkBak }}
+          tracks={stracks}
+          isAutoOpen
+        />
+        <ButtonGroup>
+          <Button type="button" colorTheme="outline" onClick={onRegist}>
+            등록하기
+          </Button>
+        </ButtonGroup>
+      </ConfirmWrap>
+    </>
   );
 }
 

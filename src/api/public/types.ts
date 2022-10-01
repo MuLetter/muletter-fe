@@ -25,3 +25,10 @@ export interface PostOAuthBakParams {
   state: string;
   data: any;
 }
+
+export interface ResGetService {
+  count: {
+    mail: number;
+    mailBox: number;
+  };
+}

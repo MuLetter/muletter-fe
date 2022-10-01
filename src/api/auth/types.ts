@@ -10,3 +10,10 @@ export interface JoinForm extends LoginForm {
 export interface ResPostAuth {
   token: string;
 }
+
+export interface ResGetInfo {
+  count: {
+    mail: number;
+    mailBox: number;
+  };
+}

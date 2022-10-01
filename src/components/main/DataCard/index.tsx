@@ -1,9 +1,15 @@
+import { getServiceInfo } from "@api";
 import { white } from "@styles/color";
-import { H1, H2, P2 } from "@styles/font";
+import { H1, P2 } from "@styles/font";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { DataCardBlock, DataCardSvg, Wrap } from "./styles";
+import { DataCardProps } from "./types";
 
-export function DataCard() {
+export function DataCard({
+  title,
+  children,
+}: React.PropsWithChildren<DataCardProps>) {
   const [pathLength, setPathLength] = React.useState<number | undefined>();
   const refSvg = React.useRef<SVGSVGElement>(null);
   const refTitle = React.useRef<HTMLParagraphElement>(null);
@@ -40,18 +46,26 @@ export function DataCard() {
         pathLength={pathLength}
       />
       <P2 ref={refTitle} className="title">
-        우체통 등록 수
+        {title}
       </P2>
-      <H1 className="value">46</H1>
+      <H1 className="value">{children}</H1>
     </DataCardBlock>
   );
 }
 
 export function DataCardWrap() {
+  const { data: serviceInfo } = useQuery(["getServiceInfo"], getServiceInfo);
+
   return (
     <Wrap>
-      <DataCard />
-      <DataCard />
+      {serviceInfo && (
+        <>
+          <DataCard title="우체통 등록 수">
+            {serviceInfo.count.mailBox}
+          </DataCard>
+          <DataCard title="편지 작성 수">{serviceInfo.count.mail}</DataCard>
+        </>
+      )}
     </Wrap>
   );
 }

@@ -14,3 +14,5 @@ export const getSpotifyOAuthToken = async (search: string) =>
 
 export const postOAuthBak = async ({ state, data }: PostOAuthBakParams) =>
   (await client.post(`/spotify-oauth/${state}`, data)).data;
+
+export const getServiceInfo = async () => (await client.get("/service")).data;
