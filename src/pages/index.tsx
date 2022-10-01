@@ -6,6 +6,7 @@ export * from "./main";
 export * from "./auth";
 export * from "./mailbox";
 export * from "./map";
+export * from "./mail";
 
 const NOT_LAYOUT_PAGES = [
   "/auth",

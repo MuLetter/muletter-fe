@@ -24,6 +24,7 @@ export interface MiniAlbumArtProps {
 
 export interface MailItemControlProps {
   mail: IMail | ISizeMail;
+  clickAction?: (...args: any) => void;
 }
 
 export interface MiniStyleProps {

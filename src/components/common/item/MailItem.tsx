@@ -5,26 +5,32 @@ import { black } from "@styles/color";
 import { MiniAlbumArt, MiniAlbumArtCount } from "./MiniAlbumArt";
 import { ISizeMail } from "@store/types";
 
-export function MailItem({ mail }: MailItemControlProps) {
+export function MailItem({ mail, clickAction }: MailItemControlProps) {
   return (
-    <Wrap>
+    <Wrap onClick={clickAction}>
       <AlbumArt
-        src={_.maxBy(mail.tracks[0].album.images, ({ width }) => width)!.url}
+        className="mail-album-art"
+        src={
+          _.maxBy(_.sample(mail.tracks)!.album.images, ({ width }) => width)!
+            .url
+        }
         alt="album-art"
       />
-      <MiniAlbumArtGroup>
-        {_.map(mail.tracks, (track) => (
-          <MiniAlbumArt
-            key={`mini-album-art-${track.id}`}
-            image={_.maxBy(track.album.images, ({ width }) => width)!.url}
-          />
-        ))}
-        {(mail as ISizeMail).size && (
-          <MiniAlbumArtCount colorTheme="white">
-            +{(mail as ISizeMail).size - mail.tracks.length}
-          </MiniAlbumArtCount>
-        )}
-      </MiniAlbumArtGroup>
+      <BlurLayer>
+        <MiniAlbumArtGroup>
+          {_.map(mail.tracks, (track) => (
+            <MiniAlbumArt
+              key={`mini-album-art-${track.id}`}
+              image={_.maxBy(track.album.images, ({ width }) => width)!.url}
+            />
+          ))}
+          {(mail as ISizeMail).size && (
+            <MiniAlbumArtCount colorTheme="white">
+              +{(mail as ISizeMail).size - mail.tracks.length}
+            </MiniAlbumArtCount>
+          )}
+        </MiniAlbumArtGroup>
+      </BlurLayer>
     </Wrap>
   );
 }
@@ -38,6 +44,14 @@ const Wrap = styled.div`
   border-radius: 0 0 16px 16px;
 
   overflow: hidden;
+
+  cursor: pointer;
+  box-shadow: 4px 4px 4px ${black[900]};
+
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.15, 1.15);
+  }
 `;
 
 const AlbumArt = styled.img`
@@ -50,9 +64,10 @@ const AlbumArt = styled.img`
   left: 0;
 
   object-fit: cover;
+  border-radius: 0 0 16px 16px;
 `;
 
-const MiniAlbumArtGroup = styled.div`
+const BlurLayer = styled.div`
   position: absolute;
 
   width: 400px;
@@ -68,6 +83,14 @@ const MiniAlbumArtGroup = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+`;
+
+const MiniAlbumArtGroup = styled.div`
+  margin: 24px 0 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 
   column-gap: 10px;
 `;

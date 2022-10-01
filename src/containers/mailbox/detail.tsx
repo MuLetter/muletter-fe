@@ -2,7 +2,7 @@ import { getMailBoxDetail } from "@api/mailbox";
 import { MailBoxDetailComponent } from "@component";
 import { Col, Row, Wrap } from "@component/mailbox/detail/styles";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 import { MailItem } from "@component/common";
 
@@ -11,6 +11,7 @@ export function MailBoxDetailContainer() {
   const { data: mails } = useQuery(["getMailBox", id], () =>
     getMailBoxDetail(id!)
   );
+  const navigate = useNavigate();
 
   return mails ? (
     <MailBoxDetailComponent>
@@ -18,7 +19,10 @@ export function MailBoxDetailContainer() {
         <Row>
           {_.map(mails, (mail) => (
             <Col key={mail._id}>
-              <MailItem mail={mail} />
+              <MailItem
+                clickAction={() => navigate(`/mail/${mail._id}`)}
+                mail={mail}
+              />
             </Col>
           ))}
         </Row>

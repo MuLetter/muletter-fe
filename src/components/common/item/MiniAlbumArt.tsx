@@ -30,7 +30,8 @@ const MiniAlbumArtFrame = styled.div<MiniStyleProps>`
     colorTheme
       ? css`
           border: 1px solid ${white[500]};
-          color: ${white[500]};
+          color: ${black[500]};
+          background: ${white[500]};
         `
       : css`
           border: 1px solid ${black[500]};
