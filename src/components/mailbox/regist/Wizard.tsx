@@ -3,7 +3,7 @@ import { P4 } from "@styles/font";
 import React from "react";
 import styled from "styled-components";
 import Process from "./Process";
-import { StepStyleProps } from "./types";
+import { StepStyleProps, WizardProps } from "./types";
 
 function Step({ isLast, title }: StepStyleProps) {
   return (
@@ -55,15 +55,19 @@ const StepWrap = styled.div`
   row-gap: 4px;
 `;
 
-export function Wizard() {
+export function Wizard({ onAlert }: WizardProps) {
   const [step, setStep] = React.useState<number>(0);
   const refNextConfirm = React.useRef<(() => Promise<boolean>) | null>(null);
 
   const nextStep = React.useCallback(async () => {
     if (refNextConfirm.current) if (!(await refNextConfirm.current())) return;
 
-    setStep((prev) => prev + 1);
-  }, []);
+    if (step < 2) {
+      setStep((prev) => prev + 1);
+    } else {
+      onAlert();
+    }
+  }, [step, onAlert]);
 
   const prevStep = React.useCallback(() => {
     setStep((prev) => prev - 1);
@@ -94,7 +98,9 @@ export function Wizard() {
           />
         ))}
       </StepBlock>
-      <Content>{Process[step].component({ setNextConfirm })}</Content>
+      <Content>
+        {Process[step].component({ setNextConfirm, next: nextStep })}
+      </Content>
     </Block>
   );
 }

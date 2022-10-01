@@ -4,15 +4,14 @@ import { registedMailBoxState, selectTracksState } from "@store/atom";
 import { useMutation } from "@tanstack/react-query";
 import { STrackToITrack } from "@utils";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { ConfirmControlProps } from "./types";
 
-function Confirm() {
+function Confirm({ next }: ConfirmControlProps) {
   const [registedId, setRegistedId] = React.useState<string | null>(null);
   const mailBox = useRecoilValue(registedMailBoxState);
   const stracks = useRecoilValue(selectTracksState);
-  const navigate = useNavigate();
 
   const { mutate: postMailBoxMutate } = useMutation(
     ["postMailBox"],
@@ -30,7 +29,7 @@ function Confirm() {
     {
       onSuccess: (data) => {
         console.log("postMailBoxTracks", data);
-        navigate("/mailbox", { replace: true });
+        next();
       },
     }
   );

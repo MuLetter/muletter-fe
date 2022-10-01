@@ -1,20 +1,23 @@
+import { STrack } from "@api/types";
 import { black, white } from "@styles/color";
 import { H1, H3 } from "@styles/font";
+import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../button";
+import { MusicCard } from "../card";
 import { OKAlertProps } from "./types";
 
-export function OKAlert({ title, subtitle }: OKAlertProps) {
+export function OKAlert({ title, subtitle, tracks }: OKAlertProps) {
   const navigate = useNavigate();
 
   return (
     <Wrap>
       <H1 className="title">{title}</H1>
       <Row className="tracks">
-        {/* {_.map(_.take(recoTracks, 5), (track) => (
-          <SelectItem key={track.id} track={track} />
-        ))} */}
+        {_.map(_.take(tracks as STrack[], 5), (track) => (
+          <MusicCard key={track.id} track={track} />
+        ))}
       </Row>
       <H3 className="description">{subtitle}</H3>
       <Button

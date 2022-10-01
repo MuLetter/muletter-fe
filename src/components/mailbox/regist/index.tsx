@@ -1,9 +1,11 @@
 import { MailBox3D } from "@asset/symbols";
-import { OKAlert } from "@component/common/alert/OKAlert";
+
 import React from "react";
 import { MailBoxWrap } from "../styles";
 
 export * from "./Wizard";
+export * from "./RegistOKAlert";
+
 export function MailBoxRegistComponent({
   children,
 }: React.PropsWithChildren<any>) {
@@ -43,10 +45,6 @@ export function MailBoxRegistComponent({
         >
           {children}
         </MailBox3D>
-        <OKAlert
-          title="우체통이 등록 되었어요."
-          subtitle="당신만을 위한 음악들을 적어서 보내드릴게요."
-        />
       </MailBoxWrap>
     </>
   );

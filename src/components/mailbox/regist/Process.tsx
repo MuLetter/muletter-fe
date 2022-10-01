@@ -14,7 +14,7 @@ const Process: ProcessItem[] = [
   },
   {
     title: "우체통 정보 확인",
-    component: (wizardProps) => <Confirm />,
+    component: (wizardProps) => <Confirm next={wizardProps.next} />,
   },
 ];
 
