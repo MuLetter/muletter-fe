@@ -20,7 +20,13 @@ export function MailBoxDetailContainer() {
           {_.map(mails, (mail) => (
             <Col key={mail._id}>
               <MailItem
-                clickAction={() => navigate(`/mail/${mail._id}`)}
+                clickAction={() =>
+                  navigate(`/mail/${mail._id}`, {
+                    state: {
+                      mailBoxId: id,
+                    },
+                  })
+                }
                 mail={mail}
               />
             </Col>

@@ -24,6 +24,7 @@ export interface ITrack {
   album: IAlbum;
 
   isUse?: boolean;
+  label?: number;
 }
 
 export interface IAlbum {

@@ -33,4 +33,7 @@ export interface MiniStyleProps {
 
 export interface MusicItemControlProps {
   onMouseEnter?: (...args: any) => void;
+  isIconTool?: boolean;
+  isLike?: boolean;
+  mailBoxId?: string;
 }
