@@ -2,6 +2,7 @@ import { getMail } from "@api";
 import { MailComponent } from "@component";
 import { BasicMusicItem } from "@component/common";
 import Background from "@component/mail/Background";
+import { ReplyThx } from "@component/mail/ReplyThx";
 import { ITrack } from "@store/types";
 import { useQuery } from "@tanstack/react-query";
 import _ from "lodash";
@@ -45,6 +46,7 @@ export function MailContainer() {
 
   return (
     <>
+      <ReplyThx />
       {bgView && <Background imgSrc={backgroundSrc} />}
       <MailComponent>
         {data &&
