@@ -1,6 +1,6 @@
 import { getSpotifyOAuth, postOAuthBak } from "@api";
 import { join } from "@api";
-import { JoinForm } from "@api/types";
+import { JoinForm, SpotifyUser } from "@api/types";
 import { JoinComponent } from "@component";
 import { useAuth } from "@hooks";
 import { SpotifyToken } from "@store/types";
@@ -22,6 +22,9 @@ export function JoinContainer() {
     },
   });
   const { state } = useLocation();
+  const [spotifyProfie, setSpotifyProfile] = React.useState<SpotifyUser | null>(
+    null
+  );
   const [spotifyToken, setSpotifyToken] = React.useState<SpotifyToken | null>(
     null
   );
@@ -49,7 +52,10 @@ export function JoinContainer() {
 
   React.useEffect(() => {
     console.log(state);
-    if (state) setSpotifyToken((state as any).spotifyToken);
+    if (state) {
+      setSpotifyProfile((state as any).spotifyProfile);
+      setSpotifyToken((state as any).spotifyToken);
+    }
   }, [state]);
 
   React.useEffect(() => {
@@ -58,9 +64,13 @@ export function JoinContainer() {
 
   const onSubmit: SubmitHandler<JoinForm> = React.useCallback(
     (data) => {
-      joinMutate(data);
+      if (spotifyToken) {
+        joinMutate({ ...data, spotifyToken: spotifyToken });
+      } else {
+        joinMutate(data);
+      }
     },
-    [joinMutate]
+    [joinMutate, spotifyToken]
   );
 
   return (
@@ -70,6 +80,8 @@ export function JoinContainer() {
         onSpotifyOAuth={onSpotifyOAuth}
         register={register}
         onSubmit={handleSubmit(onSubmit)}
+        spotifyToken={spotifyToken}
+        spotifyProfile={spotifyProfie}
       />
     </>
   );

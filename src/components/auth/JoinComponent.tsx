@@ -1,7 +1,7 @@
 import { LogoWhite } from "@asset/spotify";
 import { Button, TextInput } from "@component/common";
-import { H1, Tag1 } from "@styles/font";
-import { AuthForm, ButtonWrap, InputGroup } from "./styles";
+import { H1, P3, Tag1 } from "@styles/font";
+import { AuthForm, ButtonWrap, InputGroup, SpotifyWrap } from "./styles";
 import { JoinProps } from "./types";
 
 export function JoinComponent({
@@ -9,6 +9,8 @@ export function JoinComponent({
   onSpotifyOAuth,
   register,
   onSubmit,
+  spotifyToken,
+  spotifyProfile,
 }: JoinProps) {
   return (
     <AuthForm onSubmit={onSubmit}>
@@ -33,23 +35,31 @@ export function JoinComponent({
           {...register("nickname")}
         />
       </InputGroup>
-      <ButtonWrap marginTop={24}>
-        <Tag1>
-          Spotify 계정을 연결하시면,
-          <br />
-          스트리밍 서비스를 이용하실 수 있습니다.
-        </Tag1>
-        <Button
-          type="button"
-          colorTheme="black"
-          size="m"
-          disabled={!oauthUrl}
-          onClick={oauthUrl ? onSpotifyOAuth : undefined}
-        >
-          <img src={LogoWhite} alt="spotify-logo-white" />
-          <span>Spotify 계정 연동하기</span>
-        </Button>
-      </ButtonWrap>
+      {spotifyToken ? (
+        <SpotifyWrap>
+          <P3>{spotifyProfile?.display_name}</P3>
+          <img src={spotifyProfile?.images[0].url} alt="spotify-profile" />
+        </SpotifyWrap>
+      ) : (
+        <ButtonWrap marginTop={24}>
+          <Tag1>
+            Spotify 계정을 연결하시면,
+            <br />
+            스트리밍 서비스를 이용하실 수 있습니다.
+          </Tag1>
+          <Button
+            type="button"
+            colorTheme="black"
+            size="m"
+            disabled={!oauthUrl}
+            onClick={oauthUrl ? onSpotifyOAuth : undefined}
+          >
+            <img src={LogoWhite} alt="spotify-logo-white" />
+            <span>Spotify 계정 연동하기</span>
+          </Button>
+        </ButtonWrap>
+      )}
+
       <ButtonWrap marginTop={32}>
         <Button type="submit" colorTheme="black">
           가입하기

@@ -11,6 +11,8 @@ import Nav from "./Nav";
 export function Header() {
   const auth = useRecoilValue(authState);
 
+  console.log(auth);
+
   return (
     <Container>
       <Block className="left">

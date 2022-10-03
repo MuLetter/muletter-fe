@@ -1,3 +1,5 @@
+import { SpotifyToken } from "@store/types";
+
 export interface LoginForm {
   username: string;
   password: string;
@@ -5,6 +7,7 @@ export interface LoginForm {
 
 export interface JoinForm extends LoginForm {
   nickname: string;
+  spotifyToken?: SpotifyToken;
 }
 
 export interface ResPostAuth {

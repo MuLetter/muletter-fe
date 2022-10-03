@@ -28,3 +28,21 @@ export const ButtonWrap = styled.div<{ marginTop: number }>`
     flex: 1;
   }
 `;
+
+export const SpotifyWrap = styled.div`
+  margin: 16px 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 10px;
+
+  & > img {
+    width: 48px;
+    height: 48px;
+
+    object-fit: cover;
+    border-radius: 24px;
+  }
+`;
