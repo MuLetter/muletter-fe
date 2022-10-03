@@ -1,4 +1,5 @@
 import client from "@api/client";
+import { ITrack } from "@store/types";
 import { ResDisLike, ResLike, ResMail } from "./types";
 
 const BASEPATH = "/mail";
@@ -28,4 +29,17 @@ export const disLikeMusic = async (data: ResDisLike) =>
         authorization: localStorage.getItem("muletter-token")!,
       },
     })
+  ).data;
+
+export const replyMail = async (id: string) =>
+  (
+    await client.post<ITrack[]>(
+      `${BASEPATH}/reply/${id}`,
+      {},
+      {
+        headers: {
+          authorization: localStorage.getItem("muletter-token")!,
+        },
+      }
+    )
   ).data;

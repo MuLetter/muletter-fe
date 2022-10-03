@@ -1,10 +1,9 @@
-import { getMail } from "@api";
+import { getMail, replyMail } from "@api";
 import { MailComponent } from "@component";
-import { BasicMusicItem } from "@component/common";
+import { BasicMusicItem, OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
-import { ReplyThx } from "@component/mail/ReplyThx";
 import { ITrack } from "@store/types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -18,6 +17,11 @@ export function MailContainer() {
   >(data ? _.sample(data.mail.tracks) : null);
   const [bgView, setBgView] = React.useState<boolean>(false);
   const [backgroundSrc, setBackgroundSrc] = React.useState<string | null>(null);
+
+  const { mutate: replyMutate, data: unuseDatas } = useMutation(
+    ["replyMutation"],
+    replyMail
+  );
 
   React.useEffect(() => {
     if (selectedTrack) {
@@ -44,11 +48,31 @@ export function MailContainer() {
     setSelectedTrack(track);
   }, []);
 
+  const onReply = React.useCallback(() => {
+    if (data) {
+      replyMutate(data.mail.mailBoxId);
+    }
+  }, [data, replyMutate]);
+
   return (
     <>
-      <ReplyThx />
+      {unuseDatas && (
+        <OKAlert
+          title="답장 고마워요."
+          tracks={unuseDatas}
+          subtitle="당신만을 위한 음악들을 적어서 보내드릴게요."
+        />
+      )}
       {bgView && <Background imgSrc={backgroundSrc} />}
-      <MailComponent>
+      <MailComponent
+        buttons={[
+          {
+            title: "답장하기",
+            clickAction: onReply,
+            type: "button",
+          },
+        ]}
+      >
         {data &&
           _.map(data.mail.tracks, (track) => (
             <BasicMusicItem

@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface LidStyleProps {
   isOpen?: boolean;
 }
@@ -19,8 +21,15 @@ export interface MailStyleProps {
   isRotate?: boolean;
 }
 
+export interface ButtonProps {
+  title: string;
+  clickAction?: (...args: any) => void;
+  type?: "button" | "submit";
+}
+
 export interface MailControlProps {
   isDown?: boolean;
   isOpen?: boolean;
   refScreen?: React.RefObject<HTMLDivElement>;
+  buttons?: ButtonProps[];
 }

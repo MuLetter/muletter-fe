@@ -1,3 +1,4 @@
+import { Button, ButtonGroup } from "@component/common";
 import React from "react";
 import styled, { css } from "styled-components";
 import { Back, Front, Letter, LetterBottomGuard, Lid } from "./Items3D";
@@ -9,6 +10,7 @@ export function Mail3D({
   isDown,
   refScreen,
   isRotate,
+  buttons,
 }: React.PropsWithChildren<MailControlProps & MailStyleProps>) {
   const refWrap = React.useRef<HTMLDivElement>(null);
   const [down, setDown] = React.useState<boolean>(isDown ? isDown : false);
@@ -64,6 +66,20 @@ export function Mail3D({
         <LetterBottomGuard />
         <Front />
         <Lid isOpen={isOpen} animationEnd={changeLetterView} />
+        {buttons && (
+          <ButtonGroup className="btn-grp">
+            {buttons.map(({ title, clickAction, type }, idx) => (
+              <Button
+                key={`btn-grp-${idx}`}
+                type={type}
+                onClick={clickAction}
+                colorTheme="black"
+              >
+                {title}
+              </Button>
+            ))}
+          </ButtonGroup>
+        )}
       </MailWrap>
     </Mail>
   );
@@ -90,6 +106,13 @@ const MailWrap = styled.div<MailStyleProps>`
     position: absolute;
     top: 0;
     left: 0;
+  }
+
+  & > .btn-grp {
+    top: unset;
+    left: unset;
+    right: 24px;
+    bottom: 16px;
   }
 
   transition: 0.5s ease-out;
