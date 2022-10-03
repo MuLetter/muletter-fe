@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 import { MailItem } from "@component/common";
+import { OpacityAnimationCont } from "@styles/block";
 
 export function MailBoxDetailContainer() {
   const { id } = useParams();
@@ -14,28 +15,30 @@ export function MailBoxDetailContainer() {
   const navigate = useNavigate();
 
   return mails ? (
-    <MailBoxDetailComponent>
-      <Wrap className="mailbox-detail-wrap">
-        {_.map(_.chunk(mails, 2), (_mails, idx) => (
-          <Row key={`mailbox-detai-row-${idx}`}>
-            {_.map(_mails, (mail) => (
-              <Col key={mail._id}>
-                <MailItem
-                  clickAction={() =>
-                    navigate(`/mail/${mail._id}`, {
-                      state: {
-                        mailBoxId: id,
-                      },
-                    })
-                  }
-                  mail={mail}
-                />
-              </Col>
-            ))}
-          </Row>
-        ))}
-      </Wrap>
-    </MailBoxDetailComponent>
+    <OpacityAnimationCont>
+      <MailBoxDetailComponent>
+        <Wrap className="mailbox-detail-wrap">
+          {_.map(_.chunk(mails, 2), (_mails, idx) => (
+            <Row key={`mailbox-detai-row-${idx}`}>
+              {_.map(_mails, (mail) => (
+                <Col key={mail._id}>
+                  <MailItem
+                    clickAction={() =>
+                      navigate(`/mail/${mail._id}`, {
+                        state: {
+                          mailBoxId: id,
+                        },
+                      })
+                    }
+                    mail={mail}
+                  />
+                </Col>
+              ))}
+            </Row>
+          ))}
+        </Wrap>
+      </MailBoxDetailComponent>
+    </OpacityAnimationCont>
   ) : (
     <></>
   );

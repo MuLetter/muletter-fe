@@ -2,6 +2,7 @@ import { Mail3D } from "@asset/symbols";
 import { RecoListWrap, Wrap } from "./styles";
 import React from "react";
 import { MailComponentProps } from "./types";
+import { OpacityAnimationCont } from "@styles/block";
 
 export function MailComponent({
   children,
@@ -23,10 +24,12 @@ export function MailComponent({
   }, []);
 
   return (
-    <Wrap ref={refScreen}>
-      <Mail3D isOpen={open} refScreen={refScreen} buttons={buttons}>
-        <RecoListWrap>{children}</RecoListWrap>
-      </Mail3D>
-    </Wrap>
+    <OpacityAnimationCont>
+      <Wrap ref={refScreen}>
+        <Mail3D isOpen={open} refScreen={refScreen} buttons={buttons}>
+          <RecoListWrap>{children}</RecoListWrap>
+        </Mail3D>
+      </Wrap>
+    </OpacityAnimationCont>
   );
 }

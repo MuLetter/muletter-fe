@@ -1,4 +1,5 @@
 import { STrack } from "@api/types";
+import { BounceAnimationCont } from "@styles/block";
 import { black, white } from "@styles/color";
 import { H1, H3 } from "@styles/font";
 import _ from "lodash";
@@ -13,19 +14,21 @@ export function OKAlert({ title, subtitle, tracks }: OKAlertProps) {
 
   return (
     <Wrap>
-      <H1 className="title">{title}</H1>
-      <Row className="tracks">
-        {_.map(_.take(tracks as STrack[], 5), (track) => (
-          <MusicCard key={track.id} track={track} />
-        ))}
-      </Row>
-      <H3 className="description">{subtitle}</H3>
-      <Button
-        colorTheme="outline"
-        onClick={() => navigate("/mailbox", { replace: true })}
-      >
-        확인
-      </Button>
+      <BounceAnimationCont>
+        <H1 className="title">{title}</H1>
+        <Row className="tracks">
+          {_.map(_.take(tracks as STrack[], 5), (track) => (
+            <MusicCard key={track.id} track={track} />
+          ))}
+        </Row>
+        <H3 className="description">{subtitle}</H3>
+        <Button
+          colorTheme="outline"
+          onClick={() => navigate("/mailbox", { replace: true })}
+        >
+          확인
+        </Button>
+      </BounceAnimationCont>
     </Wrap>
   );
 }
@@ -50,17 +53,24 @@ const Wrap = styled.div`
 
   z-index: 50000;
 
-  & > .title,
+  & .title,
   .description {
     margin: 0 0 32px;
   }
 
-  & > .description {
+  & .description {
     color: ${white[700]};
   }
 
-  & > button {
+  & button {
     width: 280px;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

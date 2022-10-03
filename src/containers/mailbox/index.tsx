@@ -1,7 +1,12 @@
 import { MailBoxComponent } from "@component";
+import { OpacityAnimationCont } from "@styles/block";
 
 export function MailBoxContainer() {
-  return <MailBoxComponent />;
+  return (
+    <OpacityAnimationCont>
+      <MailBoxComponent />
+    </OpacityAnimationCont>
+  );
 }
 
 export * from "./regist";
