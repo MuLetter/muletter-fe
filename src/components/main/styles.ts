@@ -40,27 +40,29 @@ export const MailBoxIntroWrap = styled.div`
   display: flex;
 
   width: 100%;
-  height: 350px;
+  height: 326px;
   margin: 0 0 232px;
+
+  & > .title {
+    position: absolute;
+    right: calc(80px + 32px);
+    top: 12px;
+    text-align: right;
+  }
 
   & > .mailbox-wrap {
     position: relative;
+    margin: 120px 0 0;
+
     flex: 1;
     height: 100%;
-
-    & > .title {
-      position: absolute;
-      right: 32px;
-      top: 12px;
-      text-align: right;
-    }
   }
 `;
 
 export const JoinIntroWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 0 0 208px;
+  margin: 104px 0 208px;
 
   width: 100%;
   height: 800px;
@@ -87,4 +89,12 @@ export const JoinIntroWrap = styled.div`
     justify-content: flex-start;
     align-items: center;
   }
+`;
+
+export const MusicCardWrap = styled.div`
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;

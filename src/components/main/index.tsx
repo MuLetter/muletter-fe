@@ -1,21 +1,43 @@
+import { STrack } from "@api/types";
 import { Mail3D, MailBox3D } from "@asset/symbols";
-import { Button, VerticalTextItem } from "@component/common";
+import {
+  BasicListWrap,
+  BasicMusicItem,
+  Button,
+  MusicCard,
+  VerticalTextItem,
+} from "@component/common";
+import { useSample } from "@hooks";
+import { ITrack } from "@store/types";
 import { H1 } from "@styles/font";
+import _ from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
 import { DataCardWrap } from "./DataCard";
-import { JoinIntroWrap, MailBoxIntroWrap, MailIntroWrap } from "./styles";
+import {
+  JoinIntroWrap,
+  MailBoxIntroWrap,
+  MailIntroWrap,
+  MusicCardWrap,
+} from "./styles";
 
 export function MailIntro() {
   const [open, setOpen] = React.useState<boolean>(false);
   const [rotate, setRotate] = React.useState<boolean>(false);
+  const [items, onSamples] = useSample(5);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setOpen(true);
-      setRotate(true);
-    }, 300);
-  }, []);
+    if (items) {
+      setTimeout(() => {
+        setOpen(true);
+        setRotate(true);
+      }, 300);
+    }
+  }, [items]);
+
+  React.useEffect(() => {
+    (onSamples as () => void)();
+  }, [onSamples]);
 
   return (
     <MailIntroWrap>
@@ -31,7 +53,15 @@ export function MailIntro() {
         </div>
       </div>
       <div className="mail-wrap">
-        <Mail3D isOpen={open} isRotate={rotate} isDown />
+        <Mail3D isOpen={open} isRotate={rotate} isDown>
+          {items && (
+            <BasicListWrap>
+              {_.map(items as ITrack[], (track) => (
+                <BasicMusicItem key={track.id} {...track} />
+              ))}
+            </BasicListWrap>
+          )}
+        </Mail3D>
       </div>
     </MailIntroWrap>
   );
@@ -42,27 +72,48 @@ export function MailBoxIntro() {
   const [rotate, setRotate] = React.useState<boolean>(false);
   const [topAnchor, setTopAnchor] = React.useState<boolean>(false);
   const [content, setContentView] = React.useState<boolean>(false);
+  const [items, onSamples] = useSample(5);
 
   React.useEffect(() => {
-    setRotate(true);
+    if (items) {
+      setRotate(true);
 
-    setTimeout(() => {
-      setTopAnchor(true);
-      setOpen(true);
-    }, 750);
-  }, []);
+      setTimeout(() => {
+        setTopAnchor(true);
+        setOpen(true);
+      }, 750);
+    }
+  }, [items]);
+
+  React.useEffect(() => {
+    (onSamples as () => void)();
+  }, [onSamples]);
 
   return (
     <MailBoxIntroWrap>
+      <H1 className="title">
+        우체통에
+        <br />
+        당신의 음악들을
+        <br />
+        넣어주세요.
+      </H1>
       <div className="mailbox-wrap">
-        <H1 className="title">우체통에 당신의 음악들을 넣어주세요.</H1>
         <MailBox3D
           rotate={rotate}
           topAnchor={topAnchor}
           open={open}
           content={content}
           setContentView={setContentView}
-        />
+        >
+          {items && (
+            <MusicCardWrap>
+              {_.map(items as STrack[], (track) => (
+                <MusicCard key={track.id} track={track} />
+              ))}
+            </MusicCardWrap>
+          )}
+        </MailBox3D>
       </div>
       <VerticalTextItem text="MailBox" position="right" />
     </MailBoxIntroWrap>
@@ -71,12 +122,19 @@ export function MailBoxIntro() {
 
 export function JoinIntro() {
   const [open, setOpen] = React.useState<boolean>(false);
+  const [items, onSamples] = useSample(5);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setOpen(true);
-    }, 300);
-  }, []);
+    if (items) {
+      setTimeout(() => {
+        setOpen(true);
+      }, 300);
+    }
+  }, [items]);
+
+  React.useEffect(() => {
+    (onSamples as () => void)();
+  }, [onSamples]);
 
   return (
     <JoinIntroWrap>
@@ -94,7 +152,15 @@ export function JoinIntro() {
         </Link>
       </div>
       <div className="mail-wrap">
-        <Mail3D isOpen={open} isDown />
+        <Mail3D isOpen={open} isDown>
+          {items && (
+            <BasicListWrap>
+              {_.map(items as ITrack[], (track) => (
+                <BasicMusicItem key={track.id} {...track} />
+              ))}
+            </BasicListWrap>
+          )}
+        </Mail3D>
       </div>
     </JoinIntroWrap>
   );

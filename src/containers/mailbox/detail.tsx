@@ -16,22 +16,24 @@ export function MailBoxDetailContainer() {
   return mails ? (
     <MailBoxDetailComponent>
       <Wrap className="mailbox-detail-wrap">
-        <Row>
-          {_.map(mails, (mail) => (
-            <Col key={mail._id}>
-              <MailItem
-                clickAction={() =>
-                  navigate(`/mail/${mail._id}`, {
-                    state: {
-                      mailBoxId: id,
-                    },
-                  })
-                }
-                mail={mail}
-              />
-            </Col>
-          ))}
-        </Row>
+        {_.map(_.chunk(mails, 2), (_mails, idx) => (
+          <Row key={`mailbox-detai-row-${idx}`}>
+            {_.map(_mails, (mail) => (
+              <Col key={mail._id}>
+                <MailItem
+                  clickAction={() =>
+                    navigate(`/mail/${mail._id}`, {
+                      state: {
+                        mailBoxId: id,
+                      },
+                    })
+                  }
+                  mail={mail}
+                />
+              </Col>
+            ))}
+          </Row>
+        ))}
       </Wrap>
     </MailBoxDetailComponent>
   ) : (

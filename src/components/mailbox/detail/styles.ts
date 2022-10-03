@@ -5,6 +5,11 @@ export const Wrap = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  row-gap: 32px;
+
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 export const Row = styled.div`
