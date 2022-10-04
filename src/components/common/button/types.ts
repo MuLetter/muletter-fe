@@ -5,7 +5,11 @@ export type ButtonSizes = {
   [key in ButtonSizeType]: FlattenSimpleInterpolation;
 };
 
-export type ButtonColorThemeType = "white" | "black" | "outline";
+export type ButtonColorThemeType =
+  | "white"
+  | "black"
+  | "outline"
+  | "outline-black";
 export type ButtonColorTheme = {
   [key in ButtonColorThemeType]: FlattenSimpleInterpolation;
 };

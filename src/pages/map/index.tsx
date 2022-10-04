@@ -1,3 +1,5 @@
+import { AuthWrap } from "@component";
+
 export function MapPage() {
-  return <>Map</>;
+  return <AuthWrap>map</AuthWrap>;
 }

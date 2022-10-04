@@ -73,7 +73,7 @@ export function Mail3D({
                 key={`btn-grp-${idx}`}
                 type={type}
                 onClick={clickAction}
-                colorTheme="black"
+                colorTheme="outline-black"
               >
                 {title}
               </Button>

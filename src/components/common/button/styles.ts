@@ -59,4 +59,16 @@ export const buttonColorTheme: ButtonColorTheme = {
       background: ${white[50]};
     }
   `,
+  "outline-black": css`
+    background: transparent;
+    color: ${black[500]};
+    border: 1px solid ${black[600]};
+
+    &:hover,
+    &:focus,
+    &:disabled {
+      color: ${black[700]};
+      border: 1px solid ${black[800]};
+    }
+  `,
 };
