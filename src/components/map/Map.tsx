@@ -1,8 +1,20 @@
 import { black } from "@styles/color";
+import React from "react";
 import styled from "styled-components";
+import { animate, init } from "./init";
 
 export function MapComponent() {
-  return <Wrap></Wrap>;
+  const refMap = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (refMap.current) {
+      init(refMap);
+
+      animate();
+    }
+  }, []);
+
+  return <Wrap ref={refMap} className="map"></Wrap>;
 }
 
 const Wrap = styled.div`
