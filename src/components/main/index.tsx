@@ -9,7 +9,7 @@ import {
 } from "@component/common";
 import { useSample } from "@hooks";
 import { ITrack } from "@store/types";
-import { OpacityAnimationCont } from "@styles/block";
+import { BounceAnimationCont } from "@styles/block";
 import { H1 } from "@styles/font";
 import _ from "lodash";
 import React from "react";
@@ -41,7 +41,7 @@ export function MailIntro() {
   }, [onSamples]);
 
   return (
-    <OpacityAnimationCont>
+    <BounceAnimationCont>
       <MailIntroWrap>
         <div className="service-info">
           <H1 className="title">
@@ -66,7 +66,7 @@ export function MailIntro() {
           </Mail3D>
         </div>
       </MailIntroWrap>
-    </OpacityAnimationCont>
+    </BounceAnimationCont>
   );
 }
 
@@ -93,7 +93,7 @@ export function MailBoxIntro() {
   }, [onSamples]);
 
   return (
-    <OpacityAnimationCont>
+    <BounceAnimationCont>
       <MailBoxIntroWrap>
         <H1 className="title">
           우체통에
@@ -121,7 +121,7 @@ export function MailBoxIntro() {
         </div>
         <VerticalTextItem text="MailBox" position="right" />
       </MailBoxIntroWrap>
-    </OpacityAnimationCont>
+    </BounceAnimationCont>
   );
 }
 
@@ -142,7 +142,7 @@ export function JoinIntro() {
   }, [onSamples]);
 
   return (
-    <OpacityAnimationCont>
+    <BounceAnimationCont>
       <JoinIntroWrap>
         <VerticalTextItem text="Letter" />
         <div className="join-info">
@@ -169,6 +169,6 @@ export function JoinIntro() {
           </Mail3D>
         </div>
       </JoinIntroWrap>
-    </OpacityAnimationCont>
+    </BounceAnimationCont>
   );
 }
