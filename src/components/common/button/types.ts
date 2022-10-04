@@ -18,4 +18,5 @@ export interface ButtonStyleProps {
   size?: ButtonSizeType;
   colorTheme?: ButtonColorThemeType;
   isBlock?: boolean;
+  margin?: string;
 }

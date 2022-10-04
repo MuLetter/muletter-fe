@@ -7,6 +7,7 @@ import {
   VerticalTextItemStyleProps,
 } from "./types";
 
+export * from "./Audio";
 export function VerticalTextItem({
   text,
   ...styleProps

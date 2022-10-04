@@ -4,7 +4,7 @@ import { H6, P1, Tag1 } from "@styles/font";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { AiOutlineUser } from "react-icons/ai";
-import { Button } from "@component/common";
+import { Audio, Button } from "@component/common";
 import { LogoWhite } from "@asset/spotify";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSpotifyOAuth, postOAuthBak } from "@api";
@@ -68,16 +68,19 @@ function Profile() {
       )}
 
       {auth?.spotifyProfile ? (
-        <a
-          href={auth.spotifyProfile.external_urls.spotify}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SpotifyView>
-            <img src={LogoWhite} alt="spotify-logo-white" />
-            <H6>{auth.spotifyProfile.display_name}</H6>
-          </SpotifyView>
-        </a>
+        <>
+          <a
+            href={auth.spotifyProfile.external_urls.spotify}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <SpotifyView>
+              <img src={LogoWhite} alt="spotify-logo-white" />
+              <H6>{auth.spotifyProfile.display_name}</H6>
+            </SpotifyView>
+          </a>
+          <Audio />
+        </>
       ) : (
         <Button
           type="button"
@@ -119,7 +122,7 @@ const Block = styled.div`
     box-sizing: border-box;
   }
 
-  & > button {
+  & > button:not(.test) {
     margin: 0 !important;
     width: 248px !important;
 

@@ -70,31 +70,22 @@ export async function init(map: React.RefObject<HTMLDivElement>) {
   controls.minDistance = WIDTH * 0.2;
   controls.maxDistance = WIDTH;
 
-  //   document.body.appendChild(renderer.domElement);
-
   stats = new (Stats as any)();
 
   map.current!.appendChild(renderer.domElement);
   renderer.domElement.addEventListener("mousemove", onDocumentMouseMove);
-  // document.addEventListener("mousemove", onDocumentMouseMove);
-  // document.addEventListener("click", onDocumentMouseClick);
+  renderer.domElement.addEventListener("load", () => {
+    console.log("load");
+  });
 }
 
 function render() {
-  // theta += 0.1;
-
-  // camera!.position.x = radius * Math.sin(THREE.MathUtils.degToRad(theta));
-  // camera!.position.y = radius * Math.sin(THREE.MathUtils.degToRad(theta));
-  // camera!.position.z = radius * Math.cos(THREE.MathUtils.degToRad(theta));
-  // camera!.lookAt(scene!.position);
-  // camera!.updateMatrixWorld();
-
   raycaster!.setFromCamera(mouse, camera!);
 
   if (move) {
     const intersects = raycaster?.intersectObjects(scene!.children, false);
     if (intersects!.length > 0) {
-      const targetDistance = intersects![0].distance;
+      //   const targetDistance = intersects![0].distance;
 
       // (camera! as any).focusAt(targetDistance);
 

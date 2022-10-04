@@ -1,5 +1,5 @@
 import { white } from "@styles/color";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { buttonColorTheme, buttonSizes } from "./styles";
 import { ButtonStyleProps } from "./types";
 
@@ -19,6 +19,12 @@ export const Button = styled.button<ButtonStyleProps>`
   ${({ colorTheme }) =>
     colorTheme ? buttonColorTheme[colorTheme] : buttonColorTheme["white"]}
   ${({ size }) => (size ? buttonSizes[size] : buttonSizes["m"])}
+  ${({ margin }) =>
+    margin &&
+    css`
+      margin: ${margin};
+    `}
+  
 
   & > img {
     width: 20px;
