@@ -1,6 +1,10 @@
 import { Logo } from "@asset/logo";
 import { Button } from "@component/common";
-import { JoinContainer, LoginContainer } from "@container";
+import {
+  InitAuthSettingContainer,
+  JoinContainer,
+  LoginContainer,
+} from "@container";
 import { OpacityAnimationCont } from "@styles/block";
 import { H3, P2 } from "@styles/font";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
@@ -58,4 +62,8 @@ export function LoginPage() {
 
 export function JoinPage() {
   return <JoinContainer />;
+}
+
+export function InitAuthSettingPage() {
+  return <InitAuthSettingContainer />;
 }

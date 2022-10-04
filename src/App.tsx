@@ -5,11 +5,16 @@ import RootPage, {
   MainPage,
   MapPage,
   MailPage,
+  InitAuthSettingPage,
 } from "@page";
+import { initAuthState } from "@store/atom";
 import { Route, Routes } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 function App() {
-  return (
+  const initAuth = useRecoilValue(initAuthState);
+
+  return initAuth ? (
     <Routes>
       <Route path="/" element={<RootPage />}>
         <Route index element={<MainPage />} />
@@ -19,6 +24,11 @@ function App() {
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/callback" element={<Callback />} />
       </Route>
+    </Routes>
+  ) : (
+    <Routes>
+      <Route path="/callback" element={<Callback />} />
+      <Route path="/*" element={<InitAuthSettingPage />} />
     </Routes>
   );
 }
