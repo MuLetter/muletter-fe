@@ -5,6 +5,7 @@ export interface IMail {
   title: string;
   tracks: ITrack[];
   mailBoxId: string;
+  createdAt: Date;
 }
 
 export interface ISizeMail extends IMail {

@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { MailItemControlProps } from "./types";
 import _ from "lodash";
-import { black } from "@styles/color";
+import { black, white } from "@styles/color";
 import { MiniAlbumArt, MiniAlbumArtCount } from "./MiniAlbumArt";
 import { ISizeMail } from "@store/types";
+import { fontStyles } from "@styles/font";
 
 export function MailItem({ mail, clickAction }: MailItemControlProps) {
   return (
@@ -17,6 +18,7 @@ export function MailItem({ mail, clickAction }: MailItemControlProps) {
         alt="album-art"
       />
       <BlurLayer>
+        <Title>{mail.title}</Title>
         <MiniAlbumArtGroup>
           {_.map(mail.tracks, (track) => (
             <MiniAlbumArt
@@ -48,10 +50,32 @@ const Wrap = styled.div`
   cursor: pointer;
   box-shadow: 4px 4px 4px ${black[900]};
 
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
   transition: 0.3s;
   &:hover {
     transform: scale(1.15, 1.15);
   }
+`;
+
+// const Date = styled.h5``;
+const Title = styled.h1`
+  color: ${white[500]};
+
+  padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+
+  overflow: hidden;
+  text-align: center;
+  /* white-space: nowrap;
+  text-overflow: ellipsis; */
+  word-break: keep-all;
+
+  ${fontStyles["p1"]}
 `;
 
 const AlbumArt = styled.img`
@@ -80,7 +104,7 @@ const BlurLayer = styled.div`
   backdrop-filter: blur(2px);
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
