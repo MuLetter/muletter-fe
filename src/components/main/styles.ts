@@ -62,7 +62,7 @@ export const MailBoxIntroWrap = styled.div`
 export const JoinIntroWrap = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 104px 0 208px;
+  margin: 360px 0 208px;
 
   width: 100%;
   height: 800px;

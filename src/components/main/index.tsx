@@ -8,12 +8,14 @@ import {
   VerticalTextItem,
 } from "@component/common";
 import { useSample } from "@hooks";
+import { authState } from "@store/atom";
 import { ITrack } from "@store/types";
 import { BounceAnimationCont } from "@styles/block";
 import { H1 } from "@styles/font";
 import _ from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { DataCardWrap } from "./DataCard";
 import {
   JoinIntroWrap,
@@ -126,6 +128,7 @@ export function MailBoxIntro() {
 }
 
 export function JoinIntro() {
+  const auth = useRecoilValue(authState);
   const [open, setOpen] = React.useState<boolean>(false);
   const [items, onSamples] = useSample(5);
 
@@ -153,9 +156,15 @@ export function JoinIntro() {
             <br />
             보내드릴게요.
           </H1>
-          <Link to="/auth/join">
-            <Button colorTheme="black">가입하기</Button>
-          </Link>
+          {auth ? (
+            <Link to="/mailbox/regist">
+              <Button colorTheme="outline">우체통 등록하기</Button>
+            </Link>
+          ) : (
+            <Link to="/auth/join">
+              <Button colorTheme="black">가입하기</Button>
+            </Link>
+          )}
         </div>
         <div className="mail-wrap">
           <Mail3D isOpen={open} isDown>
