@@ -21,18 +21,21 @@ export function JoinComponent({
           styleTheme="outline-black"
           placeholder="아이디를 입력해주세요."
           {...register("username")}
+          required
         />
         <TextInput
           type="password"
           styleTheme="outline-black"
           placeholder="비밀번호를 입력해주세요."
           {...register("password")}
+          required
         />
         <TextInput
           type="text"
           styleTheme="outline-black"
           placeholder="닉네임을 입력해주세요."
           {...register("nickname")}
+          required
         />
       </InputGroup>
       {spotifyToken ? (

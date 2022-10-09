@@ -13,12 +13,14 @@ export function LoginComponent({ register, onSubmit }: LoginProps) {
           styleTheme="outline-black"
           placeholder="아이디를 입력해주세요."
           {...register("username")}
+          required
         />
         <TextInput
           type="password"
           styleTheme="outline-black"
           placeholder="비밀번호를 입력해주세요."
           {...register("password")}
+          required
         />
       </InputGroup>
       <ButtonWrap marginTop={40}>

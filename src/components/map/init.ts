@@ -32,7 +32,7 @@ export async function init(map: React.RefObject<HTMLDivElement>) {
   const loader = new THREE.TextureLoader();
   const material = new THREE.MeshBasicMaterial({
     map: loader.load(
-      "http://localhost:8080/static/mailbox-image-1664766501004.JPG"
+      "https://api.muletter.ml/static/mailbox-image-1664944302145.JPG"
     ),
   });
 
