@@ -2,17 +2,17 @@ import { black } from "@styles/color";
 import React from "react";
 import styled from "styled-components";
 import { animate, init } from "./init";
+import { MapComponentProps } from "./types";
 
-export function MapComponent() {
+export function MapComponent({ mailBoxes }: MapComponentProps) {
   const refMap = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     if (refMap.current) {
-      init(refMap);
-
+      init(refMap, mailBoxes);
       animate();
     }
-  }, []);
+  }, [mailBoxes]);
 
   return <Wrap ref={refMap} className="map"></Wrap>;
 }

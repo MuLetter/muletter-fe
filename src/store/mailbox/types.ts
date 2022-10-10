@@ -1,3 +1,14 @@
+export interface IPoint {
+  x: number;
+  y: number;
+}
+
+export interface MailboxByMap {
+  _id: string;
+  image: string;
+  point: IPoint;
+}
+
 export interface RegistedMailBoxInformation {
   title: string;
   image: Blob;

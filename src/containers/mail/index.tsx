@@ -37,12 +37,12 @@ export function MailContainer() {
   }, [selectedTrack]);
 
   React.useEffect(() => {
-    if (data && data.mail) {
+    if (selectedTrack) {
       setTimeout(() => {
         setBgView(true);
       }, 1250);
     }
-  }, [data]);
+  }, [selectedTrack]);
 
   const onMouseTrack = React.useCallback((track: ITrack) => {
     setSelectedTrack(track);
