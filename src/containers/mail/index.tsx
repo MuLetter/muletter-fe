@@ -4,6 +4,7 @@ import { BasicMusicItem, OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
 import { ITrack } from "@store/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { usePlayback } from "@hooks";
 import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -54,6 +55,8 @@ export function MailContainer() {
     }
   }, [data, replyMutate]);
 
+  const [onPlay] = usePlayback();
+
   return (
     <>
       {unuseDatas && (
@@ -69,6 +72,11 @@ export function MailContainer() {
           {
             title: "답장하기",
             clickAction: onReply,
+            type: "button",
+          },
+          {
+            title: "전체 재생",
+            clickAction: () => onPlay(data!.mail.tracks),
             type: "button",
           },
         ]}
