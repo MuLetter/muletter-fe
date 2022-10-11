@@ -3,13 +3,12 @@ import { black, white } from "@styles/color";
 import { H6, P1, Tag1 } from "@styles/font";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { AiOutlineUser } from "react-icons/ai";
-import { Audio, Button } from "@component/common";
+import { Button } from "@component/common";
 import { LogoWhite } from "@asset/spotify";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSpotifyOAuth, postOAuthBak } from "@api";
 import React from "react";
-import { buttonColorTheme } from "@component/common/button/styles";
+import ProfileUploader from "./ProfileUploader";
 
 function Profile() {
   const auth = useRecoilValue(authState);
@@ -45,13 +44,8 @@ function Profile() {
 
   return (
     <Block>
-      <Image>
-        {auth?.spotifyProfile ? (
-          <img src={auth.spotifyProfile.images[0].url} alt="spotify-profile" />
-        ) : (
-          <AiOutlineUser />
-        )}
-      </Image>
+      <ProfileUploader />
+      {/* <img src={auth.spotifyProfile.images[0].url} alt="spotify-profile" /> */}
       <P1 className="username">{auth!.username}</P1>
       {auth?.spotifyProfile ? (
         <></>
@@ -75,11 +69,13 @@ function Profile() {
             rel="noreferrer"
           >
             <SpotifyView>
-              <img src={LogoWhite} alt="spotify-logo-white" />
+              <img
+                src={auth.spotifyProfile.images[0].url}
+                alt="spotify-profile"
+              />
               <H6>{auth.spotifyProfile.display_name}</H6>
             </SpotifyView>
           </a>
-          <Audio />
         </>
       ) : (
         <Button
@@ -88,6 +84,7 @@ function Profile() {
           size="m"
           disabled={!oauthUrl}
           onClick={oauthUrl ? onSpotifyOAuth : undefined}
+          className="spotify-oauth-btn"
         >
           <img src={LogoWhite} alt="spotify-logo-white" />
           <span>Spotify 계정 연동하기</span>
@@ -122,7 +119,7 @@ const Block = styled.div`
     box-sizing: border-box;
   }
 
-  & > button:not(.test) {
+  & > .spotify-oauth-btn {
     margin: 0 !important;
     width: 248px !important;
 
@@ -131,42 +128,26 @@ const Block = styled.div`
   }
 `;
 
-const Image = styled.div`
-  width: 150px;
-  height: 150px;
-
-  & > * {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-  }
-
-  border-radius: 75px;
-  border: 2px solid ${white[700]};
-  margin: 0 0 12px;
-  box-sizing: border-box;
-  overflow: hidden;
-`;
-
 const SpotifyView = styled.div`
   width: 248px;
   height: 48px;
-
-  ${buttonColorTheme["black"]};
 
   border-radius: 24px;
   margin: 24px 0 0;
 
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   column-gap: 12px;
 
+  color: ${white[500]};
   & > img {
     width: 24px;
     height: 24px;
+
+    border-radius: 12px;
+    object-fit: cover;
   }
 `;
 

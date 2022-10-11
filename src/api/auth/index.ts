@@ -24,3 +24,12 @@ export const getInfo = async () =>
       },
     })
   ).data;
+export const uploadProfile = async (formData: FormData) =>
+  (
+    await client.post(`${BASEPATH}/profile`, formData, {
+      headers: {
+        authorization: localStorage.getItem("muletter-token")!,
+        "content-type": "multipart/form-data",
+      },
+    })
+  ).data;

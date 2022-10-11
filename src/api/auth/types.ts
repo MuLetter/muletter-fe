@@ -20,3 +20,7 @@ export interface ResGetInfo {
     mailBox: number;
   };
 }
+
+export interface ResPostProfile {
+  profile: string;
+}

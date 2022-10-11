@@ -13,6 +13,7 @@ export interface IAuth {
   id: string;
   username: string;
   nickname: string;
+  profile?: string;
   spotifyProfile?: SpotifyUser;
   spotifyToken: SpotifyToken;
 }
