@@ -7,6 +7,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 export function usePlayback() {
+  const refPlayer = React.useRef<any>(null);
   const [deviceId, setDeviceId] = React.useState<string | null>();
   const auth = useRecoilValue(authState);
 
@@ -23,6 +24,8 @@ export function usePlayback() {
             },
             volumne: 0.5,
           });
+
+          refPlayer.current = player;
 
           // Ready
           player.addListener("ready", ({ device_id }: any) => {
@@ -98,7 +101,10 @@ export function usePlayback() {
     return () => {
       const scripts = document.getElementById("spotify-playback-script");
 
-      document.body.removeChild(scripts!);
+      if (scripts) {
+        document.body.removeChild(scripts!);
+        refPlayer.current.disconnect();
+      }
     };
   }, []);
 
