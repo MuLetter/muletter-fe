@@ -16,6 +16,8 @@ export function Background({ imgSrc }: BackgroundProps) {
     if (imgSrc !== null && !refImg.current!.classList.contains("change")) {
       refBackupImg.current!.src = refImg.current!.src;
       setTimeout(() => {
+        if (refImg.current!.classList.contains("hide"))
+          refImg.current?.classList.remove("hide");
         refImg.current!.src = imgSrc;
         refImg.current!.classList.add("change");
       }, 300);
@@ -26,8 +28,10 @@ export function Background({ imgSrc }: BackgroundProps) {
     if (imgSrc !== null && !eventSetting) {
       refImg.current!.addEventListener("animationend", () => {
         setTimeout(() => {
+          if (refBackupImg.current!.classList.contains("hide"))
+            refBackupImg.current?.classList.remove("hide");
           refImg.current!.classList.remove("change");
-        }, 100);
+        }, 200);
       });
       setEventSetting(true);
     }
@@ -37,7 +41,11 @@ export function Background({ imgSrc }: BackgroundProps) {
     <MailBackgroundWrap>
       {imgSrc && (
         <>
-          <BackupBackGround ref={refBackupImg} alt="backupImage" />
+          <BackupBackGround
+            className="hide"
+            ref={refBackupImg}
+            alt="backupImage"
+          />
           <MailBackground ref={refImg} alt="album-art" />
         </>
       )}

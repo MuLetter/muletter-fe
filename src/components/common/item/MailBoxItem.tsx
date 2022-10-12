@@ -30,7 +30,12 @@ export function MailBoxItem({
     <MailBoxItemWrap
       onClick={
         isNavigate
-          ? () => navigate(`/mailbox/${(mailBox as IMailBox)._id}`)
+          ? () =>
+              navigate(`/mailbox/${(mailBox as IMailBox)._id}`, {
+                state: {
+                  initialBg: null,
+                },
+              })
           : undefined
       }
       className={`${open ? "open" : ""}`}

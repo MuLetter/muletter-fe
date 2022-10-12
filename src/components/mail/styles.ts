@@ -50,6 +50,10 @@ export const BackupBackGround = styled.img`
   height: 100%;
 
   object-fit: cover;
+
+  &.hide {
+    display: none;
+  }
 `;
 
 export const MailBackgroundShadow = styled.div`
@@ -71,6 +75,10 @@ export const MailBackground = styled.img`
   height: 100%;
 
   object-fit: cover;
+
+  &.hide {
+    display: none;
+  }
 
   &.change {
     animation: ${AniBackground} 0.75s linear forwards;
