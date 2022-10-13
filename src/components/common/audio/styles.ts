@@ -88,6 +88,8 @@ export const TitleWrap = styled.div`
 
   transition: 0.3s;
 
+  z-index: 2;
+
   & > .artists-names,
   .track-title {
     width: 100%;

@@ -15,6 +15,7 @@ import { AudioMode } from "./types";
 import { STrack } from "@api/types";
 import { ITrack } from "@store/types";
 import { usePlayback } from "@hooks";
+import { AudioItem, AudioListWrap } from "./AudioItem";
 
 export function Audio() {
   const refAudio = React.useRef<HTMLAudioElement>(null);
@@ -27,14 +28,26 @@ export function Audio() {
   const [mode, setMode] = React.useState<AudioMode>("mini");
 
   // auth가 있다면 정상 동작가능, 아니면 preview_url
-  const [isUse, onNewPlay, onPlay, onPause] = usePlayback();
+  const [isUse, _onNewPlay, onPlay, onPause] = usePlayback();
+
+  const onNewPlay = React.useCallback(
+    (trackId: string) => {
+      _onNewPlay(trackId);
+      const filtered = _.filter(
+        audioTracks as STrack[],
+        ({ id }) => id === trackId
+      );
+      if (filtered) setTrack(filtered[0]);
+    },
+    [_onNewPlay, audioTracks]
+  );
 
   React.useEffect(() => {
     if (track && isUse) {
       setStatus(true);
-      onNewPlay(track.id);
+      _onNewPlay(track.id);
     }
-  }, [isUse, onNewPlay, track]);
+  }, [isUse, _onNewPlay, track]);
 
   React.useEffect(() => {
     if (audioTracks && audioTracks.length > 0) setTrack(audioTracks[0]);
@@ -123,10 +136,15 @@ export function Audio() {
             )}
           </IconGroup>
         </IconWrap>
-        {/* <P1 className="comming-soon" style={{ margin: "24px 0 0" }}>
-          Playlist Comming Soon :)
-        </P1> */}
       </TitleWrap>
+      {mode === "full" && (
+        <AudioListWrap>
+          {_.map(audioTracks, (audioTrack) => (
+            <AudioItem onNewPlay={onNewPlay} track={audioTrack as STrack} />
+          ))}
+        </AudioListWrap>
+      )}
+
       {!isUse && (
         <audio ref={refAudio} src={track.preview_url!} autoPlay></audio>
       )}
