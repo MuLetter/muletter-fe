@@ -2,12 +2,13 @@ import { getMail, replyMail } from "@api";
 import { MailComponent } from "@component";
 import { BasicMusicItem, OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
+import { audioTrackState } from "@store/atom";
 import { ITrack } from "@store/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { usePlayback } from "@hooks";
 import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 
 export function MailContainer() {
   const { id } = useParams();
@@ -18,6 +19,7 @@ export function MailContainer() {
   >(data ? _.sample(data.mail.tracks) : null);
   const [bgView, setBgView] = React.useState<boolean>(false);
   const [backgroundSrc, setBackgroundSrc] = React.useState<string | null>(null);
+  const setAudioTracks = useSetRecoilState(audioTrackState);
 
   const { mutate: replyMutate, data: unuseDatas } = useMutation(
     ["replyMutation"],
@@ -55,8 +57,6 @@ export function MailContainer() {
     }
   }, [data, replyMutate]);
 
-  const [onPlay] = usePlayback();
-
   return (
     <>
       {unuseDatas && (
@@ -76,8 +76,10 @@ export function MailContainer() {
           },
           {
             title: "전체 재생",
-            clickAction: () => onPlay(data!.mail.tracks),
             type: "button",
+            clickAction: data
+              ? () => setAudioTracks(data.mail.tracks)
+              : undefined,
           },
         ]}
       >

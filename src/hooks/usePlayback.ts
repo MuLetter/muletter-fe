@@ -1,19 +1,24 @@
-import { STrack } from "@api/types";
 import { authState } from "@store/atom";
-import { ITrack } from "@store/types";
 import axios from "axios";
-import _ from "lodash";
 import React from "react";
 import { useRecoilValue } from "recoil";
 
-export function usePlayback() {
-  const refPlayer = React.useRef<any>(null);
+export function usePlayback(): [
+  boolean,
+  (trackId: string) => void,
+  () => void,
+  () => void
+] {
+  const refPlayer = React.useRef<any>();
   const [deviceId, setDeviceId] = React.useState<string | null>();
+  const [isUse, setIsUse] = React.useState<boolean>(false);
   const auth = useRecoilValue(authState);
 
   React.useEffect(() => {
     if (auth?.spotifyToken) {
       if (auth.spotifyToken.scope) {
+        setIsUse(true);
+
         const token = auth.spotifyToken.access_token;
         const scripts = document.createElement("script");
         window.onSpotifyWebPlaybackSDKReady = () => {
@@ -24,8 +29,6 @@ export function usePlayback() {
             },
             volumne: 0.5,
           });
-
-          refPlayer.current = player;
 
           // Ready
           player.addListener("ready", ({ device_id }: any) => {
@@ -67,6 +70,8 @@ export function usePlayback() {
           );
 
           player.connect();
+
+          refPlayer.current = player;
         };
 
         scripts.src = process.env.REACT_APP_SPOTIFY_PLAYBACK_URL!;
@@ -78,13 +83,13 @@ export function usePlayback() {
     }
   }, [auth]);
 
-  const onPlay = React.useCallback(
-    (tracks: STrack[] | ITrack[]) => {
+  const onNewPlay = React.useCallback(
+    (trackId: string) => {
       if (deviceId) {
         axios.put(
           `${process.env.REACT_APP_SPOTIFY_API_URL}/me/player/play?device_id=${deviceId}`,
           JSON.stringify({
-            uris: _.map(tracks as STrack[], ({ id }) => `spotify:track:${id}`),
+            uris: [`spotify:track:${trackId}`],
           }),
           {
             headers: {
@@ -97,16 +102,13 @@ export function usePlayback() {
     [deviceId, auth]
   );
 
-  React.useEffect(() => {
-    return () => {
-      const scripts = document.getElementById("spotify-playback-script");
-
-      if (scripts) {
-        document.body.removeChild(scripts!);
-        refPlayer.current.disconnect();
-      }
-    };
+  const onPause = React.useCallback(() => {
+    if (refPlayer.current) refPlayer.current.pause();
   }, []);
 
-  return [onPlay];
+  const onPlay = React.useCallback(() => {
+    if (refPlayer.current) refPlayer.current.resume();
+  }, []);
+
+  return [isUse, onNewPlay, onPlay, onPause];
 }
