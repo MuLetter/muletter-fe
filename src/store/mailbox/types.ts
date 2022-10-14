@@ -36,7 +36,6 @@ export interface ITrack {
 
   isUse?: boolean;
   label?: number;
-
   preview_url?: string;
 }
 
