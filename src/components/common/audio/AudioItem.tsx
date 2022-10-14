@@ -32,11 +32,11 @@ export function AudioListWrap({ children }: React.PropsWithChildren<any>) {
 
 const Wrap = styled.div`
   position: absolute;
-  top: 116.5px;
+  top: 148.5px;
   left: 0;
 
   width: 400px;
-  height: calc(600px - 116.5px);
+  height: calc(600px - 148.5px);
 
   padding: 24px;
 

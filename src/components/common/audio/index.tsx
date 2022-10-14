@@ -7,8 +7,9 @@ import { IconButton } from "../button";
 import {
   BsFillPauseFill,
   BsFillPlayFill,
-  BsArrowUpShort,
-  BsArrowDownShort,
+  BsFillSkipBackwardFill,
+  BsArrowUpLeft,
+  BsFillSkipForwardFill,
 } from "react-icons/bs";
 import React from "react";
 import { AudioMode } from "./types";
@@ -110,12 +111,30 @@ export function Audio() {
     >
       <AlbumArt src={track.album.images[0].url} alt="album-art" />
       <TitleWrap className="title-wrap">
+        {mode === "full" ? (
+          <IconButton
+            className="size-btn"
+            onClick={(e) => changeMode(e, "mini-ex")}
+          >
+            <BsArrowUpLeft />
+          </IconButton>
+        ) : (
+          <IconButton
+            className="size-btn"
+            onClick={(e) => changeMode(e, "full")}
+          >
+            <BsArrowUpLeft />
+          </IconButton>
+        )}
         <Tag1 className="artists-names">
           {_.join(_.flatten(_.map(track.artists, ({ name }) => name)), ",")}
         </Tag1>
         <P4 className="track-title">{track.name}</P4>
         <IconWrap className="icon-wrap">
           <IconGroup>
+            <IconButton onClick={(e) => changeStatus(e, true)}>
+              <BsFillSkipBackwardFill />
+            </IconButton>
             {status ? (
               <IconButton onClick={(e) => changeStatus(e, false)}>
                 <BsFillPauseFill />
@@ -125,15 +144,9 @@ export function Audio() {
                 <BsFillPlayFill />
               </IconButton>
             )}
-            {mode === "full" ? (
-              <IconButton onClick={(e) => changeMode(e, "mini-ex")}>
-                <BsArrowDownShort />
-              </IconButton>
-            ) : (
-              <IconButton onClick={(e) => changeMode(e, "full")}>
-                <BsArrowUpShort />
-              </IconButton>
-            )}
+            <IconButton onClick={(e) => changeStatus(e, true)}>
+              <BsFillSkipForwardFill />
+            </IconButton>
           </IconGroup>
         </IconWrap>
       </TitleWrap>

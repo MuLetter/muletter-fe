@@ -27,12 +27,20 @@ export const AudioWrap = styled.div`
       & > .icon-wrap {
         display: none;
       }
+
+      & > .size-btn {
+        display: none;
+      }
     }
   }
 
   &.mini-ex {
     & > .title-wrap {
       transform: translateY(0);
+
+      & > .artists-names {
+        margin: 32px 0 0;
+      }
     }
   }
 
@@ -42,6 +50,9 @@ export const AudioWrap = styled.div`
     cursor: default;
 
     & > .title-wrap {
+      & > .artists-names {
+        margin: 32px 0 0;
+      }
       & > .icon-wrap {
         border-bottom: 2px solid ${white[600]};
       }
@@ -97,6 +108,15 @@ export const TitleWrap = styled.div`
     overflow-x: hidden;
     text-overflow: ellipsis;
     text-align: center;
+  }
+
+  & > .size-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+
+    width: 32px;
+    height: 32px;
   }
 `;
 
