@@ -7,9 +7,9 @@ import _ from "lodash";
 import styled from "styled-components";
 import { ItemProps } from "./types";
 
-function ContentItem({ mailBox }: ItemProps) {
+function ContentItem({ mailBox, onClick }: ItemProps) {
   return (
-    <Wrap>
+    <Wrap onClick={() => onClick(mailBox._id)}>
       <Image
         src={`${process.env.REACT_APP_API_SERVER}/${mailBox.image}`}
         alt="mailbox-img"

@@ -10,4 +10,5 @@ export interface ContentProps {
 
 export interface ItemProps {
   mailBox: IMailBox;
+  onClick: (id: string) => void;
 }

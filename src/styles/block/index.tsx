@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { ControlProps } from "./types";
 
 export const OpacityAni = keyframes`
@@ -10,13 +10,15 @@ export const OpacityAni = keyframes`
     }
 `;
 
-export const OpacityAnimation = styled.div`
+export const OpacityAnimation = styled.div<ControlProps>`
   animation: ${OpacityAni} 0.3s linear forwards;
+  min-height: calc(100vh - 120px - 200px);
 `;
 
 export function OpacityAnimationCont({
   children,
   animationEnd,
+  isMin,
 }: React.PropsWithChildren<ControlProps>) {
   const refWrap = React.useRef<HTMLDivElement>(null);
 
@@ -29,7 +31,11 @@ export function OpacityAnimationCont({
       }
     }
   }, [animationEnd]);
-  return <OpacityAnimation ref={refWrap}>{children}</OpacityAnimation>;
+  return (
+    <OpacityAnimation ref={refWrap} isMin={isMin}>
+      {children}
+    </OpacityAnimation>
+  );
 }
 
 export const BounceAni = keyframes`
@@ -42,6 +48,12 @@ export const BounceAni = keyframes`
   }
 `;
 
-export const BounceAnimationCont = styled.div`
+export const BounceAnimationCont = styled.div<ControlProps>`
   animation: ${BounceAni} 0.5s linear forwards;
+
+  ${({ isMin }) =>
+    isMin &&
+    css`
+      min-height: calc(100vh - 120px - 200px);
+    `}
 `;

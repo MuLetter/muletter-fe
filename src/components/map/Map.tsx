@@ -1,18 +1,27 @@
 import { black } from "@styles/color";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { animate, init } from "./init";
 import { MapComponentProps } from "./types";
 
 export function MapComponent({ mailBoxes }: MapComponentProps) {
   const refMap = React.useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  const onClick = React.useCallback(
+    (name: string) => {
+      navigate(`/mailbox/${name}`);
+    },
+    [navigate]
+  );
 
   React.useEffect(() => {
     if (refMap.current) {
-      init(refMap, mailBoxes);
+      init(refMap, mailBoxes, onClick);
       animate();
     }
-  }, [mailBoxes]);
+  }, [mailBoxes, onClick]);
 
   return <Wrap ref={refMap} className="map"></Wrap>;
 }

@@ -1,15 +1,29 @@
 import { white } from "@styles/color";
 import _ from "lodash";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ContentItem from "./ContentItem";
 import { ContentProps } from "./types";
 
 export function Content({ mailBoxes }: ContentProps) {
+  const navigate = useNavigate();
+  const onNavigate = React.useCallback(
+    (id: string) => {
+      navigate(`/mailbox/${id}`);
+    },
+    [navigate]
+  );
+
   return (
     <Wrap>
       <Block>
         {_.map(mailBoxes, (mailBox) => (
-          <ContentItem key={mailBox._id} mailBox={mailBox} />
+          <ContentItem
+            key={mailBox._id}
+            mailBox={mailBox}
+            onClick={onNavigate}
+          />
         ))}
       </Block>
     </Wrap>
@@ -34,6 +48,8 @@ const Wrap = styled.div`
   z-index: 1;
 
   overflow-y: scroll;
+
+  cursor: pointer;
 `;
 
 const Block = styled.div`
