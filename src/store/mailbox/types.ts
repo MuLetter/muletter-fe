@@ -1,3 +1,5 @@
+import { IAuth } from "@store/types";
+
 export interface IPoint {
   x: number;
   y: number;
@@ -26,6 +28,8 @@ export interface IMailBox {
   image: string;
   tracks: ITrack[];
   authId: string;
+
+  user?: IAuth;
 }
 
 export interface ITrack {

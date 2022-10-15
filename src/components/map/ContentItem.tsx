@@ -25,9 +25,34 @@ function ContentItem({ mailBox, onClick }: ItemProps) {
           )}
         </MiniAlbumArtGroup>
       </Content>
+      <AuthProfile>
+        <img
+          src={`${process.env.REACT_APP_API_SERVER}/${mailBox.user!.profile}`}
+          alt="profile"
+        />
+        <P4>{mailBox.user!.nickname}</P4>
+      </AuthProfile>
     </Wrap>
   );
 }
+
+const AuthProfile = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-self: flex-end;
+  align-items: center;
+
+  color: ${black[700]};
+  column-gap: 4px;
+  height: 24px;
+
+  & > img {
+    width: 24px;
+    height: 24px;
+
+    border-radius: 12px;
+  }
+`;
 
 const Wrap = styled.div`
   display: flex;
