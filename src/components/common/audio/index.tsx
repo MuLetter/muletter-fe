@@ -1,6 +1,6 @@
 import { audioTrackState } from "@store/atom";
 import { P4, Tag1 } from "@styles/font";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { AlbumArt, AudioWrap, IconGroup, IconWrap, TitleWrap } from "./styles";
 import _ from "lodash";
 import { IconButton } from "../button";
@@ -10,6 +10,8 @@ import {
   BsFillSkipBackwardFill,
   BsArrowUpLeft,
   BsFillSkipForwardFill,
+  BsShuffle,
+  BsXLg,
 } from "react-icons/bs";
 import React from "react";
 import { AudioMode } from "./types";
@@ -22,14 +24,20 @@ export function Audio() {
   const refAudio = React.useRef<HTMLAudioElement>(null);
   // 사용자가 추가한 재생 리스트
 
-  const audioTracks = useRecoilValue(audioTrackState);
+  const [audioTracks, setAudioTracks] = useRecoilState(audioTrackState);
   // 현재 재생 중인 음악
   const [track, setTrack] = React.useState<STrack | ITrack | null>(null);
   const [status, setStatus] = React.useState<boolean>(false);
   const [mode, setMode] = React.useState<AudioMode>("mini");
 
   // auth가 있다면 정상 동작가능, 아니면 preview_url
-  const [isUse, _onNewPlay, onPlay, onPause] = usePlayback();
+  const [isUse, _onNewPlay, onPlay, onPause, disConnect] = usePlayback();
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setMode("full");
+    }, 300);
+  }, []);
 
   const onNewPlay = React.useCallback(
     (trackId: string) => {
@@ -101,6 +109,13 @@ export function Audio() {
     []
   );
 
+  const close = React.useCallback(() => {
+    if (isUse) {
+      disConnect();
+    }
+    setAudioTracks(null);
+  }, [setAudioTracks, isUse, disConnect]);
+
   return track ? (
     <AudioWrap
       className={mode}
@@ -126,6 +141,15 @@ export function Audio() {
             <BsArrowUpLeft />
           </IconButton>
         )}
+        <IconButton
+          className="shuffle-btn"
+          onClick={(e) => changeMode(e, "mini-ex")}
+        >
+          <BsShuffle />
+        </IconButton>
+        <IconButton className="close-btn" onClick={(e) => close()}>
+          <BsXLg />
+        </IconButton>
         <Tag1 className="artists-names">
           {_.join(_.flatten(_.map(track.artists, ({ name }) => name)), ",")}
         </Tag1>
@@ -165,4 +189,9 @@ export function Audio() {
   ) : (
     <></>
   );
+}
+
+export function AudioListener() {
+  const audioTracks = useRecoilValue(audioTrackState);
+  return audioTracks ? <Audio /> : <></>;
 }

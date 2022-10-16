@@ -24,11 +24,10 @@ export const AudioWrap = styled.div`
   &.mini {
     & > .title-wrap {
       transform: translateY(120px);
-      & > .icon-wrap {
-        display: none;
-      }
-
-      & > .size-btn {
+      & > .icon-wrap,
+      .size-btn,
+      .close-btn,
+      .shuffle-btn {
         display: none;
       }
     }
@@ -55,6 +54,10 @@ export const AudioWrap = styled.div`
       }
       & > .icon-wrap {
         border-bottom: 2px solid ${white[600]};
+      }
+
+      & > .size-btn {
+        transform: rotate(180deg);
       }
     }
 
@@ -115,6 +118,25 @@ export const TitleWrap = styled.div`
     top: 16px;
     left: 16px;
 
+    width: 32px;
+    height: 32px;
+
+    transition: 0.3s;
+  }
+
+  & > .shuffle-btn {
+    position: absolute;
+    top: 16px;
+    right: 48px;
+
+    width: 32px;
+    height: 32px;
+  }
+
+  & > .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
     width: 32px;
     height: 32px;
   }

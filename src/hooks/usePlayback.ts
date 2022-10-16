@@ -7,6 +7,7 @@ export function usePlayback(): [
   boolean,
   (trackId: string) => void,
   () => void,
+  () => void,
   () => void
 ] {
   const refPlayer = React.useRef<any>();
@@ -110,5 +111,9 @@ export function usePlayback(): [
     if (refPlayer.current) refPlayer.current.resume();
   }, []);
 
-  return [isUse, onNewPlay, onPlay, onPause];
+  const disConnect = React.useCallback(() => {
+    if (refPlayer.current) refPlayer.current.disconnect();
+  }, []);
+
+  return [isUse, onNewPlay, onPlay, onPause, disConnect];
 }
