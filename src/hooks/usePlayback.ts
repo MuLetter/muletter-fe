@@ -30,6 +30,7 @@ export function usePlayback(
   React.useEffect(() => {
     if (isUse) {
       const token = auth!.spotifyToken.access_token;
+      const scripts = document.createElement("script");
       window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new window.Spotify.Player({
           name: "MuLetter Web Playback",
@@ -78,16 +79,13 @@ export function usePlayback(
         );
 
         player.connect();
-
-        const scripts = document.createElement("script");
-
         refPlayer.current = player;
-
-        scripts.src = process.env.REACT_APP_SPOTIFY_PLAYBACK_URL!;
-        scripts.async = true;
-        scripts.id = "spotify-playback-script";
-        refWrap.current?.appendChild(scripts);
       };
+
+      scripts.src = process.env.REACT_APP_SPOTIFY_PLAYBACK_URL!;
+      scripts.async = true;
+      scripts.id = "spotify-playback-script";
+      refWrap.current?.appendChild(scripts);
     }
   }, [isUse, auth, refWrap]);
 
