@@ -40,14 +40,6 @@ export function MailContainer() {
     }
   }, [selectedTrack]);
 
-  React.useEffect(() => {
-    if (selectedTrack) {
-      setTimeout(() => {
-        setBgView(true);
-      }, 1250);
-    }
-  }, [selectedTrack]);
-
   const onMouseTrack = React.useCallback((track: ITrack) => {
     setSelectedTrack(track);
   }, []);
@@ -69,6 +61,19 @@ export function MailContainer() {
       }
     }
   }, [auth, setAudioTracks, data]);
+
+  React.useEffect(() => {
+    if (data?.mail.tracks) {
+      setTimeout(() => {
+        setSelectedTrack(_.sample(data.mail.tracks));
+        setBgView(true);
+        window.scrollBy({
+          top: 120,
+          behavior: "smooth",
+        });
+      }, 1250);
+    }
+  }, [data]);
 
   return (
     <>

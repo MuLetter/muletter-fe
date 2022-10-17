@@ -88,4 +88,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 2px;
+
+  & > p {
+    white-space: nowrap;
+    overflow-x: hidden;
+    width: 264px;
+    text-overflow: ellipsis;
+  }
 `;
