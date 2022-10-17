@@ -10,7 +10,7 @@ const Process: ProcessItem[] = [
   },
   {
     title: "우체통 음악 등록",
-    component: (wizardProps) => <Search />,
+    component: (wizardProps) => <Search {...wizardProps} />,
   },
   {
     title: "우체통 정보 확인",

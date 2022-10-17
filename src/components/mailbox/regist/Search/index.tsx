@@ -1,5 +1,5 @@
 import { getSearch } from "@api";
-import { authState } from "@store/atom";
+import { authState, selectTracksState } from "@store/atom";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useRecoilValue } from "recoil";
@@ -8,10 +8,12 @@ import SearchList from "./SearchList";
 import SelectList from "./SelectList";
 import { SearchBarMode } from "./types";
 import _ from "lodash";
+import { WizardControlItem } from "../types";
 
-function Search() {
+function Search({ setNextConfirm }: WizardControlItem) {
   const auth = useRecoilValue(authState);
   const queryClient = useQueryClient();
+  const selectedTracks = useRecoilValue(selectTracksState);
 
   const refInput = React.useRef<HTMLInputElement>(null);
   const [q, setQ] = React.useState<string>("");
@@ -44,6 +46,17 @@ function Search() {
           : Math.round((lastPage.tracks.offset + 10) / 10),
     }
   );
+
+  React.useEffect(() => {
+    const nextSteps = async () => {
+      if (!selectedTracks.length) {
+        alert("음악을 등록해주세요.");
+        return false;
+      }
+      return true;
+    };
+    setNextConfirm(nextSteps);
+  }, [setNextConfirm, selectedTracks]);
 
   // input 정보가 변화할 때의 API 요청 이벤트를 제한
   const debounceSearch = React.useRef<

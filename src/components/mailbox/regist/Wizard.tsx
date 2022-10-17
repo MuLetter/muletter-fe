@@ -1,7 +1,6 @@
 import { white } from "@styles/color";
 import { P4 } from "@styles/font";
 import React from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled, { css } from "styled-components";
 import Process from "./Process";
 import { StepStyleProps, WizardProps } from "./types";
@@ -142,9 +141,7 @@ export function Wizard({ onAlert }: WizardProps) {
         ))}
       </StepBlock>
       <Content>
-        <CSSTransition timeout={300} classNames={"right"}>
-          {Process[step].component({ setNextConfirm, next: nextStep })}
-        </CSSTransition>
+        {Process[step].component({ setNextConfirm, next: nextStep })}
       </Content>
     </Block>
   );
@@ -203,7 +200,7 @@ const Block = styled.div`
   }
 `;
 
-const Content = styled(TransitionGroup)`
+const Content = styled.div`
   margin: 24px;
   /* flex: 1; */
   height: calc(100% - 24px - 32px);
