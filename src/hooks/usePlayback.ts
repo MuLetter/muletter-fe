@@ -17,13 +17,13 @@ export function usePlayback(
     if (auth?.spotifyToken) {
       if (auth.spotifyToken.scope) {
         setIsUse(true);
-      }
-    } else {
-      const audio = document.createElement("audio");
+      } else {
+        const audio = document.createElement("audio");
 
-      audio.autoplay = true;
-      refAudio.current = audio;
-      refWrap.current?.appendChild(audio);
+        audio.autoplay = true;
+        refAudio.current = audio;
+        refWrap.current?.appendChild(audio);
+      }
     }
   }, [auth, refWrap]);
 

@@ -1,5 +1,5 @@
 import { black, white } from "@styles/color";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const AniLetterLine = keyframes`
     0% {
@@ -48,11 +48,15 @@ export const LetterLoadingWrap = styled.div`
   }
 `;
 
-export const MailBoxLoadingWrap = styled.svg`
-  & path {
-    stroke-dasharray: 1652.7779541015625;
-    animation: ${AniMailBoxLine} 3.5s linear infinite;
-  }
+export const MailBoxLoadingWrap = styled.svg<LoadingProps>`
+  ${({ isDontAni }) =>
+    !isDontAni &&
+    css`
+      & path {
+        stroke-dasharray: 1652.7779541015625;
+        animation: ${AniMailBoxLine} 3.5s linear infinite;
+      }
+    `}
 `;
 
 export const LogoLoadingWrap = styled.div`
@@ -107,3 +111,7 @@ export const LogoLoadingSVG = styled.svg`
     animation: ${AniFillLogoLoading} 2s linear infinite alternate;
   }
 `;
+
+export interface LoadingProps {
+  isDontAni?: boolean;
+}

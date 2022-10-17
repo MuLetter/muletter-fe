@@ -1,6 +1,7 @@
 import { white } from "@styles/color";
 import {
   LetterLoadingWrap,
+  LoadingProps,
   LogoLoadingSVG,
   LogoLoadingWrap,
   MailBoxLoadingWrap,
@@ -34,13 +35,14 @@ export function LetterLoading() {
   );
 }
 
-export function MailBoxLoading() {
+export function MailBoxLoading({ isDontAni }: LoadingProps) {
   return (
     <MailBoxLoadingWrap
       xmlns="https://www.w3.org/2000/svg"
       width={296}
       height={178}
       viewBox="0 0 296 178"
+      isDontAni={isDontAni}
     >
       <path
         d="M 0 45

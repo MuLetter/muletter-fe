@@ -4,13 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import _ from "lodash";
 import { MailBoxItem } from "@component/common";
+import EmptyMailBox from "./EmptyMailBox";
 
 function MailBoxList() {
   const { data: mailBoxes } = useQuery(["getMailboxes"], getMailBoxes);
 
   return (
     <Block>
-      {mailBoxes &&
+      {mailBoxes && mailBoxes.length === 0 ? (
+        <EmptyMailBox />
+      ) : (
         _.map(_.chunk(mailBoxes, 2), (_mailBox, idx) => (
           <Row key={`mailbox-row-group-${idx}`}>
             {_.map(_mailBox, ({ _id, image, title, tracks }) => (
@@ -28,7 +31,8 @@ function MailBoxList() {
               </Col>
             ))}
           </Row>
-        ))}
+        ))
+      )}
     </Block>
   );
 }
