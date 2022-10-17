@@ -1,14 +1,15 @@
 import { white } from "@styles/color";
 import { P4 } from "@styles/font";
 import React from "react";
-import styled from "styled-components";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import styled, { css } from "styled-components";
 import Process from "./Process";
 import { StepStyleProps, WizardProps } from "./types";
 
-function Step({ isLast, title }: StepStyleProps) {
+function Step({ isLast, title, isNow, isCompleted }: StepStyleProps) {
   return (
     <>
-      <StepWrap>
+      <StepWrap isNow={isNow}>
         <svg
           xmlns="https://www.w3.org/2000/svg"
           width="12"
@@ -27,8 +28,22 @@ function Step({ isLast, title }: StepStyleProps) {
         <P4>{title}</P4>
       </StepWrap>
       {!isLast && (
-        <StepLine xmlns="https://www.w3.org/2000/svg" viewBox="0 0 100 2">
+        <StepLine
+          xmlns="https://www.w3.org/2000/svg"
+          viewBox="0 0 100 2"
+          isCompleted={isCompleted}
+        >
           <line
+            x1={0}
+            y1={1}
+            x2={100}
+            y2={1}
+            strokeWidth={2}
+            stroke={white[900]}
+            vectorEffect="non-scaling-stroke"
+          />
+          <line
+            className="completed-line"
             x1={0}
             y1={1}
             x2={100}
@@ -43,16 +58,43 @@ function Step({ isLast, title }: StepStyleProps) {
   );
 }
 
-const StepLine = styled.svg`
+const StepLine = styled.svg<{ isCompleted: boolean }>`
   flex: 1;
+
+  & > .completed-line {
+    transform: scaleX(0);
+    transition: 0.3s;
+  }
+  ${({ isCompleted }) =>
+    isCompleted &&
+    css`
+      & > .completed-line {
+        transform: scaleX(1);
+      }
+    `}
 `;
 
-const StepWrap = styled.div`
+const StepWrap = styled.div<{ isNow: boolean }>`
   display: flex;
   width: 100px;
   flex-direction: column;
   align-items: center;
   row-gap: 4px;
+  transition: 0.6s;
+  opacity: 0.3;
+  overflow: visible;
+
+  ${({ isNow }) =>
+    isNow &&
+    css`
+      opacity: 1;
+      & > svg {
+        overflow: visible;
+      }
+      & circle {
+        stroke-width: 4px;
+      }
+    `}
 `;
 
 export function Wizard({ onAlert }: WizardProps) {
@@ -88,18 +130,21 @@ export function Wizard({ onAlert }: WizardProps) {
       {step + 1 !== Process.length && (
         <button className="next" type="button" onClick={nextStep} />
       )}
-
       <StepBlock>
         {Process.map(({ title }, idx) => (
           <Step
             key={`wizard-nav-${idx}`}
             title={title}
             isLast={idx + 1 === Process.length}
+            isNow={idx <= step}
+            isCompleted={idx < step}
           />
         ))}
       </StepBlock>
       <Content>
-        {Process[step].component({ setNextConfirm, next: nextStep })}
+        <CSSTransition timeout={300} classNames={"right"}>
+          {Process[step].component({ setNextConfirm, next: nextStep })}
+        </CSSTransition>
       </Content>
     </Block>
   );
@@ -158,7 +203,7 @@ const Block = styled.div`
   }
 `;
 
-const Content = styled.div`
+const Content = styled(TransitionGroup)`
   margin: 24px;
   /* flex: 1; */
   height: calc(100% - 24px - 32px);

@@ -1,4 +1,6 @@
 export interface StepStyleProps {
+  isCompleted: boolean;
+  isNow: boolean;
   isLast?: boolean;
   title: string;
 }
