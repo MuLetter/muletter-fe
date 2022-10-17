@@ -1,3 +1,4 @@
+import { STrack } from "@api/types";
 import { black, white } from "@styles/color";
 import { P3, Tag1 } from "@styles/font";
 import _ from "lodash";
@@ -7,7 +8,7 @@ import { ItemProps } from "./types";
 
 export function AudioItem({ onNewPlay, track }: ItemProps) {
   return (
-    <Item onClick={() => onNewPlay(track.id)}>
+    <Item onClick={() => onNewPlay(track as STrack)}>
       <AlbumArt src={track.album.images[0].url} />
       <Content>
         <Tag1 className="artists-name">

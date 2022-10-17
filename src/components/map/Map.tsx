@@ -17,7 +17,7 @@ export function MapComponent({ mailBoxes }: MapComponentProps) {
   );
 
   React.useEffect(() => {
-    if (refMap.current) {
+    if (refMap.current && mailBoxes && mailBoxes.length > 0) {
       init(refMap, mailBoxes, onClick);
       animate();
     }

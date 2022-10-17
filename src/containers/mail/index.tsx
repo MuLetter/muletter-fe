@@ -2,13 +2,13 @@ import { getMail, replyMail } from "@api";
 import { MailComponent } from "@component";
 import { BasicMusicItem, OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
-import { audioTrackState } from "@store/atom";
+import { audioTrackState, authState } from "@store/atom";
 import { ITrack } from "@store/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import _ from "lodash";
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export function MailContainer() {
   const { id } = useParams();
@@ -20,6 +20,7 @@ export function MailContainer() {
   const [bgView, setBgView] = React.useState<boolean>(false);
   const [backgroundSrc, setBackgroundSrc] = React.useState<string | null>(null);
   const setAudioTracks = useSetRecoilState(audioTrackState);
+  const auth = useRecoilValue(authState);
 
   const { mutate: replyMutate, data: unuseDatas } = useMutation(
     ["replyMutation"],
@@ -57,6 +58,18 @@ export function MailContainer() {
     }
   }, [data, replyMutate]);
 
+  const onPlay = React.useCallback(() => {
+    if (auth?.spotifyToken) {
+      if (auth.spotifyToken.scope) {
+        setAudioTracks(_.filter(data?.mail.tracks));
+      } else {
+        setAudioTracks(
+          _.filter(data?.mail.tracks, ({ preview_url }) => preview_url !== null)
+        );
+      }
+    }
+  }, [auth, setAudioTracks, data]);
+
   return (
     <>
       {unuseDatas && (
@@ -77,9 +90,7 @@ export function MailContainer() {
           {
             title: "전체 재생",
             type: "button",
-            clickAction: data
-              ? () => setAudioTracks(data.mail.tracks)
-              : undefined,
+            clickAction: data ? onPlay : undefined,
           },
         ]}
       >

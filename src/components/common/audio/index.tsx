@@ -21,9 +21,8 @@ import { usePlayback } from "@hooks";
 import { AudioItem, AudioListWrap } from "./AudioItem";
 
 export function Audio() {
-  const refAudio = React.useRef<HTMLAudioElement>(null);
+  const refWrap = React.useRef<HTMLDivElement>(null);
   // 사용자가 추가한 재생 리스트
-
   const [audioTracks, setAudioTracks] = useRecoilState(audioTrackState);
   // 현재 재생 중인 음악
   const [track, setTrack] = React.useState<STrack | ITrack | null>(null);
@@ -31,7 +30,7 @@ export function Audio() {
   const [mode, setMode] = React.useState<AudioMode>("mini");
 
   // auth가 있다면 정상 동작가능, 아니면 preview_url
-  const [isUse, _onNewPlay, onPlay, onPause, disConnect] = usePlayback();
+  const [isUse, _onNewPlay, onPlay, onPause, disConnect] = usePlayback(refWrap);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -40,23 +39,19 @@ export function Audio() {
   }, []);
 
   const onNewPlay = React.useCallback(
-    (trackId: string) => {
-      _onNewPlay(trackId);
-      const filtered = _.filter(
-        audioTracks as STrack[],
-        ({ id }) => id === trackId
-      );
-      if (filtered) setTrack(filtered[0]);
+    (track: STrack) => {
+      _onNewPlay(track);
+      setTrack(track);
     },
-    [_onNewPlay, audioTracks]
+    [_onNewPlay]
   );
 
   React.useEffect(() => {
-    if (track && isUse) {
+    if (track) {
       setStatus(true);
-      _onNewPlay(track.id);
+      _onNewPlay(track as STrack);
     }
-  }, [isUse, _onNewPlay, track]);
+  }, [_onNewPlay, track]);
 
   React.useEffect(() => {
     if (audioTracks && audioTracks.length > 0) setTrack(audioTracks[0]);
@@ -80,25 +75,15 @@ export function Audio() {
     (e: React.MouseEvent, status: boolean) => {
       e.stopPropagation();
 
-      if (isUse) {
-        if (status) {
-          onPlay();
-          setStatus(true);
-        } else {
-          onPause();
-          setStatus(false);
-        }
+      if (status) {
+        onPlay();
+        setStatus(true);
       } else {
-        if (status) {
-          refAudio.current!.play();
-          setStatus(true);
-        } else {
-          refAudio.current!.pause();
-          setStatus(false);
-        }
+        onPause();
+        setStatus(false);
       }
     },
-    [isUse, onPlay, onPause]
+    [onPlay, onPause]
   );
 
   const changeMode = React.useCallback(
@@ -110,14 +95,15 @@ export function Audio() {
   );
 
   const close = React.useCallback(() => {
-    if (isUse) {
-      disConnect();
-    }
-    setAudioTracks(null);
+    if (isUse) disConnect();
+    setTimeout(() => {
+      setAudioTracks(null);
+    }, 300);
   }, [setAudioTracks, isUse, disConnect]);
 
   return track ? (
     <AudioWrap
+      ref={refWrap}
       className={mode}
       onMouseEnter={
         mode !== "full" ? (e) => changeMode(e, "mini-ex") : undefined
@@ -177,13 +163,13 @@ export function Audio() {
       {mode === "full" && (
         <AudioListWrap>
           {_.map(audioTracks, (audioTrack) => (
-            <AudioItem onNewPlay={onNewPlay} track={audioTrack as STrack} />
+            <AudioItem
+              key={(audioTrack as STrack).id}
+              onNewPlay={onNewPlay}
+              track={audioTrack as STrack}
+            />
           ))}
         </AudioListWrap>
-      )}
-
-      {!isUse && (
-        <audio ref={refAudio} src={track.preview_url!} autoPlay></audio>
       )}
     </AudioWrap>
   ) : (

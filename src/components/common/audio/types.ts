@@ -4,6 +4,6 @@ import { ITrack } from "@store/types";
 export type AudioMode = "mini" | "mini-ex" | "full";
 
 export interface ItemProps {
-  onNewPlay: (trackId: string) => void;
+  onNewPlay: (track: STrack) => void;
   track: STrack | ITrack;
 }
