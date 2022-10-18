@@ -4,6 +4,7 @@ import { ITrack } from "@store/types";
 import { black, white } from "@styles/color";
 import { P4 } from "@styles/font";
 import _ from "lodash";
+import { AiOutlineUser } from "react-icons/ai";
 import styled from "styled-components";
 import { ItemProps } from "./types";
 
@@ -26,10 +27,14 @@ function ContentItem({ mailBox, onClick }: ItemProps) {
         </MiniAlbumArtGroup>
       </Content>
       <AuthProfile>
-        <img
-          src={`${process.env.REACT_APP_API_SERVER}/${mailBox.user!.profile}`}
-          alt="profile"
-        />
+        {mailBox.user?.profile ? (
+          <img
+            src={`${process.env.REACT_APP_API_SERVER}/${mailBox.user!.profile}`}
+            alt="profile"
+          />
+        ) : (
+          <AiOutlineUser />
+        )}
         <P4>{mailBox.user!.nickname}</P4>
       </AuthProfile>
     </Wrap>

@@ -1,5 +1,5 @@
 import { white } from "@styles/color";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { ContentStyleProps } from "./types";
 
 export const ContentWrap = styled.div<ContentStyleProps>`
@@ -85,4 +85,25 @@ export const ButtonContentWrap = styled.div`
   row-gap: 10px;
 
   transition: 0.3s;
+`;
+
+export const BottomContentAni = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+`;
+
+export const BottomContentWrap = styled.div`
+  position: absolute;
+
+  top: 100%;
+  margin: 24px 0 0;
+  width: 216px;
+
+  transform-origin: 0 0;
+
+  background: transparent !important;
+  animation: 1.25s ${BottomContentAni} linear forwards;
 `;

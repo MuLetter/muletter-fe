@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface LidStyleProps {
   isOpen: boolean;
 }
@@ -22,7 +24,8 @@ export interface MailBoxControlProps {
   rotate: boolean;
   topAnchor: boolean;
   open: boolean;
-  button?: ButtonContentProps;
   content: boolean;
   setContentView: (state: boolean) => void;
+
+  bottomContent?: React.ReactNode;
 }

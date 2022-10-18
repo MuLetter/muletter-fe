@@ -1,10 +1,13 @@
 import { MailBox3D } from "@asset/symbols";
 import React from "react";
 import { MailBoxWrap } from "../styles";
+import { MailBoxDetailComponentProps } from "./types";
 
+export * from "./SmallMusicItem";
 export function MailBoxDetailComponent({
   children,
-}: React.PropsWithChildren<any>) {
+  bottomContent,
+}: React.PropsWithChildren<MailBoxDetailComponentProps>) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [rotate, setRotate] = React.useState<boolean>(false);
   const [topAnchor, setTopAnchor] = React.useState<boolean>(false);
@@ -37,6 +40,7 @@ export function MailBoxDetailComponent({
         open={open}
         content={content}
         setContentView={changeContentView}
+        bottomContent={bottomContent}
       >
         {children}
       </MailBox3D>

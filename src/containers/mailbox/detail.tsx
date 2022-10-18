@@ -1,5 +1,5 @@
 import { getMailBoxDetail } from "@api";
-import { MailBoxDetailComponent } from "@component";
+import { MailBoxDetailComponent, SmallMusicItem } from "@component";
 import { Col, Row, Wrap } from "@component/mailbox/detail/styles";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,7 +16,7 @@ export function MailBoxDetailContainer() {
 
   return mails ? (
     <OpacityAnimationCont>
-      <MailBoxDetailComponent>
+      <MailBoxDetailComponent bottomContent={<SmallMusicItem />}>
         <Wrap className="mailbox-detail-wrap">
           {_.map(_.chunk(mails, 2), (_mails, idx) => (
             <Row key={`mailbox-detai-row-${idx}`}>

@@ -1,14 +1,8 @@
 import { black, white } from "@styles/color";
 import React from "react";
 import styled from "styled-components";
-import {
-  BoxContent,
-  ButtonContent,
-  FrontItem,
-  Lid,
-  MainItem,
-  SideItem,
-} from "./Items3D";
+import { BoxContent, FrontItem, Lid, MainItem, SideItem } from "./Items3D";
+import { BottomContentWrap } from "./styles";
 import { MailBoxControlProps } from "./types";
 
 export function MailBox3D({
@@ -16,8 +10,8 @@ export function MailBox3D({
   rotate,
   topAnchor,
   open,
-  button,
   content,
+  bottomContent,
   setContentView,
 }: React.PropsWithChildren<MailBoxControlProps>) {
   const refLid = React.useRef<HTMLDivElement>(null);
@@ -48,7 +42,7 @@ export function MailBox3D({
             className={`${open ? "open" : "close"}`}
             ref={refLid}
           />
-          {button && <ButtonContent {...button} />}
+          {content && <BottomContentWrap>{bottomContent}</BottomContentWrap>}
         </MailBoxWrap>
       </MailBox>
       <BoxContent isView={content}>{children}</BoxContent>
