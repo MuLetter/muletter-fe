@@ -1,6 +1,7 @@
 import { white } from "@styles/color";
 import { P4 } from "@styles/font";
 import React from "react";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 import styled, { css } from "styled-components";
 import Process from "./Process";
 import { StepStyleProps, WizardProps } from "./types";
@@ -99,21 +100,28 @@ const StepWrap = styled.div<{ isNow: boolean }>`
 export function Wizard({ onAlert }: WizardProps) {
   const [step, setStep] = React.useState<number>(0);
   const refNextConfirm = React.useRef<(() => Promise<boolean>) | null>(null);
+  const refProcess = React.useRef<HTMLDivElement>(null);
+  const [dir, setDir] = React.useState<"right" | "left">("right");
 
   const nextStep = React.useCallback(async () => {
+    setDir("right");
     if (refNextConfirm.current) if (!(await refNextConfirm.current())) return;
 
     if (step < 2) {
-      setStep((prev) => prev + 1);
+      setTimeout(() => {
+        setStep((prev) => prev + 1);
+      }, 200);
     } else {
       onAlert();
     }
   }, [step, onAlert]);
 
   const prevStep = React.useCallback(() => {
-    setStep((prev) => prev - 1);
+    setDir("left");
+    setTimeout(() => {
+      setStep((prev) => prev - 1);
+    }, 200);
   }, []);
-
   const setNextConfirm = React.useCallback(
     (nextConfirm: (() => Promise<boolean>) | null) => {
       refNextConfirm.current = nextConfirm;
@@ -140,9 +148,28 @@ export function Wizard({ onAlert }: WizardProps) {
           />
         ))}
       </StepBlock>
-      <Content>
-        {Process[step].component({ setNextConfirm, next: nextStep })}
-      </Content>
+      <ContentGuard>
+        <SwitchTransition>
+          <CSSTransition
+            key={`wizard-step-${step}`}
+            nodeRef={refProcess}
+            addEndListener={(done: any) => {
+              refProcess.current!.addEventListener(
+                "transitionend",
+                done,
+                false
+              );
+            }}
+            classNames={dir}
+            timeout={300}
+          >
+            <Content ref={refProcess}>
+              {Process[step].component({ setNextConfirm, next: nextStep })}
+            </Content>
+          </CSSTransition>
+        </SwitchTransition>
+      </ContentGuard>
+      {/* {Process[step].component({ setNextConfirm, next: nextStep })} */}
     </Block>
   );
 }
@@ -200,13 +227,63 @@ const Block = styled.div`
   }
 `;
 
+const ContentGuard = styled.div`
+  margin: 24px 0 24px;
+  width: calc(100% - 48px);
+  height: calc(100% - 24px - 32px);
+
+  overflow: hidden;
+`;
+
 const Content = styled.div`
-  margin: 24px;
-  /* flex: 1; */
   height: calc(100% - 24px - 32px);
 
   display: flex;
   flex-direction: column;
+
+  position: relative;
+
+  transition: 0.3s;
+
+  &.right-exit {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  &.right-exit-active {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  &.right-enter {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  &.right-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  &.left-exit {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  &.left-exit-active {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  &.left-enter {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  &.left-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+  }
 `;
 
 const StepBlock = styled.div`
