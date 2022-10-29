@@ -125,7 +125,7 @@ export function Audio() {
           {_.map(tracks, (audioTrack) => (
             <AudioItem
               key={(audioTrack as STrack).id}
-              onNewPlay={() => {}}
+              onNewPlay={player.newPlay}
               track={audioTrack as STrack}
             />
           ))}

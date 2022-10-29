@@ -25,6 +25,7 @@ export function usePlaybackVer2(
   const pause = React.useCallback(() => {}, []);
   const next = React.useCallback(() => {}, []);
   const prev = React.useCallback(() => {}, []);
+
   const shuffle = React.useCallback(() => {
     const shuffleTracks = _.shuffle(
       _.filter(tracks as STrack[], ({ id }) => track.id !== id)
@@ -50,9 +51,24 @@ export function usePlaybackVer2(
             }
           );
         }
+        setIsPlay(true);
+        setTrack(
+          (
+            _.filter(
+              controlTrack,
+              ({ id }: STrack) => id === track.id
+            ) as STrack[]
+          )[0]
+        );
+
+        const backTracks = _.filter(
+          controlTrack,
+          ({ id }: STrack) => id !== track.id
+        ) as STrack[];
+        setControlTracks([...backTracks]);
       }
     },
-    [player, auth, type]
+    [player, controlTrack, auth, type]
   );
 
   // Spotify 사용자 구분
@@ -130,13 +146,9 @@ export function usePlaybackVer2(
 
   // tracks 초기화
   React.useEffect(() => {
-    if (player) {
-      setTrack({ ...tracks[0] });
-      newPlay(tracks[0] as STrack);
-      const backTracks = _.drop(tracks as STrack[]);
-      setControlTracks([...backTracks]);
-    }
-  }, [tracks, newPlay, player]);
+    if (player) newPlay(tracks[0] as STrack);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tracks, player]);
 
   return [
     isPlay,
