@@ -13,7 +13,7 @@ export function Background({ imgSrc }: BackgroundProps) {
 
   return (
     <MailBackgroundWrap>
-      <SwitchTransition>
+      <SwitchTransition mode="out-in">
         <CSSTransition
           key={`mail-bg-${imgSrc}`}
           nodeRef={refImg}
