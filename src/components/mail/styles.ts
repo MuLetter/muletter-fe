@@ -39,6 +39,22 @@ export const MailBackgroundWrap = styled.div`
   left: 0;
 
   animation: ${AniBackground} 0.5s linear forwards;
+
+  & .img-opacity-exit {
+    opacity: 1;
+  }
+
+  & .img-opacity-exit-active {
+    opacity: 0;
+  }
+
+  & .img-opacity-enter {
+    opacity: 0;
+  }
+
+  & .img-opacity-enter-active {
+    opacity: 1;
+  }
 `;
 
 export const BackupBackGround = styled.img`
@@ -66,6 +82,15 @@ export const MailBackgroundShadow = styled.div`
   background: ${black[700]};
 `;
 
+export const MailBackgroundGuard = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+`;
+
 export const MailBackground = styled.img`
   position: absolute;
   top: 0;
@@ -76,11 +101,5 @@ export const MailBackground = styled.img`
 
   object-fit: cover;
 
-  &.hide {
-    display: none;
-  }
-
-  &.change {
-    animation: ${AniBackground} 0.75s linear forwards;
-  }
+  transition: 0.3s;
 `;
