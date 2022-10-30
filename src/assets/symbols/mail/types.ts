@@ -31,5 +31,7 @@ export interface MailControlProps {
   isDown?: boolean;
   isOpen?: boolean;
   refScreen?: React.RefObject<HTMLDivElement>;
-  buttons?: ButtonProps[];
+
+  rightContent?: React.ReactNode;
+  leftContent?: React.ReactNode;
 }

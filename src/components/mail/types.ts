@@ -7,7 +7,3 @@ export interface ButtonProps {
   clickAction?: (...args: any) => void;
   type?: "button" | "submit";
 }
-
-export interface MailComponentProps {
-  buttons?: ButtonProps[];
-}
