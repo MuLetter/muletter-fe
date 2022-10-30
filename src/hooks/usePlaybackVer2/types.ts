@@ -4,7 +4,7 @@ import { ITrack } from "@store/types";
 export type PlayerType = "preview" | "spotify";
 export type ResultUsePlayback = [
   isPlay: boolean,
-  track: STrack | ITrack,
+  track: STrack | ITrack | null,
   tracks: STrack[] | ITrack[],
   player: Player
 ];

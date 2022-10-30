@@ -76,6 +76,24 @@ export const AlbumArt = styled.img`
   height: 100%;
 
   object-fit: cover;
+
+  transition: 0.25s;
+
+  &.img-opacity-exit {
+    opacity: 1;
+  }
+
+  &.img-opacity-exit-active {
+    opacity: 0;
+  }
+
+  &.img-opacity-enter {
+    opacity: 0;
+  }
+
+  &.img-opacity-enter-active {
+    opacity: 1;
+  }
 `;
 
 export const TitleWrap = styled.div`

@@ -89,6 +89,8 @@ export const MailBackgroundGuard = styled.div`
 
   width: 100%;
   height: 100%;
+
+  background: ${black[500]};
 `;
 
 export const MailBackground = styled.img`
@@ -101,5 +103,5 @@ export const MailBackground = styled.img`
 
   object-fit: cover;
 
-  transition: 0.3s;
+  transition: 0.25s;
 `;

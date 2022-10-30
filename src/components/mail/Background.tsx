@@ -21,7 +21,7 @@ export function Background({ imgSrc }: BackgroundProps) {
             refImg.current!.addEventListener("transitionend", done, false);
           }}
           classNames={"img-opacity"}
-          timeout={300}
+          timeout={500}
         >
           {imgSrc ? (
             <MailBackground src={imgSrc} ref={refImg} alt="album-art" />

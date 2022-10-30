@@ -18,9 +18,11 @@ import { AudioMode } from "./types";
 import { STrack } from "@api/types";
 import { AudioItem, AudioListWrap } from "./AudioItem";
 import { usePlaybackVer2 } from "@hooks";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 export function Audio() {
   const refWrap = React.useRef<HTMLDivElement>(null);
+  const refAlbumArt = React.useRef<HTMLImageElement>(null);
   // 사용자가 추가한 재생 리스트
   const [audioTracks, setAudioTracks] = useRecoilState(audioTrackState);
   // 현재 재생 중인 음악
@@ -59,7 +61,23 @@ export function Audio() {
       }
       onMouseLeave={mode !== "full" ? (e) => changeMode(e, "mini") : undefined}
     >
-      <AlbumArt src={track.album.images[0].url} alt="album-art" />
+      <SwitchTransition>
+        <CSSTransition
+          key={`albumart-bg-${track.id}`}
+          nodeRef={refAlbumArt}
+          addEndListener={(done: any) => {
+            refAlbumArt.current!.addEventListener("transitionend", done, false);
+          }}
+          classNames={"img-opacity"}
+          timeout={500}
+        >
+          <AlbumArt
+            ref={refAlbumArt}
+            src={track.album.images[0].url}
+            alt="album-art"
+          />
+        </CSSTransition>
+      </SwitchTransition>
       <TitleWrap className="title-wrap">
         {mode === "full" ? (
           <IconButton
