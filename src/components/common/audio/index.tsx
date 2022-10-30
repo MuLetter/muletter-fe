@@ -24,7 +24,6 @@ export function Audio() {
   // 사용자가 추가한 재생 리스트
   const [audioTracks, setAudioTracks] = useRecoilState(audioTrackState);
   // 현재 재생 중인 음악
-  const [status, setStatus] = React.useState<boolean>(false);
   const [mode, setMode] = React.useState<AudioMode>("mini");
   const [isPlay, track, tracks, player] = usePlaybackVer2(
     refWrap,
@@ -36,19 +35,6 @@ export function Audio() {
       setMode("full");
     }, 300);
   }, []);
-
-  React.useEffect(() => {
-    if (track) {
-      setStatus(true);
-    }
-  }, [track]);
-
-  const changeStatus = React.useCallback(
-    (e: React.MouseEvent, status: boolean) => {
-      e.stopPropagation();
-    },
-    []
-  );
 
   const changeMode = React.useCallback(
     (e: React.MouseEvent, mode: AudioMode) => {
@@ -102,19 +88,19 @@ export function Audio() {
         <P4 className="track-title">{track.name}</P4>
         <IconWrap className="icon-wrap">
           <IconGroup>
-            <IconButton onClick={(e) => changeStatus(e, true)}>
+            <IconButton onClick={player.prev}>
               <BsFillSkipBackwardFill />
             </IconButton>
-            {status ? (
-              <IconButton onClick={(e) => changeStatus(e, false)}>
+            {isPlay ? (
+              <IconButton onClick={player.pause}>
                 <BsFillPauseFill />
               </IconButton>
             ) : (
-              <IconButton onClick={(e) => changeStatus(e, true)}>
+              <IconButton onClick={player.play}>
                 <BsFillPlayFill />
               </IconButton>
             )}
-            <IconButton onClick={(e) => changeStatus(e, true)}>
+            <IconButton onClick={player.next}>
               <BsFillSkipForwardFill />
             </IconButton>
           </IconGroup>

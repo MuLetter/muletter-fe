@@ -11,6 +11,10 @@ export function usePlaybackVer2(
   refWrap: React.RefObject<HTMLDivElement>,
   tracks: STrack[] | ITrack[]
 ): ResultUsePlayback {
+  const refNow = React.useRef<STrack | ITrack>();
+  const refNext = React.useRef<STrack | ITrack>();
+  const refPrev = React.useRef<STrack | ITrack>();
+
   const [player, setPlayer] = React.useState<any>();
   const [controlTrack, setControlTracks] = React.useState<STrack[] | ITrack[]>([
     ...tracks,
@@ -21,10 +25,22 @@ export function usePlaybackVer2(
 
   const auth = useRecoilValue(authState);
 
-  const play = React.useCallback(() => {}, []);
-  const pause = React.useCallback(() => {}, []);
-  const next = React.useCallback(() => {}, []);
-  const prev = React.useCallback(() => {}, []);
+  const play = React.useCallback(() => {
+    if (player) {
+      if (type === "preview") {
+        player.play();
+      } else {
+        player.resume();
+      }
+      setIsPlay(true);
+    }
+  }, [player, type]);
+  const pause = React.useCallback(() => {
+    if (player) {
+      player.pause();
+      setIsPlay(false);
+    }
+  }, [player]);
 
   const shuffle = React.useCallback(() => {
     const shuffleTracks = _.shuffle(
@@ -52,24 +68,33 @@ export function usePlaybackVer2(
           );
         }
         setIsPlay(true);
-        setTrack(
-          (
-            _.filter(
-              controlTrack,
-              ({ id }: STrack) => id === track.id
-            ) as STrack[]
-          )[0]
-        );
+        const nowTrack = _.filter(
+          controlTrack,
+          ({ id }: STrack) => id === track.id
+        ) as STrack[];
+        if (refNow.current) refPrev.current = refNow.current;
+        refNow.current = nowTrack[0];
+        setTrack(nowTrack[0]);
 
         const backTracks = _.filter(
           controlTrack,
           ({ id }: STrack) => id !== track.id
         ) as STrack[];
+        refNext.current = backTracks[0];
+
         setControlTracks([...backTracks]);
       }
     },
     [player, controlTrack, auth, type]
   );
+
+  const next = React.useCallback(() => {
+    if (refNext.current) newPlay(refNext.current as STrack);
+  }, [newPlay]);
+
+  const prev = React.useCallback(() => {
+    if (refPrev.current) newPlay(refPrev.current as STrack);
+  }, [newPlay]);
 
   // Spotify 사용자 구분
   React.useEffect(() => {
