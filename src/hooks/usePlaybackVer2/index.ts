@@ -14,7 +14,10 @@ export function usePlaybackVer2(
   const refNow = React.useRef<STrack | ITrack>();
   const refNext = React.useRef<STrack | ITrack>();
   const refPrev = React.useRef<(STrack | ITrack)[]>([]);
+  const refTrackList = React.useRef<STrack[] | ITrack[]>(tracks);
+
   const [player, setPlayer] = React.useState<any>();
+
   const [controlTrack, setControlTracks] = React.useState<STrack[] | ITrack[]>(
     tracks
   );
@@ -44,9 +47,11 @@ export function usePlaybackVer2(
   }, [player]);
 
   const shuffle = React.useCallback(() => {
-    const shuffleTracks = _.shuffle(controlTrack) as STrack[];
+    const shuffleTracks = _.shuffle(refTrackList.current) as STrack[];
+    refTrackList.current = shuffleTracks;
+    refNext.current = refTrackList.current[0];
     setControlTracks(shuffleTracks);
-  }, [controlTrack]);
+  }, []);
 
   const newPlay = React.useCallback(
     (track: STrack, notListUpdate?: boolean) => {
@@ -71,9 +76,10 @@ export function usePlaybackVer2(
         if (!notListUpdate) {
           if (refNow.current) refPrev.current.push(refNow.current);
           const backTracks = _.filter(
-            controlTrack,
+            refTrackList.current,
             ({ id }: STrack) => id !== track.id
           ) as STrack[];
+          refTrackList.current = backTracks;
           refNext.current = backTracks[0];
 
           setControlTracks(backTracks);
@@ -83,7 +89,7 @@ export function usePlaybackVer2(
         setTrack(track);
       }
     },
-    [player, controlTrack, auth, type]
+    [player, auth, type]
   );
 
   const next = React.useCallback(() => {
@@ -96,14 +102,14 @@ export function usePlaybackVer2(
       const newPrevTracks = _.dropRight(refPrev.current);
       refPrev.current = newPrevTracks;
 
-      const newControlTracks = _.concat(track!, controlTrack);
+      const newControlTracks = _.concat(track!, refTrackList.current);
 
       setControlTracks(newControlTracks);
 
       refNext.current = newControlTracks[0];
       newPlay(prevTrack as STrack, true);
     }
-  }, [newPlay, track, controlTrack]);
+  }, [newPlay, track]);
 
   // Spotify 사용자 구분
   React.useEffect(() => {
@@ -153,10 +159,17 @@ export function usePlaybackVer2(
 
           player.addListener(
             "player_state_changed",
-            ({ position, duration, track_window: { current_track } }: any) => {
+            ({
+              position,
+              duration,
+              track_window: { current_track },
+              ...rest
+            }: any) => {
               console.log("Currently Playing", current_track);
               console.log("Position in Song", position);
               console.log("Duration of Song", duration);
+
+              console.log(rest);
             }
           );
 
@@ -186,6 +199,23 @@ export function usePlaybackVer2(
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tracks, player]);
+
+  React.useEffect(() => {
+    if (player && type) {
+      if (type === "preview") {
+        player.addEventListener("ended", () => {
+          newPlay(refNext.current as STrack);
+        });
+      } else {
+        player.addListener(
+          "player_state_changed",
+          ({ position, duration }: any) => {
+            if (position === duration) newPlay(refNext.current as STrack);
+          }
+        );
+      }
+    }
+  }, [player, type, newPlay]);
 
   return [
     isPlay,
