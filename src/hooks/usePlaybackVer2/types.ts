@@ -17,4 +17,5 @@ export interface Player {
   prev: () => void;
   shuffle: () => void;
   newPlay: (track: STrack) => void;
+  disconnect: () => void;
 }

@@ -1,6 +1,6 @@
 import { audioTrackState } from "@store/atom";
 import { P4, Tag1 } from "@styles/font";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { AlbumArt, AudioWrap, IconGroup, IconWrap, TitleWrap } from "./styles";
 import _ from "lodash";
 import { IconButton } from "../button";
@@ -24,7 +24,7 @@ export function Audio() {
   const refWrap = React.useRef<HTMLDivElement>(null);
   const refAlbumArt = React.useRef<HTMLImageElement>(null);
   // 사용자가 추가한 재생 리스트
-  const [audioTracks, setAudioTracks] = useRecoilState(audioTrackState);
+  const audioTracks = useRecoilValue(audioTrackState);
   // 현재 재생 중인 음악
   const [mode, setMode] = React.useState<AudioMode>("mini");
   const [isPlay, track, tracks, player] = usePlaybackVer2(
@@ -45,12 +45,6 @@ export function Audio() {
     },
     []
   );
-
-  const close = React.useCallback(() => {
-    setTimeout(() => {
-      setAudioTracks(null);
-    }, 300);
-  }, [setAudioTracks]);
 
   return track ? (
     <AudioWrap
@@ -97,7 +91,7 @@ export function Audio() {
         <IconButton className="shuffle-btn" onClick={player.shuffle}>
           <BsShuffle />
         </IconButton>
-        <IconButton className="close-btn" onClick={(e) => close()}>
+        <IconButton className="close-btn" onClick={player.disconnect}>
           <BsXLg />
         </IconButton>
         <Tag1 className="artists-names">

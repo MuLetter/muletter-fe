@@ -89,7 +89,8 @@ const Content = styled.div`
   flex-direction: column;
   row-gap: 2px;
 
-  & > p {
+  & > p,
+  span {
     white-space: nowrap;
     overflow-x: hidden;
     width: 264px;

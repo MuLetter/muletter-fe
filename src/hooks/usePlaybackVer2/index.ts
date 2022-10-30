@@ -1,9 +1,9 @@
 import { STrack } from "@api/types";
-import { authState } from "@store/atom";
+import { audioTrackState, authState } from "@store/atom";
 import { ITrack } from "@store/types";
 import _ from "lodash";
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { PlayerType, ResultUsePlayback } from "./types";
 import axios from "axios";
 
@@ -15,6 +15,7 @@ export function usePlaybackVer2(
   const refNext = React.useRef<STrack | ITrack>();
   const refPrev = React.useRef<(STrack | ITrack)[]>([]);
   const refTrackList = React.useRef<STrack[] | ITrack[]>(tracks);
+  const setGlobalTracks = useSetRecoilState(audioTrackState);
 
   const [player, setPlayer] = React.useState<any>();
 
@@ -111,6 +112,20 @@ export function usePlaybackVer2(
     }
   }, [newPlay, track]);
 
+  const disconnect = React.useCallback(() => {
+    if (player && type) {
+      if (type === "spotify") {
+        player.disconnect();
+
+        // iframe 정리해야함
+        const spotifyFrame = document.querySelector("iframe");
+
+        if (spotifyFrame) document.removeChild(spotifyFrame);
+      }
+      setGlobalTracks(null);
+    }
+  }, [type, player, setGlobalTracks]);
+
   // Spotify 사용자 구분
   React.useEffect(() => {
     if (!player) {
@@ -157,22 +172,6 @@ export function usePlaybackVer2(
             console.error("Failed to perform playback", message);
           });
 
-          player.addListener(
-            "player_state_changed",
-            ({
-              position,
-              duration,
-              track_window: { current_track },
-              ...rest
-            }: any) => {
-              console.log("Currently Playing", current_track);
-              console.log("Position in Song", position);
-              console.log("Duration of Song", duration);
-
-              console.log(rest);
-            }
-          );
-
           player.connect();
         };
 
@@ -209,8 +208,9 @@ export function usePlaybackVer2(
       } else {
         player.addListener(
           "player_state_changed",
-          ({ position, duration }: any) => {
+          ({ position, duration, ...rest }: any) => {
             if (position === duration) newPlay(refNext.current as STrack);
+            console.log(rest);
           }
         );
       }
@@ -229,6 +229,7 @@ export function usePlaybackVer2(
       prev,
       shuffle,
       newPlay,
+      disconnect,
     },
   ];
 }
