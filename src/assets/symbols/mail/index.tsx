@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Back, Front, Letter, LetterBottomGuard, Lid } from "./Items3D";
+import { LeftContentBlock, RightContentBlock } from "./styles";
 import { MailControlProps, MailStyleProps } from "./types";
 
 export function Mail3D({
@@ -9,6 +10,8 @@ export function Mail3D({
   isDown,
   refScreen,
   isRotate,
+  leftContent,
+  rightContent,
 }: React.PropsWithChildren<MailControlProps & MailStyleProps>) {
   const refWrap = React.useRef<HTMLDivElement>(null);
   const [down, setDown] = React.useState<boolean>(isDown ? isDown : false);
@@ -65,6 +68,12 @@ export function Mail3D({
         <Front />
         <Lid isOpen={isOpen} animationEnd={changeLetterView} />
       </MailWrap>
+      <LeftContentBlock className="left-content">
+        {leftContent && leftContent}
+      </LeftContentBlock>
+      <RightContentBlock className="right-content">
+        {rightContent && rightContent}
+      </RightContentBlock>
     </Mail>
   );
 }

@@ -65,3 +65,20 @@ export const LetterBottomGuardWrap = styled.div`
     rgba(255, 255, 255, 0)
   );
 `;
+
+export const LeftContentBlock = styled.div`
+  position: absolute;
+  bottom: 16px;
+  left: 24px;
+
+  width: 48px;
+  height: 48px;
+
+  background: #333;
+`;
+
+export const RightContentBlock = styled.div`
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+`;

@@ -1,4 +1,3 @@
-import { white } from "@styles/color";
 import styled, { css } from "styled-components";
 import { buttonColorTheme, buttonSizes } from "./styles";
 import { ButtonStyleProps } from "./types";
@@ -41,11 +40,10 @@ export const ButtonGroup = styled.div`
 `;
 
 export const IconButton = styled.button`
-  color: ${white[500]};
+  cursor: pointer;
+
   border: none;
   background: transparent;
-
-  cursor: pointer;
 
   width: 48px;
   height: 48px;

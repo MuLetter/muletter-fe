@@ -1,5 +1,5 @@
 import { getMail, replyMail } from "@api";
-import { MailComponent } from "@component";
+import { MailComponent, RightContent } from "@component";
 import { BasicMusicItem, OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
 import { audioTrackState, authState } from "@store/atom";
@@ -45,9 +45,7 @@ export function MailContainer() {
   }, []);
 
   const onReply = React.useCallback(() => {
-    if (data) {
-      replyMutate(data.mail.mailBoxId);
-    }
+    if (data) replyMutate(data.mail.mailBoxId);
   }, [data, replyMutate]);
 
   const onPlay = React.useCallback(() => {
@@ -86,18 +84,7 @@ export function MailContainer() {
       )}
       {bgView && <Background imgSrc={backgroundSrc} />}
       <MailComponent
-        buttons={[
-          {
-            title: "답장하기",
-            clickAction: onReply,
-            type: "button",
-          },
-          {
-            title: "전체 재생",
-            type: "button",
-            clickAction: data ? onPlay : undefined,
-          },
-        ]}
+        rightContent={<RightContent onPlay={onPlay} onReply={onReply} />}
       >
         {data &&
           _.map(data.mail.tracks, (track) => (
