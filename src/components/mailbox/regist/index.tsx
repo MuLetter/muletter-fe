@@ -1,6 +1,8 @@
 import { MailBox3D } from "@asset/symbols";
+import { ControlMailboxContext } from "@context";
 
 import React from "react";
+import { useContext } from "react";
 import { MailBoxWrap } from "../styles";
 
 export * from "./Wizard";
@@ -9,39 +11,32 @@ export * from "./RegistOKAlert";
 export function MailBoxRegistComponent({
   children,
 }: React.PropsWithChildren<any>) {
-  const [open, setOpen] = React.useState<boolean>(false);
-  const [rotate, setRotate] = React.useState<boolean>(false);
-  const [topAnchor, setTopAnchor] = React.useState<boolean>(false);
-  const [content, setContentView] = React.useState<boolean>(false);
+  const { openAction, setContentView, ...rest } = useContext(
+    ControlMailboxContext
+  );
 
   React.useEffect(() => {
-    setRotate(true);
+    openAction();
+  }, [openAction]);
 
-    setTimeout(() => {
-      setTopAnchor(true);
-      setOpen(true);
-    }, 750);
-  }, []);
-
-  const changeContentView = React.useCallback((state: boolean) => {
-    setContentView(state);
-    setTimeout(() => {
-      window.scrollBy({
-        top: 120,
-        behavior: "smooth",
-      });
-    }, 200);
-  }, []);
+  const changeContentView = React.useCallback(
+    (state: boolean) => {
+      setContentView(state);
+      if (state) {
+        setTimeout(() => {
+          window.scrollBy({
+            top: 120,
+            behavior: "smooth",
+          });
+        }, 200);
+      }
+    },
+    [setContentView]
+  );
 
   return (
     <MailBoxWrap>
-      <MailBox3D
-        rotate={rotate}
-        topAnchor={topAnchor}
-        open={open}
-        content={content}
-        setContentView={changeContentView}
-      >
+      <MailBox3D setContentView={changeContentView} {...rest}>
         {children}
       </MailBox3D>
     </MailBoxWrap>

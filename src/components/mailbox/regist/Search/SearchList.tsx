@@ -18,7 +18,10 @@ function SearchList({
   const refSelected = React.useRef<STrack[]>(selectTracks);
 
   const selectItem = React.useCallback((track: STrack) => {
-    refSelected.current = _.concat(refSelected.current, track);
+    refSelected.current = _.uniqBy(
+      _.concat(refSelected.current, track),
+      ({ id }) => id
+    );
     // setSelectTracks(_.concat(selectTracks, track));
   }, []);
 

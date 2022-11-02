@@ -1,14 +1,17 @@
 import { postMailBox, postMailBoxTracks } from "@api";
 import { Button, ButtonGroup, MailBoxItem } from "@component/common";
+import { ControlMailboxContext } from "@context";
 import { registedMailBoxState, selectTracksState } from "@store/atom";
 import { useMutation } from "@tanstack/react-query";
 import { STrackToITrack } from "@utils";
 import React from "react";
+import { useContext } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ConfirmControlProps } from "./types";
 
 function Confirm({ next }: ConfirmControlProps) {
+  const { closeAction } = useContext(ControlMailboxContext);
   const [registedId, setRegistedId] = React.useState<string | null>(null);
   const mailBox = useRecoilValue(registedMailBoxState);
   const stracks = useRecoilValue(selectTracksState);
@@ -36,9 +39,12 @@ function Confirm({ next }: ConfirmControlProps) {
 
   const onRegist = React.useCallback(() => {
     if (mailBox) {
-      postMailBoxMutate(mailBox);
+      closeAction();
+      setTimeout(() => {
+        postMailBoxMutate(mailBox);
+      }, 1000);
     }
-  }, [mailBox, postMailBoxMutate]);
+  }, [mailBox, closeAction, postMailBoxMutate]);
 
   React.useEffect(() => {
     if (registedId) {
@@ -52,20 +58,18 @@ function Confirm({ next }: ConfirmControlProps) {
   }, [registedId, stracks, postMailBoxTracksMutate]);
 
   return (
-    <>
-      <ConfirmWrap>
-        <MailBoxItem
-          mailBox={{ title: mailBox!.title, image: mailBox!.imageLinkBak }}
-          tracks={stracks}
-          isAutoOpen
-        />
-        <ButtonGroup>
-          <Button type="button" colorTheme="outline" onClick={onRegist}>
-            등록하기
-          </Button>
-        </ButtonGroup>
-      </ConfirmWrap>
-    </>
+    <ConfirmWrap>
+      <MailBoxItem
+        mailBox={{ title: mailBox!.title, image: mailBox!.imageLinkBak }}
+        tracks={stracks}
+        isAutoOpen
+      />
+      <ButtonGroup>
+        <Button type="button" colorTheme="outline" onClick={onRegist}>
+          등록하기
+        </Button>
+      </ButtonGroup>
+    </ConfirmWrap>
   );
 }
 
