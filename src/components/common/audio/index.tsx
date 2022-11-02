@@ -77,6 +77,7 @@ export function Audio() {
           <IconButton
             className="size-btn"
             onClick={(e) => changeMode(e, "mini-ex")}
+            colorTheme="white"
           >
             <BsArrowUpLeft />
           </IconButton>
@@ -84,14 +85,23 @@ export function Audio() {
           <IconButton
             className="size-btn"
             onClick={(e) => changeMode(e, "full")}
+            colorTheme="white"
           >
             <BsArrowUpLeft />
           </IconButton>
         )}
-        <IconButton className="shuffle-btn" onClick={player.shuffle}>
+        <IconButton
+          className="shuffle-btn"
+          onClick={player.shuffle}
+          colorTheme="white"
+        >
           <BsShuffle />
         </IconButton>
-        <IconButton className="close-btn" onClick={player.disconnect}>
+        <IconButton
+          className="close-btn"
+          onClick={player.disconnect}
+          colorTheme="white"
+        >
           <BsXLg />
         </IconButton>
         <Tag1 className="artists-names">
@@ -100,19 +110,19 @@ export function Audio() {
         <P4 className="track-title">{track.name}</P4>
         <IconWrap className="icon-wrap">
           <IconGroup>
-            <IconButton onClick={player.prev}>
+            <IconButton onClick={player.prev} colorTheme="white">
               <BsFillSkipBackwardFill />
             </IconButton>
             {isPlay ? (
-              <IconButton onClick={player.pause}>
+              <IconButton onClick={player.pause} colorTheme="white">
                 <BsFillPauseFill />
               </IconButton>
             ) : (
-              <IconButton onClick={player.play}>
+              <IconButton onClick={player.play} colorTheme="white">
                 <BsFillPlayFill />
               </IconButton>
             )}
-            <IconButton onClick={player.next}>
+            <IconButton onClick={player.next} colorTheme="white">
               <BsFillSkipForwardFill />
             </IconButton>
           </IconGroup>

@@ -12,7 +12,7 @@ export const OpacityAni = keyframes`
 
 export const OpacityAnimation = styled.div<ControlProps>`
   animation: ${OpacityAni} 0.3s linear forwards;
-  min-height: calc(100vh - 120px - 200px);
+  min-height: calc(100vh - 198px - 200px);
 `;
 
 export function OpacityAnimationCont({

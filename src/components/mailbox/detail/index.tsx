@@ -26,7 +26,7 @@ export function MailBoxDetailComponent({
     setContentView(state);
     setTimeout(() => {
       window.scrollBy({
-        top: 80,
+        top: 120,
         behavior: "smooth",
       });
     }, 200);

@@ -68,12 +68,16 @@ export function Mail3D({
         <Front />
         <Lid isOpen={isOpen} animationEnd={changeLetterView} />
       </MailWrap>
-      <LeftContentBlock className="left-content">
-        {leftContent && leftContent}
-      </LeftContentBlock>
-      <RightContentBlock className="right-content">
-        {rightContent && rightContent}
-      </RightContentBlock>
+      {leftContent && (
+        <LeftContentBlock className="left-content">
+          {leftContent}
+        </LeftContentBlock>
+      )}
+      {rightContent && (
+        <RightContentBlock className="right-content">
+          {rightContent}
+        </RightContentBlock>
+      )}
     </Mail>
   );
 }

@@ -27,25 +27,23 @@ export function MailBoxRegistComponent({
     setContentView(state);
     setTimeout(() => {
       window.scrollBy({
-        top: 80,
+        top: 120,
         behavior: "smooth",
       });
     }, 200);
   }, []);
 
   return (
-    <>
-      <MailBoxWrap>
-        <MailBox3D
-          rotate={rotate}
-          topAnchor={topAnchor}
-          open={open}
-          content={content}
-          setContentView={changeContentView}
-        >
-          {children}
-        </MailBox3D>
-      </MailBoxWrap>
-    </>
+    <MailBoxWrap>
+      <MailBox3D
+        rotate={rotate}
+        topAnchor={topAnchor}
+        open={open}
+        content={content}
+        setContentView={changeContentView}
+      >
+        {children}
+      </MailBox3D>
+    </MailBoxWrap>
   );
 }

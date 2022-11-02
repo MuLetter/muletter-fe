@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { buttonColorTheme, buttonSizes } from "./styles";
-import { ButtonStyleProps } from "./types";
+import { buttonColorTheme, buttonSizes, iconButtonColorTheme } from "./styles";
+import { ButtonStyleProps, IconButtonStyleProps } from "./types";
 
 export const Button = styled.button<ButtonStyleProps>`
   border: none;
@@ -39,7 +39,7 @@ export const ButtonGroup = styled.div`
   column-gap: 8px;
 `;
 
-export const IconButton = styled.button`
+export const IconButton = styled.button<IconButtonStyleProps>`
   cursor: pointer;
 
   border: none;
@@ -50,6 +50,11 @@ export const IconButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${({ colorTheme }) =>
+    colorTheme
+      ? iconButtonColorTheme[colorTheme]
+      : iconButtonColorTheme["white"]}
 
   & > * {
     width: 48px;

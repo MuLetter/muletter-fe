@@ -26,7 +26,7 @@ export function MailComponent({
   }, []);
 
   return (
-    <OpacityAnimationCont>
+    <OpacityAnimationCont isMin>
       <Wrap ref={refScreen}>
         <Mail3D isOpen={open} refScreen={refScreen} rightContent={rightContent}>
           <RecoListWrap>{children}</RecoListWrap>

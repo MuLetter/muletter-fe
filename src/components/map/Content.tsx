@@ -35,7 +35,7 @@ const Wrap = styled.div`
 
   position: relative;
   width: 996px;
-  height: calc(100vh - 200px - 120px - 450px + 160px);
+  height: calc(100vh - 200px - 198px - 450px - 174px);
   min-height: 420px;
 
   margin: 0 auto;

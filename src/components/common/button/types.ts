@@ -20,3 +20,7 @@ export interface ButtonStyleProps {
   isBlock?: boolean;
   margin?: string;
 }
+
+export interface IconButtonStyleProps {
+  colorTheme?: ButtonColorThemeType;
+}

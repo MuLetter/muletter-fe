@@ -72,3 +72,46 @@ export const buttonColorTheme: ButtonColorTheme = {
     }
   `,
 };
+
+export const iconButtonColorTheme: ButtonColorTheme = {
+  black: css`
+    color: ${black[500]};
+
+    &:hover,
+    &:focus,
+    &:disabled {
+      background: transparent;
+      color: ${black[600]};
+    }
+  `,
+  white: css`
+    color: ${white[500]};
+
+    &:hover,
+    &:focus,
+    &:disabled {
+      color: ${white[600]};
+    }
+  `,
+  outline: css`
+    color: ${white[600]};
+    border: 1px solid ${white[600]};
+
+    &:hover,
+    &:focus,
+    &:disabled {
+      background: ${white[50]};
+    }
+  `,
+  "outline-black": css`
+    color: ${black[500]};
+    border: 1px solid ${black[600]};
+
+    &:hover,
+    &:focus,
+    &:disabled {
+      color: ${black[700]};
+      border: 1px solid ${black[800]};
+    }
+  `,
+};

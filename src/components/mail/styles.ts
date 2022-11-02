@@ -11,7 +11,8 @@ export const AniBackground = keyframes`
 
 export const Wrap = styled.div`
   width: 100vw;
-  height: 100vh;
+  margin: 78px 0 0;
+  height: 100%;
   min-height: 1120px;
 
   display: flex;

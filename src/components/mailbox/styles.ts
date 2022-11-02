@@ -10,5 +10,5 @@ export const MailBoxWrap = styled.div`
   min-height: 440px;
   max-height: 820px;
 
-  margin: 30px auto 120px;
+  margin: 78px auto 120px;
 `;

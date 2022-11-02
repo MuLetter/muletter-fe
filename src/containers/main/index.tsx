@@ -6,13 +6,13 @@ export function MainContainer() {
   const [view, setView] = React.useState<number>(0);
 
   const onChangeView = React.useCallback(() => {
-    if (window.innerHeight + window.scrollY > 1300 && view === 0) {
+    if (window.innerHeight + window.scrollY > 1300) {
       setView(1);
     }
-    if (window.innerHeight + window.scrollY > 2000 && view === 1) {
+    if (window.innerHeight + window.scrollY > 2000) {
       setView(2);
     }
-  }, [view]);
+  }, []);
 
   React.useEffect(() => {
     window.addEventListener("scroll", onChangeView);
@@ -21,6 +21,11 @@ export function MainContainer() {
       window.removeEventListener("scroll", onChangeView);
     };
   }, [onChangeView]);
+
+  React.useEffect(() => {
+    onChangeView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrap>

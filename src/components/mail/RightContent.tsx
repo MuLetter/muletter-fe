@@ -6,10 +6,10 @@ import { RightContentProps } from "./types";
 function RightContent({ onPlay, onReply }: RightContentProps) {
   return (
     <Wrap>
-      <IconButton onClick={onReply}>
+      <IconButton onClick={onReply} colorTheme="black">
         <MdForwardToInbox />
       </IconButton>
-      <IconButton onClick={onPlay}>
+      <IconButton onClick={onPlay} colorTheme="black">
         <MdOutlineHeadphones />
       </IconButton>
     </Wrap>

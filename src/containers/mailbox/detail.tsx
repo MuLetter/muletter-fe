@@ -14,32 +14,31 @@ export function MailBoxDetailContainer() {
   );
   const navigate = useNavigate();
 
-  return mails ? (
-    <OpacityAnimationCont>
+  return (
+    <OpacityAnimationCont isMin>
       <MailBoxDetailComponent bottomContent={<SmallMusicItem />}>
         <Wrap className="mailbox-detail-wrap">
-          {_.map(_.chunk(mails, 2), (_mails, idx) => (
-            <Row key={`mailbox-detai-row-${idx}`}>
-              {_.map(_mails, (mail) => (
-                <Col key={mail._id}>
-                  <MailItem
-                    clickAction={() =>
-                      navigate(`/mail/${mail._id}`, {
-                        state: {
-                          mailBoxId: id,
-                        },
-                      })
-                    }
-                    mail={mail}
-                  />
-                </Col>
-              ))}
-            </Row>
-          ))}
+          {mails &&
+            _.map(_.chunk(mails, 2), (_mails, idx) => (
+              <Row key={`mailbox-detai-row-${idx}`}>
+                {_.map(_mails, (mail) => (
+                  <Col key={mail._id}>
+                    <MailItem
+                      clickAction={() =>
+                        navigate(`/mail/${mail._id}`, {
+                          state: {
+                            mailBoxId: id,
+                          },
+                        })
+                      }
+                      mail={mail}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            ))}
         </Wrap>
       </MailBoxDetailComponent>
     </OpacityAnimationCont>
-  ) : (
-    <></>
   );
 }
