@@ -8,6 +8,7 @@ export interface ResMail {
 export interface ResLike {
   mailBoxId: string;
   track: ITrack;
+  isLike: boolean;
 }
 
 export interface ResDisLike {

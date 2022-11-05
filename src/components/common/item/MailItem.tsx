@@ -23,10 +23,10 @@ export function MailItem({ mail, clickAction }: MailItemControlProps) {
         <Line xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 125">
           <path
             d="
-          M 0 0
-          L 200 125
-          L 400 0
-        "
+              M 0 0
+              L 200 125
+              L 400 0
+            "
           />
         </Line>
         <MiniAlbumArtGroup>

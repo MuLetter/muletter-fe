@@ -1,6 +1,6 @@
 import client from "@api/client";
 import { ITrack } from "@store/types";
-import { ResDisLike, ResLike, ResMail } from "./types";
+import { ResLike, ResMail } from "./types";
 
 const BASEPATH = "/mail";
 
@@ -15,20 +15,15 @@ export const getMail = async (id: string) =>
 
 export const likeMusic = async (data: ResLike) =>
   (
-    await client.patch(`${BASEPATH}/like`, data, {
-      headers: {
-        authorization: localStorage.getItem("muletter-token")!,
-      },
-    })
-  ).data;
-
-export const disLikeMusic = async (data: ResDisLike) =>
-  (
-    await client.patch(`${BASEPATH}/dislike`, data, {
-      headers: {
-        authorization: localStorage.getItem("muletter-token")!,
-      },
-    })
+    await client.patch(
+      `${BASEPATH}/${data.isLike ? "like" : "dislike"}`,
+      data,
+      {
+        headers: {
+          authorization: localStorage.getItem("muletter-token")!,
+        },
+      }
+    )
   ).data;
 
 export const replyMail = async (id: string) =>

@@ -8,46 +8,35 @@ import { MusicItemControlProps } from "./types";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import { disLikeMusic, likeMusic } from "@api";
+import { likeMusic } from "@api";
 
-export function BasicMusicItem({
+export function CBasicMusicItem({
   onMouseEnter,
   isIconTool,
   isLike,
   ...track
 }: ITrack & MusicItemControlProps) {
   const [like, setLike] = React.useState<boolean>(isLike ? isLike : false);
-  const { mutate: likeMutate } = useMutation(["likeMutation"], likeMusic, {
-    onSuccess: () => {
-      setLike(true);
-    },
-  });
-  const { mutate: disLikeMutate } = useMutation(
-    ["disLikeMutation"],
-    disLikeMusic,
+  const { mutate: likeMutate } = useMutation(
+    ["likeMutation", track.id],
+    async (like: boolean) =>
+      await likeMusic({
+        mailBoxId: (track as any).mailBoxId,
+        track: track,
+        isLike: like,
+      }),
     {
       onSuccess: () => {
-        setLike(false);
+        setLike((prev) => !prev);
       },
     }
   );
 
-  const changeLike = React.useCallback(
-    (state: boolean) => {
-      if (state) {
-        const copyTrack = { ...track };
-        delete copyTrack.label;
-        const mailBoxId = copyTrack.mailBoxId!;
-        delete copyTrack.mailBoxId;
+  const changeLike = React.useCallback(() => {
+    likeMutate(!like);
+  }, [likeMutate, like]);
 
-        likeMutate({ mailBoxId, track: copyTrack });
-      } else {
-        const mailBoxId = track.mailBoxId!;
-        disLikeMutate({ mailBoxId, trackId: track.id });
-      }
-    },
-    [likeMutate, disLikeMutate, track]
-  );
+  console.log(track.id, like);
 
   return (
     <Wrap onMouseMove={onMouseEnter} onMouseEnter={onMouseEnter}>
@@ -65,7 +54,7 @@ export function BasicMusicItem({
       </TitleWrap>
       {isIconTool && (
         <IconGroup>
-          <IconButton onClick={() => changeLike(!like)} colorTheme="black">
+          <IconButton onClick={changeLike} colorTheme="black">
             {like ? <BsSuitHeartFill /> : <BsSuitHeart />}
           </IconButton>
         </IconGroup>
@@ -73,6 +62,8 @@ export function BasicMusicItem({
     </Wrap>
   );
 }
+
+export const BasicMusicItem = React.memo(CBasicMusicItem);
 
 export const Wrap = styled.div`
   width: 100%;
