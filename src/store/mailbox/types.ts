@@ -30,6 +30,8 @@ export interface IMailBox {
   authId: string;
 
   user?: IAuth;
+  mailCount?: number;
+  likeCount?: number;
   isLike?: boolean;
 }
 

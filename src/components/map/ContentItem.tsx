@@ -2,11 +2,16 @@ import { STrack } from "@api/types";
 import { MiniAlbumArt, MiniAlbumArtCount } from "@component/common";
 import { ITrack } from "@store/types";
 import { black, white } from "@styles/color";
-import { P4 } from "@styles/font";
+import { P4, Tag2 } from "@styles/font";
 import _ from "lodash";
-import { AiOutlineUser } from "react-icons/ai";
 import styled from "styled-components";
 import { ItemProps } from "./types";
+import {
+  AiOutlineUser,
+  AiOutlineLike,
+  AiOutlineMail,
+  AiFillLike,
+} from "react-icons/ai";
 
 function ContentItem({ mailBox, onClick }: ItemProps) {
   return (
@@ -18,33 +23,76 @@ function ContentItem({ mailBox, onClick }: ItemProps) {
       <Content>
         <P4>{mailBox.title}</P4>
         <MiniAlbumArtGroup>
-          {_.map(_.sampleSize(mailBox.tracks, 5), (track: STrack | ITrack) => (
+          {_.map(_.sampleSize(mailBox.tracks, 10), (track: STrack | ITrack) => (
             <MiniAlbumArt image={track.album.images[0].url} key={track.id} />
           ))}
-          {mailBox.tracks.length > 5 && (
-            <MiniAlbumArtCount>+{mailBox.tracks.length - 5}</MiniAlbumArtCount>
+          {mailBox.tracks.length > 10 && (
+            <MiniAlbumArtCount>+{mailBox.tracks.length - 10}</MiniAlbumArtCount>
           )}
         </MiniAlbumArtGroup>
       </Content>
-      <AuthProfile>
-        {mailBox.user?.profile ? (
-          <img
-            src={`${process.env.REACT_APP_API_SERVER}/${mailBox.user!.profile}`}
-            alt="profile"
-          />
-        ) : (
-          <AiOutlineUser />
-        )}
-        <P4>{mailBox.user!.nickname}</P4>
-      </AuthProfile>
+      <SubContent>
+        <SubInformation>
+          <SubBlock>
+            {mailBox.isLike ? (
+              <AiFillLike color={black[600]} size={28} />
+            ) : (
+              <AiOutlineLike color={black[600]} size={28} />
+            )}
+
+            <Tag2>{mailBox.likeCount}</Tag2>
+          </SubBlock>
+          <SubBlock>
+            <AiOutlineMail color={black[600]} size={28} />
+            <Tag2>{mailBox.mailCount}</Tag2>
+          </SubBlock>
+        </SubInformation>
+        <AuthProfile>
+          {mailBox.user?.profile ? (
+            <img
+              src={`${process.env.REACT_APP_API_SERVER}/${
+                mailBox.user!.profile
+              }`}
+              alt="profile"
+            />
+          ) : (
+            <AiOutlineUser />
+          )}
+          <P4>{mailBox.user!.nickname}</P4>
+        </AuthProfile>
+      </SubContent>
     </Wrap>
   );
 }
 
+const SubContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  height: 100%;
+`;
+
+const SubInformation = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 8px;
+
+  flex: 1;
+`;
+
+const SubBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  align-items: center;
+
+  color: ${black[600]};
+`;
+
 const AuthProfile = styled.div`
   display: flex;
   flex-direction: row;
-  align-self: flex-end;
   align-items: center;
 
   color: ${black[700]};

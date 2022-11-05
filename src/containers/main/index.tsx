@@ -6,13 +6,15 @@ export function MainContainer() {
   const [view, setView] = React.useState<number>(0);
 
   const onChangeView = React.useCallback(() => {
-    if (window.innerHeight + window.scrollY > 1300) {
-      setView(1);
+    if (view < 2) {
+      if (window.innerHeight + window.scrollY > 1300) {
+        setView(1);
+      }
+      if (window.innerHeight + window.scrollY > 2000) {
+        setView(2);
+      }
     }
-    if (window.innerHeight + window.scrollY > 2000) {
-      setView(2);
-    }
-  }, []);
+  }, [view]);
 
   React.useEffect(() => {
     window.addEventListener("scroll", onChangeView);
