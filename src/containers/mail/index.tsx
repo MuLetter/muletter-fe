@@ -2,6 +2,7 @@ import { getMail, replyMail } from "@api";
 import { MailComponent, RightContent } from "@component";
 import { BasicMusicItem, OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
+import { ControlMailContext } from "@context";
 import { audioTrackState, authState } from "@store/atom";
 import { ITrack } from "@store/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -11,6 +12,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 export function MailContainer() {
+  const { openAction, closeAction } = React.useContext(ControlMailContext);
   const { id } = useParams();
   const { state } = useLocation();
   const { data } = useQuery(["getMail", id], () => getMail(id!));
@@ -26,6 +28,14 @@ export function MailContainer() {
     ["replyMutation"],
     replyMail
   );
+
+  React.useEffect(() => {
+    if (data) {
+      setTimeout(() => {
+        openAction();
+      }, 500);
+    }
+  }, [openAction, data]);
 
   React.useEffect(() => {
     if (selectedTrack) {
@@ -45,8 +55,13 @@ export function MailContainer() {
   }, []);
 
   const onReply = React.useCallback(() => {
-    if (data) replyMutate(data.mail.mailBoxId);
-  }, [data, replyMutate]);
+    closeAction();
+    if (data) {
+      setTimeout(() => {
+        replyMutate(data.mail.mailBoxId);
+      }, 750);
+    }
+  }, [closeAction, replyMutate, data]);
 
   const onPlay = React.useCallback(() => {
     if (auth?.spotifyToken) {

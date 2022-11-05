@@ -3,6 +3,7 @@ import { RecoListWrap, Wrap } from "./styles";
 import React from "react";
 import { OpacityAnimationCont } from "@styles/block";
 import { MailComponentProps } from "./types";
+import { ControlMailContext } from "@context";
 
 export * from "./LeftContent";
 export * from "./RightContent";
@@ -10,14 +11,8 @@ export function MailComponent({
   children,
   rightContent,
 }: React.PropsWithChildren<MailComponentProps>) {
-  const [open, setOpen] = React.useState<boolean>(false);
+  const { open } = React.useContext(ControlMailContext);
   const refScreen = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setOpen(true);
-    }, 500);
-  }, []);
 
   React.useEffect(() => {
     window.scrollBy({

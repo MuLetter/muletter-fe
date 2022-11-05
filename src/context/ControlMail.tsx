@@ -14,7 +14,9 @@ export const ControlMailContext = React.createContext<IControlMailContenxt>({
   closeAction: () => {},
 });
 
-export function ControlMailProvice({ children }: React.PropsWithChildren<any>) {
+export function ControlMailProvider({
+  children,
+}: React.PropsWithChildren<any>) {
   const [open, setOpen] = React.useState<boolean>(false);
 
   const openAction = React.useCallback(() => {

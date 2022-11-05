@@ -13,6 +13,7 @@ export function Mail3D({
   leftContent,
   rightContent,
 }: React.PropsWithChildren<MailControlProps & MailStyleProps>) {
+  const [open, setOpen] = React.useState(isOpen);
   const refWrap = React.useRef<HTMLDivElement>(null);
   const [down, setDown] = React.useState<boolean>(isDown ? isDown : false);
   const [letterView, setLetterView] = React.useState<boolean>(false);
@@ -53,6 +54,17 @@ export function Mail3D({
     [resizing]
   );
 
+  React.useEffect(() => {
+    if (!isOpen) {
+      setLetterView(false);
+      setTimeout(() => {
+        setOpen(false);
+      }, 300);
+    } else {
+      setOpen(true);
+    }
+  }, [isOpen]);
+
   return (
     <Mail ref={refWrap} className={`${down ? "down" : ""}`}>
       <MailWrap isRotate={isRotate}>
@@ -66,7 +78,7 @@ export function Mail3D({
         </Letter>
         <LetterBottomGuard />
         <Front />
-        <Lid isOpen={isOpen} animationEnd={changeLetterView} />
+        <Lid isOpen={open} animationEnd={changeLetterView} />
       </MailWrap>
       {leftContent && (
         <LeftContentBlock className="left-content">
