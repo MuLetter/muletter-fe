@@ -28,6 +28,7 @@ export interface MailItemControlProps {
 }
 
 export interface MiniStyleProps {
+  rounded?: "normal" | "cute";
   colorTheme?: "black" | "white";
 }
 

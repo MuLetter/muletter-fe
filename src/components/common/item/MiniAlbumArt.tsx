@@ -4,8 +4,11 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { MiniAlbumArtProps, MiniStyleProps } from "./types";
 
-export function MiniAlbumArt({ image }: MiniAlbumArtProps) {
-  return <MiniAlbumArtImg src={image} />;
+export function MiniAlbumArt({
+  image,
+  ...style
+}: MiniAlbumArtProps & MiniStyleProps) {
+  return <MiniAlbumArtImg src={image} {...style} />;
 }
 
 export function MiniAlbumArtCount({
@@ -15,11 +18,18 @@ export function MiniAlbumArtCount({
   return <MiniAlbumArtFrame {...styleProps}>{children}</MiniAlbumArtFrame>;
 }
 
-const MiniAlbumArtImg = styled.img`
+const MiniAlbumArtImg = styled.img<MiniStyleProps>`
   width: 40px;
   height: 40px;
 
-  border-radius: 8px;
+  ${({ rounded }) =>
+    rounded === "cute"
+      ? css`
+          border-radius: 14px;
+        `
+      : css`
+          border-radius: 8px;
+        `}
 `;
 
 const MiniAlbumArtFrame = styled.div<MiniStyleProps>`
@@ -38,7 +48,15 @@ const MiniAlbumArtFrame = styled.div<MiniStyleProps>`
           color: ${black[500]};
         `}
 
-  border-radius: 8px;
+  ${({ rounded }) =>
+    rounded === "cute"
+      ? css`
+          border-radius: 14px;
+        `
+      : css`
+          border-radius: 8px;
+        `}
+  
   box-sizing: border-box;
 
   ${fontStyles["p4"]};
