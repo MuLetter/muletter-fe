@@ -33,15 +33,11 @@ function SearchItem({ track, isSelect }: SearchItemProps) {
 
   React.useEffect(() => {
     console.log("render # 1");
-    console.log(track);
-  });
+    console.log(isSelect);
+  }, [isSelect]);
 
   return (
-    <Wrap
-      loadDuration={Math.random() * (0.4 - 0.2) + 0.2}
-      isLoad={isLoad}
-      onClick={select ? _removeTrack : _appendTrack}
-    >
+    <Wrap isLoad={isLoad} onClick={select ? _removeTrack : _appendTrack}>
       <AlbumArt
         ref={refAlbumArt}
         src={track.album.images.length !== 0 ? track.album.images[0].url : ""}
@@ -71,7 +67,7 @@ const Wrap = styled.div<SearchItemStyleProps>`
 
   column-gap: 12px;
   cursor: pointer;
-  transition: ${({ loadDuration }) => loadDuration}s;
+  transition: 0.1s;
 
   & button {
     transition: 0.3s;

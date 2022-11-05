@@ -24,5 +24,4 @@ export interface SearchListProps {
 
 export interface SearchItemStyleProps {
   isLoad: boolean;
-  loadDuration: number;
 }

@@ -26,6 +26,9 @@ export function MailBoxItem({
       }, 200);
   }, [isAutoOpen]);
 
+  const samples = React.useMemo(() => _.sampleSize(tracks, 5), [tracks]);
+  const mailBoxCount = React.useMemo(() => tracks.length, [tracks]);
+
   return (
     <MailBoxItemWrap
       onClick={
@@ -43,11 +46,11 @@ export function MailBoxItem({
     >
       <TrackContent className="track-content">
         <TrackContentBody>
-          {_.map(_.sampleSize(tracks, 5), (track: STrack | ITrack) => (
+          {_.map(samples, (track: STrack | ITrack) => (
             <MiniAlbumArt image={track.album.images[0].url} key={track.id} />
           ))}
-          {tracks.length > 5 && (
-            <MiniAlbumArtCount>+{tracks.length - 5}</MiniAlbumArtCount>
+          {mailBoxCount > 5 && (
+            <MiniAlbumArtCount>+{mailBoxCount - 5}</MiniAlbumArtCount>
           )}
         </TrackContentBody>
       </TrackContent>
