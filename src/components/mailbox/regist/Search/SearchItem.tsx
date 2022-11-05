@@ -6,13 +6,10 @@ import { MdAdd } from "react-icons/md";
 import styled, { css } from "styled-components";
 import { SearchItemProps, SearchItemStyleProps } from "./types";
 import _ from "lodash";
+import { ControlWizardContext } from "@context";
 
-function SearchItem({
-  track,
-  selectAction,
-  removeAction,
-  isSelect,
-}: SearchItemProps) {
+function SearchItem({ track, isSelect }: SearchItemProps) {
+  const { appendTrack, removeTrack } = React.useContext(ControlWizardContext);
   const [select, setSelect] = React.useState<boolean>(isSelect);
   const [isLoad, setIsLoad] = React.useState<boolean>(false);
   const refAlbumArt = React.useRef<HTMLImageElement>(null);
@@ -26,23 +23,24 @@ function SearchItem({
     }
   }, []);
 
-  const _selectAction = React.useCallback(() => {
-    selectAction!(track);
-    setSelect(true);
-  }, [selectAction, track]);
+  const _appendTrack = React.useCallback(() => {
+    setSelect(appendTrack(track));
+  }, [track, appendTrack]);
 
-  const _removeAction = React.useCallback(() => {
-    if (removeAction) {
-      removeAction(track);
-      setSelect(false);
-    }
-  }, [removeAction, track]);
+  const _removeTrack = React.useCallback(() => {
+    setSelect(!removeTrack(track));
+  }, [track, removeTrack]);
+
+  React.useEffect(() => {
+    console.log("render # 1");
+    console.log(track);
+  });
 
   return (
     <Wrap
       loadDuration={Math.random() * (0.4 - 0.2) + 0.2}
       isLoad={isLoad}
-      onClick={select ? _removeAction : _selectAction}
+      onClick={select ? _removeTrack : _appendTrack}
     >
       <AlbumArt
         ref={refAlbumArt}
@@ -115,4 +113,4 @@ const MusicInfo = styled.div`
   }
 `;
 
-export default SearchItem;
+export default React.memo(SearchItem, () => false);

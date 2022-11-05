@@ -1,13 +1,13 @@
 import React from "react";
 
-export interface IControlMailContenxt {
+export interface IControlMailContext {
   open: boolean;
 
   openAction: () => void;
   closeAction: () => void;
 }
 
-export const ControlMailContext = React.createContext<IControlMailContenxt>({
+export const ControlMailContext = React.createContext<IControlMailContext>({
   open: false,
 
   openAction: () => {},

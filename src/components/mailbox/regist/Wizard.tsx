@@ -1,3 +1,4 @@
+import { ControlWizardProvider } from "@context";
 import { white } from "@styles/color";
 import { P4 } from "@styles/font";
 import React from "react";
@@ -130,47 +131,49 @@ export function Wizard({ onAlert }: WizardProps) {
   );
 
   return (
-    <Block>
-      {step !== 0 && (
-        <button className="prev" type="button" onClick={prevStep} />
-      )}
-      {step + 1 !== Process.length && (
-        <button className="next" type="button" onClick={nextStep} />
-      )}
-      <StepBlock>
-        {Process.map(({ title }, idx) => (
-          <Step
-            key={`wizard-nav-${idx}`}
-            title={title}
-            isLast={idx + 1 === Process.length}
-            isNow={idx <= step}
-            isCompleted={idx < step}
-          />
-        ))}
-      </StepBlock>
-      <ContentGuard>
-        <SwitchTransition>
-          <CSSTransition
-            key={`wizard-step-${step}`}
-            nodeRef={refProcess}
-            addEndListener={(done: any) => {
-              refProcess.current!.addEventListener(
-                "transitionend",
-                done,
-                false
-              );
-            }}
-            classNames={dir}
-            timeout={300}
-          >
-            <Content ref={refProcess}>
-              {Process[step].component({ setNextConfirm, next: nextStep })}
-            </Content>
-          </CSSTransition>
-        </SwitchTransition>
-      </ContentGuard>
-      {/* {Process[step].component({ setNextConfirm, next: nextStep })} */}
-    </Block>
+    <ControlWizardProvider>
+      <Block>
+        {step !== 0 && (
+          <button className="prev" type="button" onClick={prevStep} />
+        )}
+        {step + 1 !== Process.length && (
+          <button className="next" type="button" onClick={nextStep} />
+        )}
+        <StepBlock>
+          {Process.map(({ title }, idx) => (
+            <Step
+              key={`wizard-nav-${idx}`}
+              title={title}
+              isLast={idx + 1 === Process.length}
+              isNow={idx <= step}
+              isCompleted={idx < step}
+            />
+          ))}
+        </StepBlock>
+        <ContentGuard>
+          <SwitchTransition>
+            <CSSTransition
+              key={`wizard-step-${step}`}
+              nodeRef={refProcess}
+              addEndListener={(done: any) => {
+                refProcess.current!.addEventListener(
+                  "transitionend",
+                  done,
+                  false
+                );
+              }}
+              classNames={dir}
+              timeout={300}
+            >
+              <Content ref={refProcess}>
+                {Process[step].component({ setNextConfirm, next: nextStep })}
+              </Content>
+            </CSSTransition>
+          </SwitchTransition>
+        </ContentGuard>
+        {/* {Process[step].component({ setNextConfirm, next: nextStep })} */}
+      </Block>
+    </ControlWizardProvider>
   );
 }
 

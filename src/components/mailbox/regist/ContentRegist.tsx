@@ -1,21 +1,20 @@
 import { TextInput } from "@component/common";
 import { FileUpload } from "@component/common";
-import { registedMailBoxState } from "@store/atom";
+import { ControlWizardContext } from "@context";
 import React from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { WizardControlItem } from "./types";
 
 function ContentRegist({ setNextConfirm }: WizardControlItem) {
-  const [mailBox, setMailBox] = useRecoilState(registedMailBoxState);
+  const { content, setContent } = React.useContext(ControlWizardContext);
   const [mainImage, setMainImage] = React.useState<string | null | undefined>(
-    mailBox ? mailBox.imageLinkBak : null
+    content ? content.imageLinkBak : null
   );
   const [image, setImage] = React.useState<Blob | null>(
-    mailBox ? mailBox.image : null
+    content ? content.image : null
   );
   const [mailBoxName, setMailBoxName] = React.useState<string>(
-    mailBox ? mailBox.title : ""
+    content ? content.title : ""
   );
 
   const onChange = React.useCallback(
@@ -45,13 +44,13 @@ function ContentRegist({ setNextConfirm }: WizardControlItem) {
   React.useEffect(() => {
     return () => {
       if (mailBoxName && image && mainImage)
-        setMailBox({
+        setContent({
           title: mailBoxName,
           image: image,
           imageLinkBak: mainImage,
         });
     };
-  }, [mailBoxName, image, mainImage, setMailBox]);
+  }, [mailBoxName, image, mainImage, setContent]);
 
   return (
     <ContentRegistWrap>

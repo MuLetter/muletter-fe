@@ -1,25 +1,25 @@
 import { STrack } from "@api/types";
-import { selectTracksState } from "@store/atom";
 import React from "react";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import _ from "lodash";
 import { MusicCard } from "@component/common";
+import { ControlWizardContext } from "@context";
 
 const CHUNKSIZE = 5;
 function SelectList() {
-  const [tracks, setSelectTracks] = useRecoilState(selectTracksState);
+  const { selectedTracks, removeTrack } =
+    React.useContext(ControlWizardContext);
 
   const removeSelects = React.useCallback(
     (track: STrack) => {
-      setSelectTracks(_.filter(tracks, (st) => st.id !== track.id));
+      removeTrack(track);
     },
-    [tracks, setSelectTracks]
+    [removeTrack]
   );
 
   return (
     <Wrap>
-      {_.chunk(tracks, CHUNKSIZE).map((track, idx) => (
+      {_.chunk(selectedTracks, CHUNKSIZE).map((track, idx) => (
         <Row key={`track-row-${idx}`}>
           {_.map(track, (t) => (
             <MusicCard track={t} key={t.id} selectAction={removeSelects} />

@@ -5,7 +5,6 @@ import { FetchNextPageOptions, InfiniteData } from "@tanstack/react-query";
 export type SearchBarMode = "waiting" | "searching";
 
 export interface SearchItemProps extends MusicCardProps {
-  removeAction: (...args: any) => void;
   isSelect: boolean;
 }
 

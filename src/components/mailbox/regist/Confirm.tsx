@@ -1,20 +1,17 @@
 import { postMailBox, postMailBoxTracks } from "@api";
 import { Button, ButtonGroup, MailBoxItem } from "@component/common";
-import { ControlMailboxContext } from "@context";
-import { registedMailBoxState, selectTracksState } from "@store/atom";
+import { ControlMailboxContext, ControlWizardContext } from "@context";
 import { useMutation } from "@tanstack/react-query";
 import { STrackToITrack } from "@utils";
 import React from "react";
-import { useContext } from "react";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ConfirmControlProps } from "./types";
 
 function Confirm({ next }: ConfirmControlProps) {
-  const { closeAction } = useContext(ControlMailboxContext);
+  const { closeAction } = React.useContext(ControlMailboxContext);
   const [registedId, setRegistedId] = React.useState<string | null>(null);
-  const mailBox = useRecoilValue(registedMailBoxState);
-  const stracks = useRecoilValue(selectTracksState);
+  const { content: mailBox, selectedTracks: stracks } =
+    React.useContext(ControlWizardContext);
 
   const { mutate: postMailBoxMutate } = useMutation(
     ["postMailBox"],

@@ -1,5 +1,5 @@
 import { getSearch } from "@api";
-import { authState, selectTracksState } from "@store/atom";
+import { authState } from "@store/atom";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useRecoilValue } from "recoil";
@@ -9,18 +9,19 @@ import SelectList from "./SelectList";
 import { SearchBarMode } from "./types";
 import _ from "lodash";
 import { WizardControlItem } from "../types";
+import { ControlWizardContext } from "@context";
 
 function Search({ setNextConfirm }: WizardControlItem) {
   const auth = useRecoilValue(authState);
   const queryClient = useQueryClient();
-  const selectedTracks = useRecoilValue(selectTracksState);
-
+  const { selectedTracks } = React.useContext(ControlWizardContext);
   const refInput = React.useRef<HTMLInputElement>(null);
   const [q, setQ] = React.useState<string>("");
   const [mode, setMode] = React.useState<SearchBarMode>("waiting");
   const modeChange = React.useCallback((mode: SearchBarMode) => {
     setMode(mode);
   }, []);
+
   const {
     isRefetching,
     data: searchDatas,
@@ -47,6 +48,7 @@ function Search({ setNextConfirm }: WizardControlItem) {
     }
   );
 
+  // nextAction을 감지해야함.
   React.useEffect(() => {
     const nextSteps = async () => {
       if (!selectedTracks.length) {

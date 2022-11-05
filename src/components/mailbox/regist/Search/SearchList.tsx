@@ -3,9 +3,8 @@ import _ from "lodash";
 import styled from "styled-components";
 import { SearchListProps } from "./types";
 import { STrack } from "@api/types";
-import { useRecoilState } from "recoil";
-import { selectTracksState } from "@store/atom";
 import SearchItem from "./SearchItem";
+import { ControlWizardContext } from "@context";
 
 function SearchList({
   data,
@@ -14,23 +13,8 @@ function SearchList({
   isFechingNextPage,
 }: SearchListProps) {
   const refWrap = React.useRef<HTMLDivElement>(null);
-  const [selectTracks, setSelectTracks] = useRecoilState(selectTracksState);
-  const refSelected = React.useRef<STrack[]>(selectTracks);
-
-  const selectItem = React.useCallback((track: STrack) => {
-    refSelected.current = _.uniqBy(
-      _.concat(refSelected.current, track),
-      ({ id }) => id
-    );
-    // setSelectTracks(_.concat(selectTracks, track));
-  }, []);
-
-  const removeItem = React.useCallback((track: STrack) => {
-    refSelected.current = _.dropWhile(
-      refSelected.current,
-      (st) => st.id === track.id
-    );
-  }, []);
+  const { selectedTracks } = React.useContext(ControlWizardContext);
+  const [selected, setSelected] = React.useState<STrack[]>([]);
 
   const throttleScroll = React.useRef<() => void>(
     _.throttle(() => {
@@ -55,12 +39,12 @@ function SearchList({
 
   React.useEffect(() => {
     if (refWrap.current) refWrap.current!.addEventListener("scroll", nextFetch);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nextFetch]);
 
-    return () => {
-      setSelectTracks(refSelected.current);
-    };
-  }, [setSelectTracks, nextFetch]);
+  React.useEffect(() => {
+    setSelected(selectedTracks);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrap ref={refWrap}>
@@ -70,11 +54,8 @@ function SearchList({
             <SearchItem
               track={track}
               key={track.id}
-              selectAction={selectItem}
-              removeAction={removeItem}
               isSelect={
-                _.find(refSelected.current, (st) => st.id === track.id) !==
-                undefined
+                _.find(selected, (st) => st.id === track.id) !== undefined
               }
             />
           ))
