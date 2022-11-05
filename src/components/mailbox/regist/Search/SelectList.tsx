@@ -4,6 +4,7 @@ import styled from "styled-components";
 import _ from "lodash";
 import { MusicCard } from "@component/common";
 import { ControlWizardContext } from "@context";
+import DontHave from "./DontHave";
 
 const CHUNKSIZE = 5;
 function SelectList() {
@@ -19,17 +20,21 @@ function SelectList() {
 
   return (
     <Wrap>
-      {_.chunk(selectedTracks, CHUNKSIZE).map((track, idx) => (
-        <Row key={`track-row-${idx}`}>
-          {_.map(track, (t) => (
-            <MusicCard track={t} key={t.id} selectAction={removeSelects} />
-          ))}
-          {track.length < CHUNKSIZE &&
-            _.range(CHUNKSIZE - track.length).map((_, eidx) => (
-              <div className="empty" key={`empty-col-${eidx}`} />
+      {selectedTracks.length === 0 ? (
+        <DontHave />
+      ) : (
+        _.chunk(selectedTracks, CHUNKSIZE).map((track, idx) => (
+          <Row key={`track-row-${idx}`}>
+            {_.map(track, (t) => (
+              <MusicCard track={t} key={t.id} selectAction={removeSelects} />
             ))}
-        </Row>
-      ))}
+            {track.length < CHUNKSIZE &&
+              _.range(CHUNKSIZE - track.length).map((_, eidx) => (
+                <div className="empty" key={`empty-col-${eidx}`} />
+              ))}
+          </Row>
+        ))
+      )}
     </Wrap>
   );
 }

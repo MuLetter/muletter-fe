@@ -133,3 +133,5 @@ const MailWrap = styled.div<MailStyleProps>`
       transform: rotateY(-40deg) rotateX(25deg);
     `}
 `;
+
+export * from "./Items2D";
