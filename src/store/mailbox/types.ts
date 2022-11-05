@@ -30,6 +30,7 @@ export interface IMailBox {
   authId: string;
 
   user?: IAuth;
+  isLike?: boolean;
 }
 
 export interface ITrack {

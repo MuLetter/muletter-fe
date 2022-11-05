@@ -1,16 +1,41 @@
+import { patchReactiveMailbox } from "@api";
 import { IconButton } from "@component/common";
-import { AiOutlineLike, AiOutlineBook } from "react-icons/ai";
+import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import styled from "styled-components";
+import { ReactiveBoxProps } from "./types";
 
-function ReactiveBox() {
+function ReactiveBox({ mailbox }: ReactiveBoxProps) {
+  const [like, setLike] = React.useState<boolean>(
+    mailbox.isLike ? mailbox.isLike : false
+  );
+  const { mutate: reactiveMutate } = useMutation(
+    ["reactiveMutation"],
+    async (isLike: boolean) =>
+      await patchReactiveMailbox({ id: mailbox._id, isLike }),
+    {
+      onSuccess: () => {
+        setLike((prev) => !prev);
+      },
+    }
+  );
+
+  const reactive = React.useCallback(() => {
+    reactiveMutate(!like);
+  }, [like, reactiveMutate]);
+
   return (
     <Wrap>
-      <IconButton>
-        <AiOutlineLike />
-      </IconButton>
-      <IconButton>
-        <AiOutlineBook />
-      </IconButton>
+      {like ? (
+        <IconButton onClick={reactive}>
+          <AiFillLike />
+        </IconButton>
+      ) : (
+        <IconButton>
+          <AiOutlineLike onClick={reactive} />
+        </IconButton>
+      )}
     </Wrap>
   );
 }

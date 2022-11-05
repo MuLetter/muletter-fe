@@ -2,6 +2,7 @@ import { IMailBox, RegistedMailBoxInformation } from "@store/types";
 import client from "../client";
 import {
   ReqPostMailBoxTrackParams,
+  ReqReactiveMailbox,
   ResMailboxDetail,
   ResPostMailBox,
 } from "./types";
@@ -52,6 +53,22 @@ export const postMailBoxTracks = async ({
       {
         tracks,
       },
+      {
+        headers: {
+          authorization: localStorage.getItem("muletter-token")!,
+        },
+      }
+    )
+  ).data;
+
+export const patchReactiveMailbox = async ({
+  id,
+  isLike,
+}: ReqReactiveMailbox) =>
+  (
+    await client.patch<{ status: boolean }>(
+      `${BASEPATH}/${isLike ? "like" : "dislike"}/${id}`,
+      {},
       {
         headers: {
           authorization: localStorage.getItem("muletter-token")!,

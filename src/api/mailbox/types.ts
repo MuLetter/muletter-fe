@@ -11,3 +11,8 @@ export interface ResMailboxDetail {
   mailbox: IMailBox;
   mails: ISizeMail[];
 }
+
+export interface ReqReactiveMailbox {
+  id: string;
+  isLike: boolean;
+}

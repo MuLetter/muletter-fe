@@ -1,5 +1,5 @@
 import { STrack } from "@api/types";
-import { ITrack } from "@store/types";
+import { IMailBox, ITrack } from "@store/types";
 import React from "react";
 
 export interface MailBoxDetailComponentProps {
@@ -10,6 +10,12 @@ export interface SmallMusicItemProps {
   tracks: STrack[] | ITrack[];
 }
 
-export interface DetailBottomContentProps extends SmallMusicItemProps {
+export interface ReactiveBoxProps {
+  mailbox: IMailBox;
+}
+
+export interface DetailBottomContentProps
+  extends SmallMusicItemProps,
+    ReactiveBoxProps {
   isMe?: boolean;
 }

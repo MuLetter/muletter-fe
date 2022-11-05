@@ -3,10 +3,14 @@ import ReactiveBox from "./ReactiveBox";
 import { SmallMusicItem } from "./SmallMusicItem";
 import { DetailBottomContentProps } from "./types";
 
-function DetailBottomContent({ tracks, isMe }: DetailBottomContentProps) {
+function DetailBottomContent({
+  tracks,
+  isMe,
+  mailbox,
+}: DetailBottomContentProps) {
   return (
     <Wrap>
-      {isMe && <ReactiveBox />}
+      {isMe && <ReactiveBox mailbox={mailbox} />}
       <SmallMusicItem tracks={tracks} />
     </Wrap>
   );

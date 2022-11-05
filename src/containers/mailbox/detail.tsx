@@ -23,6 +23,7 @@ export function MailBoxDetailContainer() {
         bottomContent={
           data && (
             <DetailBottomContent
+              mailbox={data.mailbox}
               tracks={data?.mailbox.tracks}
               isMe={auth?.id !== data?.mailbox.authId}
             />
