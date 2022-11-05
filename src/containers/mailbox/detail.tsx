@@ -21,7 +21,12 @@ export function MailBoxDetailContainer() {
     <OpacityAnimationCont isMin>
       <MailBoxDetailComponent
         bottomContent={
-          data && <DetailBottomContent tracks={data?.mailbox.tracks} />
+          data && (
+            <DetailBottomContent
+              tracks={data?.mailbox.tracks}
+              isMe={auth?.id !== data?.mailbox.authId}
+            />
+          )
         }
       >
         <Wrap className="mailbox-detail-wrap">

@@ -119,8 +119,8 @@ export function usePlaybackVer2(
 
         // iframe 정리해야함
         const spotifyFrame = document.querySelector("iframe");
-
-        if (spotifyFrame) document.removeChild(spotifyFrame);
+        console.log(spotifyFrame);
+        // if (spotifyFrame) document.removeChild(spotifyFrame);
       }
       setGlobalTracks(null);
     }

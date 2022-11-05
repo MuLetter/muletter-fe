@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import ReactiveBox from "./ReactiveBox";
 import { SmallMusicItem } from "./SmallMusicItem";
-import { SmallMusicItemProps } from "./types";
+import { DetailBottomContentProps } from "./types";
 
-function DetailBottomContent({ tracks }: SmallMusicItemProps) {
+function DetailBottomContent({ tracks, isMe }: DetailBottomContentProps) {
   return (
     <Wrap>
-      <ReactiveBox />
+      {isMe && <ReactiveBox />}
       <SmallMusicItem tracks={tracks} />
     </Wrap>
   );
@@ -15,6 +15,7 @@ function DetailBottomContent({ tracks }: SmallMusicItemProps) {
 const Wrap = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 export { DetailBottomContent };

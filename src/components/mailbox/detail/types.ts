@@ -9,3 +9,7 @@ export interface MailBoxDetailComponentProps {
 export interface SmallMusicItemProps {
   tracks: STrack[] | ITrack[];
 }
+
+export interface DetailBottomContentProps extends SmallMusicItemProps {
+  isMe?: boolean;
+}
