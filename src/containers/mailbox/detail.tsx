@@ -9,17 +9,21 @@ import { OpacityAnimationCont } from "@styles/block";
 
 export function MailBoxDetailContainer() {
   const { id } = useParams();
-  const { data: mails } = useQuery(["getMailBox", id], () =>
-    getMailBoxDetail(id!)
-  );
+  const { data } = useQuery(["getMailBox", id], () => getMailBoxDetail(id!));
   const navigate = useNavigate();
+
+  console.log(data);
 
   return (
     <OpacityAnimationCont isMin>
-      <MailBoxDetailComponent bottomContent={<SmallMusicItem />}>
+      <MailBoxDetailComponent
+        bottomContent={
+          data ? <SmallMusicItem tracks={data.mailbox.tracks} /> : undefined
+        }
+      >
         <Wrap className="mailbox-detail-wrap">
-          {mails &&
-            _.map(_.chunk(mails, 2), (_mails, idx) => (
+          {data &&
+            _.map(_.chunk(data.mails, 2), (_mails, idx) => (
               <Row key={`mailbox-detai-row-${idx}`}>
                 {_.map(_mails, (mail) => (
                   <Col key={mail._id}>

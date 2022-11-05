@@ -104,6 +104,6 @@ export const BottomContentWrap = styled.div`
 
   transform-origin: 0 0;
 
-  background: transparent !important;
+  background-color: #333 !important;
   animation: 1.25s ${BottomContentAni} linear forwards;
 `;

@@ -65,7 +65,7 @@ export function BasicMusicItem({
       </TitleWrap>
       {isIconTool && (
         <IconGroup>
-          <IconButton onClick={() => changeLike(!like)}>
+          <IconButton onClick={() => changeLike(!like)} colorTheme="black">
             {like ? <BsSuitHeartFill /> : <BsSuitHeart />}
           </IconButton>
         </IconGroup>
@@ -115,8 +115,4 @@ export const IconGroup = styled.div`
   justify-content: flex-end;
 
   width: 96px;
-
-  & button {
-    color: ${black[500]};
-  }
 `;

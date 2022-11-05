@@ -42,7 +42,11 @@ export function MailBox3D({
             className={`${open ? "open" : "close"}`}
             ref={refLid}
           />
-          {content && <BottomContentWrap>{bottomContent}</BottomContentWrap>}
+          {content && bottomContent && (
+            <BottomContentWrap className="mailbox-bottom-content">
+              {bottomContent}
+            </BottomContentWrap>
+          )}
         </MailBoxWrap>
       </MailBox>
       <BoxContent isView={content}>{children}</BoxContent>

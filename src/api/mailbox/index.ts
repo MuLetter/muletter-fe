@@ -1,6 +1,10 @@
-import { IMailBox, ISizeMail, RegistedMailBoxInformation } from "@store/types";
+import { IMailBox, RegistedMailBoxInformation } from "@store/types";
 import client from "../client";
-import { ReqPostMailBoxTrackParams, ResPostMailBox } from "./types";
+import {
+  ReqPostMailBoxTrackParams,
+  ResMailboxDetail,
+  ResPostMailBox,
+} from "./types";
 
 const BASEPATH = "/mailbox";
 
@@ -15,7 +19,7 @@ export const getMailBoxes = async () =>
 
 export const getMailBoxDetail = async (id: string) =>
   (
-    await client.get<ISizeMail[]>(`${BASEPATH}/${id}`, {
+    await client.get<ResMailboxDetail>(`${BASEPATH}/${id}`, {
       headers: {
         authorization: localStorage.getItem("muletter-token")!,
       },
