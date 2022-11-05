@@ -1,24 +1,27 @@
 import { getMailBoxDetail } from "@api";
-import { MailBoxDetailComponent, SmallMusicItem } from "@component";
+import { DetailBottomContent, MailBoxDetailComponent } from "@component";
 import { Col, Row, Wrap } from "@component/mailbox/detail/styles";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import _ from "lodash";
 import { MailItem } from "@component/common";
 import { OpacityAnimationCont } from "@styles/block";
+import { useRecoilValue } from "recoil";
+import { authState } from "@store/atom";
 
 export function MailBoxDetailContainer() {
+  const auth = useRecoilValue(authState);
   const { id } = useParams();
   const { data } = useQuery(["getMailBox", id], () => getMailBoxDetail(id!));
   const navigate = useNavigate();
 
-  console.log(data);
+  console.log(auth?.id, data?.mailbox.authId);
 
   return (
     <OpacityAnimationCont isMin>
       <MailBoxDetailComponent
         bottomContent={
-          data ? <SmallMusicItem tracks={data.mailbox.tracks} /> : undefined
+          data && <DetailBottomContent tracks={data?.mailbox.tracks} />
         }
       >
         <Wrap className="mailbox-detail-wrap">

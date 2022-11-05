@@ -30,7 +30,7 @@ export function SmallMusicItem({ tracks }: SmallMusicItemProps) {
 }
 
 const Wrap = styled.div`
-  width: 100%;
+  width: 128px;
 
   display: flex;
   flex-direction: row;

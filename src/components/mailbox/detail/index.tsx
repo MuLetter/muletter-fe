@@ -3,6 +3,7 @@ import React from "react";
 import { MailBoxWrap } from "../styles";
 import { MailBoxDetailComponentProps } from "./types";
 
+export * from "./DetailBottomContent";
 export * from "./SmallMusicItem";
 export function MailBoxDetailComponent({
   children,
