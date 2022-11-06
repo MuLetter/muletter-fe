@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { MdOutlineHeadphones, MdForwardToInbox } from "react-icons/md";
 import { RightContentProps } from "./types";
 
-function RightContent({ onPlay, onReply }: RightContentProps) {
+function RightContent({ onPlay, onReply, isMe }: RightContentProps) {
   return (
     <Wrap>
-      <IconButton onClick={onReply} colorTheme="black">
-        <MdForwardToInbox />
-      </IconButton>
+      {isMe && (
+        <IconButton onClick={onReply} colorTheme="black">
+          <MdForwardToInbox />
+        </IconButton>
+      )}
       <IconButton onClick={onPlay} colorTheme="black">
         <MdOutlineHeadphones />
       </IconButton>

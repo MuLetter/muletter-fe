@@ -3,6 +3,7 @@ import { IMail, ITrack } from "@store/types";
 export interface ResMail {
   likes: string[];
   mail: IMail;
+  isMe: boolean;
 }
 
 export interface ResLike {

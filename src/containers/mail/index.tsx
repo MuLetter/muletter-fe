@@ -99,7 +99,13 @@ export function MailContainer() {
       )}
       {bgView && <Background imgSrc={backgroundSrc} />}
       <MailComponent
-        rightContent={<RightContent onPlay={onPlay} onReply={onReply} />}
+        rightContent={
+          <RightContent
+            onPlay={onPlay}
+            onReply={onReply}
+            isMe={data?.isMe ? data?.isMe : false}
+          />
+        }
       >
         {data &&
           _.map(data.mail.tracks, (track) => (
@@ -107,9 +113,10 @@ export function MailContainer() {
               key={track.id}
               {...track}
               onMouseEnter={() => onMouseTrack(track)}
-              isIconTool
               mailBoxId={(state as any).mailBoxId}
-              isLike={_.includes(data.likes, track.id)}
+              {...(data.isMe
+                ? { isIconTool: true, isLike: _.includes(data.likes, track.id) }
+                : {})}
             />
           ))}
       </MailComponent>

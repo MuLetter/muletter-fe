@@ -63,7 +63,7 @@ export function CBasicMusicItem({
   );
 }
 
-export const BasicMusicItem = React.memo(CBasicMusicItem);
+export const BasicMusicItem = React.memo(CBasicMusicItem, () => false);
 
 export const Wrap = styled.div`
   width: 100%;

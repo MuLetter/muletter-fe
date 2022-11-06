@@ -13,6 +13,7 @@ export interface ButtonProps {
 export interface RightContentProps {
   onPlay: () => void;
   onReply: () => void;
+  isMe: boolean;
 }
 
 export interface MailComponentProps {
