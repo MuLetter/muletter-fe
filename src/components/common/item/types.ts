@@ -6,6 +6,7 @@ import {
   ITrack,
   RegistMailBox,
 } from "@store/types";
+import React from "react";
 
 export interface MailBoxItemControlProps {
   mailBox: IMailBox | RegistMailBox;
@@ -34,7 +35,5 @@ export interface MiniStyleProps {
 
 export interface MusicItemControlProps {
   onMouseEnter?: (...args: any) => void;
-  isIconTool?: boolean;
-  isLike?: boolean;
-  mailBoxId?: string;
+  rightContent?: React.ReactNode;
 }

@@ -14,17 +14,11 @@ export const getMail = async (id: string) =>
   ).data;
 
 export const likeMusic = async (data: ResLike) =>
-  (
-    await client.patch(
-      `${BASEPATH}/${data.isLike ? "like" : "dislike"}`,
-      data,
-      {
-        headers: {
-          authorization: localStorage.getItem("muletter-token")!,
-        },
-      }
-    )
-  ).data;
+  client.patch(`${BASEPATH}/${data.isLike ? "like" : "dislike"}`, data, {
+    headers: {
+      authorization: localStorage.getItem("muletter-token")!,
+    },
+  });
 
 export const replyMail = async (id: string) =>
   (

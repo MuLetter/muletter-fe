@@ -15,10 +15,8 @@ export function Background() {
   const refImg = React.useRef<HTMLImageElement>(null);
 
   React.useEffect(() => {
-    if (selectedTrack) {
-      console.log(selectedTrack);
+    if (selectedTrack)
       setImgSrc(_.maxBy(selectedTrack.album.images, ({ width }) => width)!.url);
-    }
   }, [selectedTrack]);
 
   return (

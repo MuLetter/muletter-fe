@@ -3,38 +3,14 @@ import { black } from "@styles/color";
 import { P2, P4 } from "@styles/font";
 import _ from "lodash";
 import styled from "styled-components";
-import { IconButton } from "../button";
 import { MusicItemControlProps } from "./types";
-import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
-import { likeMusic } from "@api";
 
 export function CBasicMusicItem({
   onMouseEnter,
-  isIconTool,
-  isLike,
+  rightContent,
   ...track
 }: ITrack & MusicItemControlProps) {
-  const [like, setLike] = React.useState<boolean>(isLike ? isLike : false);
-  const { mutate: likeMutate } = useMutation(
-    ["likeMutation", track.id],
-    async (like: boolean) =>
-      await likeMusic({
-        mailBoxId: (track as any).mailBoxId,
-        track: track,
-        isLike: like,
-      }),
-    {
-      onSuccess: () => {
-        setLike((prev) => !prev);
-      },
-    }
-  );
-  const changeLike = React.useCallback(() => {
-    likeMutate(!like);
-  }, [likeMutate, like]);
-
   return (
     <Wrap onMouseMove={onMouseEnter} onMouseEnter={onMouseEnter}>
       <AlbumArt
@@ -49,13 +25,7 @@ export function CBasicMusicItem({
         </P4>
         <P2>{track.name}</P2>
       </TitleWrap>
-      {isIconTool && (
-        <IconGroup>
-          <IconButton onClick={changeLike} colorTheme="black">
-            {like ? <BsSuitHeartFill /> : <BsSuitHeart />}
-          </IconButton>
-        </IconGroup>
-      )}
+      {rightContent && rightContent}
     </Wrap>
   );
 }
@@ -96,11 +66,4 @@ export const TitleWrap = styled.div`
     overflow-x: hidden;
     text-overflow: ellipsis;
   }
-`;
-
-export const IconGroup = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  width: 96px;
 `;

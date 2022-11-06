@@ -1,3 +1,4 @@
+import { ITrack } from "@store/types";
 import React from "react";
 
 export interface ButtonProps {
@@ -14,4 +15,10 @@ export interface RightContentProps {
 
 export interface MailComponentProps {
   rightContent: React.ReactNode;
+}
+
+export interface MailRightContentProps {
+  mailBoxId: string;
+  isLike: boolean;
+  track: ITrack;
 }
