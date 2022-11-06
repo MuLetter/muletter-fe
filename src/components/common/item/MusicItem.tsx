@@ -31,12 +31,9 @@ export function CBasicMusicItem({
       },
     }
   );
-
   const changeLike = React.useCallback(() => {
     likeMutate(!like);
   }, [likeMutate, like]);
-
-  console.log(track.id, like);
 
   return (
     <Wrap onMouseMove={onMouseEnter} onMouseEnter={onMouseEnter}>
@@ -63,7 +60,7 @@ export function CBasicMusicItem({
   );
 }
 
-export const BasicMusicItem = React.memo(CBasicMusicItem, () => false);
+export const BasicMusicItem = React.memo(CBasicMusicItem, () => true);
 
 export const Wrap = styled.div`
   width: 100%;

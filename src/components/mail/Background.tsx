@@ -1,3 +1,5 @@
+import { ControlMailContext } from "@context";
+import _ from "lodash";
 import React from "react";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import {
@@ -6,10 +8,18 @@ import {
   MailBackgroundShadow,
   MailBackgroundWrap,
 } from "./styles";
-import { BackgroundProps } from "./types";
 
-export function Background({ imgSrc }: BackgroundProps) {
+export function Background() {
+  const { selectedTrack } = React.useContext(ControlMailContext);
+  const [imgSrc, setImgSrc] = React.useState<string>();
   const refImg = React.useRef<HTMLImageElement>(null);
+
+  React.useEffect(() => {
+    if (selectedTrack) {
+      console.log(selectedTrack);
+      setImgSrc(_.maxBy(selectedTrack.album.images, ({ width }) => width)!.url);
+    }
+  }, [selectedTrack]);
 
   return (
     <MailBackgroundWrap>

@@ -1,5 +1,5 @@
 import { Mail3D } from "@asset/symbols";
-import { RecoListWrap, Wrap } from "./styles";
+import { Wrap } from "./styles";
 import React from "react";
 import { OpacityAnimationCont } from "@styles/block";
 import { MailComponentProps } from "./types";
@@ -7,6 +7,8 @@ import { ControlMailContext } from "@context";
 
 export * from "./LeftContent";
 export * from "./RightContent";
+export * from "./RecoList";
+
 export function MailComponent({
   children,
   rightContent,
@@ -24,7 +26,7 @@ export function MailComponent({
     <OpacityAnimationCont isMin>
       <Wrap ref={refScreen}>
         <Mail3D isOpen={open} refScreen={refScreen} rightContent={rightContent}>
-          <RecoListWrap>{children}</RecoListWrap>
+          {children}
         </Mail3D>
       </Wrap>
     </OpacityAnimationCont>

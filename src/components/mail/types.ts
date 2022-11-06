@@ -1,9 +1,5 @@
 import React from "react";
 
-export interface BackgroundProps {
-  imgSrc: string | null;
-}
-
 export interface ButtonProps {
   title: string;
   clickAction?: (...args: any) => void;
