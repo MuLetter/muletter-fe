@@ -1,9 +1,9 @@
 import { OKAlert } from "@component/common/alert/OKAlert";
-import { selectTracksState } from "@store/atom";
-import { useRecoilValue } from "recoil";
+import { ControlWizardContext } from "@context";
+import React from "react";
 
 export function RegistOKAlert() {
-  const selectedTracks = useRecoilValue(selectTracksState);
+  const { selectedTracks } = React.useContext(ControlWizardContext);
 
   return (
     <OKAlert

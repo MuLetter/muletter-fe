@@ -8,9 +8,8 @@ export interface ButtonProps {
 }
 
 export interface RightContentProps {
-  onPlay: () => void;
-  onReply: () => void;
   isMe: boolean;
+  setReplyDatas: (track: ITrack[]) => void;
 }
 
 export interface MailComponentProps {

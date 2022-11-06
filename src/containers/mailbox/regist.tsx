@@ -2,7 +2,7 @@ import { MailBoxRegistComponent, Wizard } from "@component";
 import React from "react";
 import { RegistOKAlert } from "@component";
 import { OpacityAnimationCont } from "@styles/block";
-import { ControlMailboxProvider } from "@context";
+import { ControlMailboxProvider, ControlWizardProvider } from "@context";
 
 export function MailBoxRegistContainer() {
   const [alert, setAlert] = React.useState<boolean>(false);
@@ -14,10 +14,12 @@ export function MailBoxRegistContainer() {
   return (
     <OpacityAnimationCont>
       <ControlMailboxProvider>
-        {alert && <RegistOKAlert />}
-        <MailBoxRegistComponent>
-          <Wizard onAlert={onAlert} />
-        </MailBoxRegistComponent>
+        <ControlWizardProvider>
+          {alert && <RegistOKAlert />}
+          <MailBoxRegistComponent>
+            <Wizard onAlert={onAlert} />
+          </MailBoxRegistComponent>
+        </ControlWizardProvider>
       </ControlMailboxProvider>
     </OpacityAnimationCont>
   );
