@@ -1,22 +1,16 @@
 import { Button } from "@component/common";
-import { registedMailBoxState, selectTracksState } from "@store/atom";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import Profile from "./Profile";
 import Status from "./Status";
 
 function ProfileAndStatus() {
-  const setMailBox = useSetRecoilState(registedMailBoxState);
-  const setTracks = useSetRecoilState(selectTracksState);
   const navigate = useNavigate();
 
   const toRegist = React.useCallback(() => {
-    setMailBox(null);
-    setTracks([]);
     navigate("/mailbox/regist");
-  }, [setMailBox, setTracks, navigate]);
+  }, [navigate]);
 
   return (
     <Block>
