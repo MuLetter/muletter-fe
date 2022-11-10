@@ -22,3 +22,9 @@ export interface ProcessItem {
 export interface ConfirmControlProps {
   next: () => void;
 }
+
+export interface HelpBalloonStyleProps {
+  width?: number;
+  x?: number;
+  y?: number;
+}

@@ -31,7 +31,7 @@ export function FileUpload({
   return (
     <FileUploadBlock>
       {mainImage && <img src={mainImage} alt="user upload" />}
-      <label htmlFor="image">
+      <label htmlFor="image" className="file-uploader">
         {!mainImage && <IoIosImages size={100} color={white[600]} />}
       </label>
 

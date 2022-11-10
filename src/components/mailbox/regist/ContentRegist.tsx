@@ -65,6 +65,7 @@ function ContentRegist({ setNextConfirm }: WizardControlItem) {
         name="mailBoxName"
         value={mailBoxName}
         onChange={onChange}
+        className="mailbox-name-input"
       />
     </ContentRegistWrap>
   );
