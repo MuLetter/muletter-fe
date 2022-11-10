@@ -19,7 +19,6 @@ const NOT_LAYOUT_PAGES = [
 
 function RootPage() {
   const { pathname } = useLocation();
-
   return NOT_LAYOUT_PAGES.includes(pathname) ? (
     <Outlet />
   ) : (

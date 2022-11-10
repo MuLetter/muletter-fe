@@ -4,6 +4,7 @@ import { ControlMailboxContext } from "@context";
 import React from "react";
 import { useContext } from "react";
 import { MailBoxWrap } from "../styles";
+import { HelpBar } from "./HelpBar";
 
 export * from "./Wizard";
 export * from "./RegistOKAlert";
@@ -36,6 +37,7 @@ export function MailBoxRegistComponent({
 
   return (
     <MailBoxWrap>
+      <HelpBar />
       <MailBox3D setContentView={changeContentView} {...rest}>
         {children}
       </MailBox3D>

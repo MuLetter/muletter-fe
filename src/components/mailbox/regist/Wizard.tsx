@@ -130,7 +130,7 @@ export function Wizard({ onAlert }: WizardProps) {
   );
 
   return (
-    <Block>
+    <Block className="wizard-wrap" data-step={step}>
       {step !== 0 && (
         <button className="prev" type="button" onClick={prevStep} />
       )}
