@@ -52,7 +52,7 @@ const Container = styled.header`
 
   position: relative;
 
-  z-index: 500;
+  z-index: 250;
 `;
 
 const Block = styled.div`

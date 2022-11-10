@@ -16,7 +16,6 @@ function HelpBalloon({ className, text }: HelpBalloonProps) {
     );
     if (elText) {
       const { width } = elText.getBoundingClientRect();
-      setWidth(width + 48);
 
       const elTarget = document.querySelector(`.${className}`);
       if (elTarget) {
@@ -24,6 +23,7 @@ function HelpBalloon({ className, text }: HelpBalloonProps) {
 
         setX(x + targetWidth / 2 - width / 2 - 24);
         setY(y - 72);
+        setWidth(width + 48);
       }
     }
   }, [className]);

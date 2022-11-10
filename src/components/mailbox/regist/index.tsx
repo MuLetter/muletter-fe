@@ -1,5 +1,5 @@
 import { MailBox3D } from "@asset/symbols";
-import { ControlMailboxContext } from "@context";
+import { ControlMailboxContext, ControlWizardContext } from "@context";
 
 import React from "react";
 import { useContext } from "react";
@@ -15,7 +15,7 @@ export function MailBoxRegistComponent({
   const { openAction, setContentView, ...rest } = useContext(
     ControlMailboxContext
   );
-  const [help, setHelp] = React.useState<boolean>(false);
+  const { help, setHelp } = React.useContext(ControlWizardContext);
 
   React.useEffect(() => {
     openAction();

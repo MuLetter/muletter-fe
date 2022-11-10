@@ -10,5 +10,33 @@ export const HelpItems: HelpBalloonProps[][] = [
       className: "mailbox-name-input",
       text: "우체통의 이름을 지어주세요.",
     },
+    {
+      className: "prev",
+      text: "이전 단계로 넘어갈 수 있습니다.",
+    },
+    {
+      className: "next",
+      text: "다음 단계로 넘어갈 수 있습니다.",
+    },
+  ],
+  [
+    {
+      className: "prev",
+      text: "이전 단계로 넘어갈 수 있습니다.",
+    },
+    {
+      className: "next",
+      text: "다음 단계로 넘어갈 수 있습니다.",
+    },
+  ],
+  [
+    {
+      className: "prev",
+      text: "이전 단계로 넘어갈 수 있습니다.",
+    },
+    {
+      className: "next",
+      text: "다음 단계로 넘어갈 수 있습니다.",
+    },
   ],
 ];
