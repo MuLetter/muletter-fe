@@ -1,22 +1,12 @@
 import { black } from "@styles/color";
+import _ from "lodash";
 import React from "react";
 import styled from "styled-components";
 import { HelpBalloon } from "./HelpBalloon";
-
-function Step1Help() {
-  return (
-    <Step1HelpWrap>
-      <HelpBalloon />
-    </Step1HelpWrap>
-  );
-}
-
-const Step1HelpWrap = styled.div`
-  position: fixed;
-`;
+import { HelpItems } from "./HelpItems";
 
 function HelpBar() {
-  const [step, setStep] = React.useState<number>();
+  const [step, setStep] = React.useState<number>(0);
 
   React.useEffect(() => {
     const wizardBlock = document.querySelector<HTMLDivElement>(".wizard-wrap");
@@ -27,9 +17,19 @@ function HelpBar() {
     }
   }, []);
 
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  });
+
   return (
     <Wrap className="help-bar">
-      <Step1Help />
+      {_.map(HelpItems[step], (item, idx) => (
+        <HelpBalloon {...item} key={`${item.className} helpbar`} />
+      ))}
     </Wrap>
   );
 }

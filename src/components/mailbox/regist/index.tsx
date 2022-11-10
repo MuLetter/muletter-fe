@@ -15,6 +15,7 @@ export function MailBoxRegistComponent({
   const { openAction, setContentView, ...rest } = useContext(
     ControlMailboxContext
   );
+  const [help, setHelp] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     openAction();
@@ -37,7 +38,9 @@ export function MailBoxRegistComponent({
 
   return (
     <MailBoxWrap>
-      <HelpBar />
+      <button onClick={() => setHelp(true)}>help</button>
+      {help && <HelpBar />}
+
       <MailBox3D setContentView={changeContentView} {...rest}>
         {children}
       </MailBox3D>

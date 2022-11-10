@@ -9,6 +9,12 @@ const GlobalStyle = createGlobalStyle`
         min-width: 100vw;
         min-height: 100vh;
 
+    }
+
+    body {
+        min-width: 100vw;
+        min-height: 100vh;
+
         overflow-y: scroll;
     }
 

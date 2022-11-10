@@ -2,31 +2,31 @@ import { white } from "@styles/color";
 import { P3 } from "@styles/font";
 import React from "react";
 import styled, { css } from "styled-components";
-import { HelpBalloonStyleProps } from "./types";
+import { HelpBalloonProps, HelpBalloonStyleProps } from "./types";
 
-function HelpBalloon() {
+function HelpBalloon({ className, text }: HelpBalloonProps) {
   const [x, setX] = React.useState<number>();
   const [y, setY] = React.useState<number>();
   const [width, setWidth] = React.useState<number>();
   const refText = React.useRef<HTMLParagraphElement>(null);
 
   React.useEffect(() => {
-    if (refText.current) {
-      const { width } = refText.current.getBoundingClientRect();
-
+    const elText = document.querySelector<HTMLParagraphElement>(
+      `.help-text-${className}`
+    );
+    if (elText) {
+      const { width } = elText.getBoundingClientRect();
       setWidth(width + 48);
 
-      const elTarget = document.querySelector(".file-uploader");
+      const elTarget = document.querySelector(`.${className}`);
       if (elTarget) {
         const { x, y, width: targetWidth } = elTarget.getBoundingClientRect();
 
-        console.log(x, y);
-
         setX(x + targetWidth / 2 - width / 2 - 24);
-        setY(y - 24);
+        setY(y - 72);
       }
     }
-  }, []);
+  }, [className]);
 
   return (
     <Wrap width={width} x={x} y={y}>
@@ -51,8 +51,8 @@ function HelpBalloon() {
           />
         )}
       </HelpSvg>
-      <P3 ref={refText} className="help-text">
-        사진을 등록해주세요.
+      <P3 ref={refText} className={`help-text-${className}`}>
+        {text}
       </P3>
     </Wrap>
   );
@@ -60,6 +60,7 @@ function HelpBalloon() {
 
 const Wrap = styled.div<HelpBalloonStyleProps>`
   position: absolute;
+  width: 1000px;
   height: 48px;
 
   display: flex;

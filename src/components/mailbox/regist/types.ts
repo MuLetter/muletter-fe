@@ -28,3 +28,12 @@ export interface HelpBalloonStyleProps {
   x?: number;
   y?: number;
 }
+
+export interface HelpBarProps {
+  step: number;
+}
+
+export interface HelpBalloonProps {
+  className: string;
+  text: string;
+}
