@@ -47,7 +47,7 @@ function SearchList({
   }, []);
 
   return (
-    <Wrap ref={refWrap}>
+    <Wrap ref={refWrap} className="search-list">
       {data &&
         data.pages.map((page) =>
           page.tracks.items.map((track) => (

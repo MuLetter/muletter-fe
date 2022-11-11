@@ -11,6 +11,7 @@ function SearchBar({ mode, modeChange, refInput, setQ }: SearchBarProps) {
       onClick={mode === "waiting" ? () => modeChange("searching") : undefined}
     >
       <Input
+        className={`search-input-${mode}`}
         ref={refInput}
         type="text"
         placeholder={`${

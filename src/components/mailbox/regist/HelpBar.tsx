@@ -45,7 +45,7 @@ const Wrap = styled.div`
   top: 0;
   left: 0;
 
-  background: ${black[900]};
+  background: ${black[700]};
   z-index: 250;
 `;
 

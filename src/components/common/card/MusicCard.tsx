@@ -6,7 +6,10 @@ import _ from "lodash";
 
 export function MusicCard({ track, selectAction }: MusicCardProps) {
   return (
-    <Wrap onClick={selectAction ? () => selectAction(track) : selectAction}>
+    <Wrap
+      className="select-list-item"
+      onClick={selectAction ? () => selectAction(track) : selectAction}
+    >
       <AlbumArt src={track.album.images[0].url} />
       <TitleBlock className="title-block">
         <Tag1 className="artists-names">

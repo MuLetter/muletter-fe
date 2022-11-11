@@ -41,11 +41,11 @@ export function MailBoxItem({
               })
           : undefined
       }
-      className={`${open ? "open" : ""}`}
+      className={`mailbox-item ${open ? "open" : ""}`}
       {...styleProps}
     >
       <TrackContent className="track-content">
-        <TrackContentBody>
+        <TrackContentBody className="track-content-body">
           {_.map(samples, (track: STrack | ITrack) => (
             <MiniAlbumArt image={track.album.images[0].url} key={track.id} />
           ))}

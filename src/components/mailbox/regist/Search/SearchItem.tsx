@@ -48,7 +48,12 @@ function SearchItem({ track, isSelect }: SearchItemProps) {
         </P4>
         <P2 className="track-name">{track.name}</P2>
       </MusicInfo>
-      <IconButton className={`${select ? "select" : ""}`} type="button">
+      <IconButton
+        className={`select-btn select-btn-${select ? "select" : ""} ${
+          select ? "select" : ""
+        }`}
+        type="button"
+      >
         <MdAdd />
       </IconButton>
     </Wrap>

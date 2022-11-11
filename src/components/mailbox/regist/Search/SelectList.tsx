@@ -19,7 +19,7 @@ function SelectList() {
   );
 
   return (
-    <Wrap>
+    <Wrap className="select-list">
       {selectedTracks.length === 0 ? (
         <DontHave />
       ) : (

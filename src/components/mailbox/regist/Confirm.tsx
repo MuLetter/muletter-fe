@@ -62,7 +62,12 @@ function Confirm({ next }: ConfirmControlProps) {
         isAutoOpen
       />
       <ButtonGroup>
-        <Button type="button" colorTheme="outline" onClick={onRegist}>
+        <Button
+          type="button"
+          colorTheme="outline"
+          onClick={onRegist}
+          className="confirm-btn"
+        >
           등록하기
         </Button>
       </ButtonGroup>
