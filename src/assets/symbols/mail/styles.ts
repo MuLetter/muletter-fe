@@ -70,11 +70,6 @@ export const LeftContentBlock = styled.div`
   position: absolute;
   bottom: 16px;
   left: 24px;
-
-  width: 48px;
-  height: 48px;
-
-  background: #333;
 `;
 
 export const RightContentBlock = styled.div`

@@ -13,6 +13,7 @@ export interface RightContentProps {
 }
 
 export interface MailComponentProps {
+  leftContent: React.ReactNode;
   rightContent: React.ReactNode;
 }
 
@@ -20,4 +21,8 @@ export interface MailRightContentProps {
   mailBoxId: string;
   isLike: boolean;
   track: ITrack;
+}
+
+export interface LeftContentProps {
+  date: string;
 }

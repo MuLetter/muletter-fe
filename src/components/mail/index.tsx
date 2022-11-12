@@ -11,6 +11,7 @@ export * from "./RecoList";
 
 export function MailComponent({
   children,
+  leftContent,
   rightContent,
 }: React.PropsWithChildren<MailComponentProps>) {
   const { open } = React.useContext(ControlMailContext);
@@ -25,7 +26,12 @@ export function MailComponent({
   return (
     <OpacityAnimationCont isMin>
       <Wrap ref={refScreen}>
-        <Mail3D isOpen={open} refScreen={refScreen} rightContent={rightContent}>
+        <Mail3D
+          isOpen={open}
+          refScreen={refScreen}
+          rightContent={rightContent}
+          leftContent={leftContent}
+        >
           {children}
         </Mail3D>
       </Wrap>

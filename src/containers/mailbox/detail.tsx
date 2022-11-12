@@ -15,8 +15,6 @@ export function MailBoxDetailContainer() {
   const { data } = useQuery(["getMailBox", id], () => getMailBoxDetail(id!));
   const navigate = useNavigate();
 
-  console.log(auth?.id, data?.mailbox.authId);
-
   return (
     <OpacityAnimationCont isMin>
       <MailBoxDetailComponent

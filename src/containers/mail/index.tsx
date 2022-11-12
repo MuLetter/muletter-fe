@@ -1,10 +1,11 @@
 import { getMail } from "@api";
-import { MailComponent, RecoList, RightContent } from "@component";
+import { LeftContent, MailComponent, RecoList, RightContent } from "@component";
 import { OKAlert } from "@component/common";
 import Background from "@component/mail/Background";
 import { ControlMailProvider } from "@context";
 import { ITrack } from "@store/types";
 import { useQuery } from "@tanstack/react-query";
+import { getTimezoneDate } from "@utils";
 import React from "react";
 
 import { useParams } from "react-router-dom";
@@ -25,6 +26,17 @@ export function MailContainer() {
       )}
       <Background />
       <MailComponent
+        leftContent={
+          <LeftContent
+            date={
+              data
+                ? getTimezoneDate(
+                    new Date(data.mail.createdAt)
+                  ).toLocaleDateString()
+                : ""
+            }
+          />
+        }
         rightContent={
           <RightContent
             isMe={data?.isMe ? data?.isMe : false}
