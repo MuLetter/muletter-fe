@@ -1,4 +1,5 @@
 import { MailboxByMap } from "@store/types";
+import _ from "lodash";
 import * as THREE from "three";
 import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 
@@ -36,11 +37,15 @@ export async function init(
     _id,
     point: { x, y },
     image,
+    isMe,
   } of datas) {
     const material = new THREE.MeshBasicMaterial({
       map: loader.load(`${process.env.REACT_APP_API_SERVER}/${image}`),
+      opacity: isMe ? 1 : 0.5,
+      transparent: true,
     });
     let obj = new THREE.Mesh(geometry, material);
+    (obj as any).isMe = isMe;
     obj.position.x = (x * 10) / 100;
     obj.position.y = (y * 10) / 100;
     obj.position.z = 0;
@@ -67,7 +72,10 @@ export async function init(
   raycaster = new THREE.Raycaster();
 
   map.current!.appendChild(renderer.domElement);
-  map.current!.addEventListener("mousemove", onDocumentMouseMove);
+  map.current!.addEventListener(
+    "mousemove",
+    _.debounce(onDocumentMouseMove, 0)
+  );
   map.current!.addEventListener("click", () => onDocumentMouseClick(onClick));
 }
 
@@ -81,11 +89,19 @@ function render() {
         INTERSECTED = intersects![0].object;
       }
     } else {
-      if (INTERSECTED) INTERSECTED = null;
+      if (INTERSECTED) {
+        if (!INTERSECTED.isMe) {
+          INTERSECTED.material.opacity = 0.5;
+          INTERSECTED = null;
+        }
+      }
     }
 
-    if (INTERSECTED) document.documentElement.style.cursor = "pointer";
-    else document.documentElement.style.cursor = "";
+    if (INTERSECTED) {
+      if (!INTERSECTED.isMe) INTERSECTED.material.opacity = 1;
+
+      document.documentElement.style.cursor = "pointer";
+    } else document.documentElement.style.cursor = "";
 
     move = false;
   }
@@ -108,6 +124,8 @@ export function onDocumentMouseClick(onClick: (name: string) => void) {
 }
 
 export function onDocumentMouseMove(event: MouseEvent) {
+  console.log("실행");
+
   const rect = renderer!.domElement.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;

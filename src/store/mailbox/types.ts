@@ -9,6 +9,7 @@ export interface MailboxByMap {
   _id: string;
   image: string;
   point: IPoint;
+  isMe?: boolean;
 }
 
 export interface RegistedMailBoxInformation {
