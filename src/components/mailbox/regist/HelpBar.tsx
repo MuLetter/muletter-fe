@@ -1,4 +1,4 @@
-import { ControlWizardContext } from "@context";
+import { OpacityAni } from "@styles/block";
 import { black } from "@styles/color";
 import _ from "lodash";
 import React from "react";
@@ -8,7 +8,6 @@ import { HelpItems } from "./HelpItems";
 
 function HelpBar() {
   const [step, setStep] = React.useState<number>(0);
-  const { setHelp } = React.useContext(ControlWizardContext);
 
   React.useEffect(() => {
     const wizardBlock = document.querySelector<HTMLDivElement>(".wizard-wrap");
@@ -29,7 +28,6 @@ function HelpBar() {
 
   return (
     <Wrap className="help-bar">
-      <button onClick={() => setHelp(false)}>닫기</button>
       {_.map(HelpItems[step], (item, idx) => (
         <HelpBalloon {...item} key={`${item.className} helpbar`} />
       ))}
@@ -47,6 +45,8 @@ const Wrap = styled.div`
 
   background: ${black[700]};
   z-index: 250;
+
+  animation: ${OpacityAni} 0.3s linear;
 `;
 
 export { HelpBar };

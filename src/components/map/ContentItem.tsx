@@ -94,6 +94,7 @@ const AuthProfile = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 120px;
 
   color: ${black[700]};
   column-gap: 4px;

@@ -1,6 +1,8 @@
 import { MailBox3D } from "@asset/symbols";
 import { ControlMailboxContext, ControlWizardContext } from "@context";
-
+import { IconButton } from "@component/common";
+import { FiHelpCircle } from "react-icons/fi";
+import { IoCloseOutline } from "react-icons/io5";
 import React from "react";
 import { useContext } from "react";
 import { MailBoxWrap } from "../styles";
@@ -38,7 +40,9 @@ export function MailBoxRegistComponent({
 
   return (
     <MailBoxWrap>
-      <button onClick={() => setHelp(true)}>help</button>
+      <IconButton className="help-btn" onClick={() => setHelp(!help)}>
+        {help ? <IoCloseOutline /> : <FiHelpCircle />}
+      </IconButton>
       {help && <HelpBar />}
 
       <MailBox3D setContentView={changeContentView} {...rest}>

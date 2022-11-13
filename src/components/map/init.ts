@@ -29,7 +29,7 @@ export async function init(
   light.position.set(1, 1, 1).normalize();
   scene.add(light);
 
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
 
   const loader = new THREE.TextureLoader();
 

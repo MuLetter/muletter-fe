@@ -17,6 +17,7 @@ const Block = styled.div`
   display: flex;
   flex-direction: row;
   column-gap: 32px;
+  padding: 0 0 24px;
   margin: 78px 0 120px;
 
   min-width: 1280px;

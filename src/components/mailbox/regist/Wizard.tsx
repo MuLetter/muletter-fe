@@ -1,6 +1,7 @@
 import { white } from "@styles/color";
 import { P4 } from "@styles/font";
 import React from "react";
+
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import styled, { css } from "styled-components";
 import Process from "./Process";
@@ -182,9 +183,9 @@ const Block = styled.div`
   align-items: center;
   color: ${white[500]};
 
-  & > button {
+  & > button:not(.help-btn) {
     position: absolute;
-    height: 100%;
+    height: calc(100%);
     top: 0;
     width: 100px;
 
