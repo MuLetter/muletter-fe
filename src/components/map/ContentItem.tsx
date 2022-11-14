@@ -13,6 +13,8 @@ import {
   AiFillLike,
 } from "react-icons/ai";
 
+const SIZE = 9;
+
 function ContentItem({ mailBox, onClick }: ItemProps) {
   return (
     <Wrap onClick={() => onClick(mailBox._id)}>
@@ -23,11 +25,16 @@ function ContentItem({ mailBox, onClick }: ItemProps) {
       <Content>
         <P4>{mailBox.title}</P4>
         <MiniAlbumArtGroup>
-          {_.map(_.sampleSize(mailBox.tracks, 10), (track: STrack | ITrack) => (
-            <MiniAlbumArt image={track.album.images[0].url} key={track.id} />
-          ))}
-          {mailBox.tracks.length > 10 && (
-            <MiniAlbumArtCount>+{mailBox.tracks.length - 10}</MiniAlbumArtCount>
+          {_.map(
+            _.sampleSize(mailBox.tracks, SIZE),
+            (track: STrack | ITrack) => (
+              <MiniAlbumArt image={track.album.images[0].url} key={track.id} />
+            )
+          )}
+          {mailBox.tracks.length > SIZE && (
+            <MiniAlbumArtCount>
+              +{mailBox.tracks.length - SIZE}
+            </MiniAlbumArtCount>
           )}
         </MiniAlbumArtGroup>
       </Content>
@@ -93,11 +100,12 @@ const SubBlock = styled.div`
 const AuthProfile = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
-  width: 120px;
+  width: 164px;
 
   color: ${black[700]};
-  column-gap: 4px;
+  column-gap: 8px;
   height: 24px;
 
   & > img {
