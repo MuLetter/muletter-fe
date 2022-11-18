@@ -4,7 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import GlobalStyle from "@styles/global";
 import { BrowserRouter as Router } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RecoilRoot } from "recoil";
 import { ScrollToTop, SocketListener } from "@utils";
 import { AlertListener, AudioListener } from "@component/common";
@@ -23,7 +23,7 @@ root.render(
   <RecoilRoot>
     <GlobalStyle />
     <QueryClientProvider client={client}>
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
       <SocketListener />
       <Router>
         <ScrollToTop />

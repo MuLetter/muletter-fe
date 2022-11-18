@@ -6,6 +6,7 @@ import RootPage, {
   MapPage,
   MailPage,
   InitAuthSettingPage,
+  LoadingPresentation,
 } from "@page";
 import { initAuthState } from "@store/atom";
 import { Route, Routes } from "react-router-dom";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/map/*" element={<MapPage />} />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/callback" element={<Callback />} />
+        <Route path="/loading" element={<LoadingPresentation />} />
       </Route>
     </Routes>
   ) : (

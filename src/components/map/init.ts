@@ -66,7 +66,7 @@ export async function init(
   controls.dampingFactor = 0.05;
   controls.maxPolarAngle = Math.PI / 2;
 
-  controls.minDistance = 4;
+  controls.minDistance = 1;
   controls.maxDistance = 20;
 
   raycaster = new THREE.Raycaster();
@@ -120,7 +120,11 @@ export function animate() {
 }
 
 export function onDocumentMouseClick(onClick: (name: string) => void) {
-  if (INTERSECTED) onClick(INTERSECTED.name);
+  if (INTERSECTED) {
+    onClick(INTERSECTED.name);
+    document.documentElement.style.cursor = "";
+    INTERSECTED = null;
+  }
 }
 
 export function onDocumentMouseMove(event: MouseEvent) {

@@ -7,6 +7,7 @@ export * from "./auth";
 export * from "./mailbox";
 export * from "./map";
 export * from "./mail";
+export * from "./pre";
 
 const NOT_LAYOUT_PAGES = [
   "/auth",
@@ -15,6 +16,7 @@ const NOT_LAYOUT_PAGES = [
   "/auth/join/",
   "/callback",
   "/callback/",
+  "/loading",
 ];
 
 function RootPage() {
