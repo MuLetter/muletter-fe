@@ -40,16 +40,15 @@ function RecoList() {
             key={track.id}
             onMouseEnter={() => onMouseEneter(track)}
             rightContent={
-              <MailRightContent
-                mailBoxId={data.mailBoxId}
-                isLike={_.includes(data.likes, track.id)}
-                track={track}
-              />
+              data.isMe && (
+                <MailRightContent
+                  mailBoxId={data.mailBoxId}
+                  isLike={_.includes(data.likes, track.id)}
+                  track={track}
+                />
+              )
             }
             {...track}
-            {...(data.isMe
-              ? { isIconTool: true, isLike: _.includes(data.likes, track.id) }
-              : {})}
           />
         ))}
     </RecoListWrap>
